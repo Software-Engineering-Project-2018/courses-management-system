@@ -16,6 +16,7 @@ import { ProfileComponent } from './module/profile/profile.component';
 import { BaseComponent } from './module/base/base/base.component';
 import { HocSinhService } from './services/hoc-sinh.service';
 import { HttpModule } from '@angular/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -35,9 +36,11 @@ import { HttpModule } from '@angular/http';
     BrowserModule,
     AppRoutingModule,
     AngularFontAwesomeModule,
-    HttpModule
+    HttpModule,
+    HttpClient,
+    HttpClientModule
   ],
-  providers: [HocSinhService],
+  // providers: [HocSinhService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

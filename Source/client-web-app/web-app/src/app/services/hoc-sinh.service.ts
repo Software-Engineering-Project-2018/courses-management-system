@@ -13,23 +13,23 @@ import { HocSinhObject } from '../object/hoc-sinh-object';
 
 @Injectable()
 export class HocSinhService extends BaseService {
-    // private headerOptions: any;
+    private headerOptions: any;
+    protected readonly httpHeader;
     private http: Http;
     constructor() {
         super();
-        // this.headerOptions = {
-        //     headers: new Headers({
-        //         'Content-Type': 'application/json'
-        //     })
-        // };
+        this.headerOptions = {
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        };
     }
 
-    getAllHocSinh() {
-
+    getAllHocSinh(): any {
+        return this.http.get('http://localhost:56697/rest/hoc-sinh/get-all/');
     }
 
     getOneHocSinh(id: number): any {
-        return this.http.get('localhost:51284/api/HocSinhs/' + id.toString());
     }
 
 }

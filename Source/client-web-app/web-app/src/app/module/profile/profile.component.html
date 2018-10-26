@@ -5,53 +5,53 @@
       <div class="container">
         <h1 class="display-6 text-uppercase text-center text-monospace">Student</h1>
         <hr class="my-4">
-        <form>
+        <form *ngFor="let item of 'hocSinhSelected'">
           <div class="form-group row">
             <label class="col-sm-2 col-form-label text-left">HocSinhId: </label>
             <div class="col-sm-10 text-right">
-              {{hocSinhSelected.HocSinhId}}
+              {{item.HocSinhId}}
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-2 col-form-label text-left">TenHocSinh:</label>
             <div class="col-sm-10 text-right">
-              {{hocSinhSelected.TenHocSinh}}
+              {{item.TenHocSinh}}
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-2 col-form-label text-left">NgaySinh:</label>
             <div class="col-sm-10 text-right">
-              {{hocSinhSelected.NgaySinh}}
+              {{item.NgaySinh}}
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-2 col-form-label text-left">SoDienThoai:</label>
             <div class="col-sm-10 text-right">
-              {{hocSinhSelected.SoDienThoai}}
+              {{item.SoDienThoai}}
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-2 col-form-label text-left">DiaChi:</label>
             <div class="col-sm-10 text-right">
-              {{hocSinhSelected.DiaChi}}
+              {{item.DiaChi}}
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-2 col-form-label text-left">Email:</label>
             <div class="col-sm-10 text-right">
-              {{hocSinhSelected.Email}}
+              {{item.Email}}
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-2 col-form-label text-left">MatKhau:</label>
             <div class="col-sm-10 text-right">
-              {{hocSinhSelected.MatKhau}}
+              {{item.MatKhau}}
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-2 col-form-label text-left">TenDangNhap:</label>
             <div class="col-sm-10 text-right">
-              {{hocSinhSelected.TenDangNhap}}
+              {{item.TenDangNhap}}
             </div>
           </div>
 
