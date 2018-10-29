@@ -15,9 +15,7 @@ import { SettingComponent } from './module/setting/setting/setting.component';
 import { ProfileComponent } from './module/profile/profile.component';
 import { BaseComponent } from './module/base/base/base.component';
 import { HocSinhService } from './services/hoc-sinh.service';
-import { HttpModule } from '@angular/http';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,8 +34,6 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     AngularFontAwesomeModule,
-    HttpModule,
-    HttpClient,
     HttpClientModule
   ],
   // providers: [HocSinhService],
