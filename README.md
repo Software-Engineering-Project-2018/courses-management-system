@@ -2,6 +2,7 @@
 Angular 6 &amp; asp.net  
   
 * Cấu trúc cây thư mục:  
+  
 	Root -->  
 		Design: Chứa các file tài liệu thiết kế -->  
 			DataBase Design: Chứa file thiết kế database  
