@@ -3,7 +3,8 @@
   <div id="login-screen">
     <div class="jumbotron jumbotron">
       <div class="container">
-        <h1 class="display-6 text-uppercase text-center text-monospace">Student</h1>
+        <h1 class="display-6 text-uppercase text-center text-monospace">Student List</h1>
+        (Use httpGet)
         <hr class="my-4">
         <form *ngFor="let item of hocSinhSelected">
           <div class="form-group row">
@@ -54,7 +55,8 @@
               {{item.TenDangNhap}}
             </div>
           </div>
-
+          
+          <hr>
         </form>
 
       </div>

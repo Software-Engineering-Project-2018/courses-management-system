@@ -1,7 +1,7 @@
 import { Component, OnInit, Injector } from '@angular/core';
-import { HocSinhService } from '../../services/hoc-sinh.service';
-import { HocSinhObject } from '../../object/hoc-sinh-object';
 import { HttpClientModule } from '@angular/common/http';
+import { HocSinhObject } from 'src/app/object/hoc-sinh-object';
+import { HocSinhService } from 'src/app/services/hoc-sinh.service';
 
 @Component({
   selector: 'app-profile',

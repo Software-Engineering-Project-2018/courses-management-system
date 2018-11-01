@@ -15,7 +15,7 @@ namespace WebServer
 
             routes.MapRoute(
                 name: "Default",
-                url: "index.htm",
+                url: "index.html",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
         }

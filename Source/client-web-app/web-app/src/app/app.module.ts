@@ -1,34 +1,37 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppComponent } from './app.component';
-import { HomePageComponent } from './module/home-page/home-page.component';
-import { LoginComponent } from './module/login/login.component';
-import { RegisterComponent } from './module/register/register.component';
-import { AppRoutingModule } from './app-routing.module';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import { DashboardComponent } from './module/dashboard/dashboard.component';
-import { ContactComponent } from './module/contact/contact.component';
-import { ForgotPasswordComponent } from './module/forgot-password/forgot-password.component';
-import { CoursesComponent } from './module/courses/courses.component';
-import { SettingComponent } from './module/setting/setting/setting.component';
-import { ProfileComponent } from './module/profile/profile.component';
-import { BaseComponent } from './module/base/base/base.component';
-import { HocSinhService } from './services/hoc-sinh.service';
 import { HttpClientModule } from '@angular/common/http';
+
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+
+import { BaseComponent } from './module/base/base.component';
+import { HomePageComponent } from './module/system-components/home-page/home-page.component';
+import { LoginComponent } from './module/system-components/login/login.component';
+import { RegisterComponent } from './module/system-components/register/register.component';
+import { ContactComponent } from './module/system-components/contact/contact.component';
+import { ForgotPasswordComponent } from './module/system-components/forgot-password/forgot-password.component';
+import { CoursesComponent } from './module/user-components/courses/courses.component';
+import { SettingComponent } from './module/user-components/setting/setting.component';
+import { ProfileComponent } from './module/user-components/profile/profile.component';
+import { MainScreenComponent } from './module/main-screen/main-screen.component';
+import { NotificationComponent } from './module/user-components/notification/notification.component';
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
     LoginComponent,
     RegisterComponent,
-    DashboardComponent,
     ContactComponent,
     ForgotPasswordComponent,
     CoursesComponent,
     SettingComponent,
     ProfileComponent,
-    BaseComponent
+    BaseComponent,
+    MainScreenComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,
