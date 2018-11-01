@@ -28,17 +28,27 @@ export class MainScreenComponent extends BaseComponent implements OnInit {
 
     });
 
-    // close sidebar 
+    // close sidebar
     $('#close-sidebar').click(function () {
       $('.page-wrapper').removeClass('toggled');
     });
+    // $('.sidebar-submenu > ul > li > a').click(function () {
+    //   $('.page-wrapper').removeClass('toggled');
+    // });
+    // $('.not-contain-submenu>a').click(function () {
+    //   $('.page-wrapper').removeClass('toggled');
+    // });
 
     // show sidebar
     $('#show-sidebar').click(function () {
       $('.page-wrapper').addClass('toggled');
     });
 
-    // // switch between themes 
+    // hide sidebar on mobile
+    if ($(window).width() <= 768) {
+      $('.page-wrapper').removeClass('toggled');
+    }
+    // // switch between themes
     // var themes = 'chiller-theme ice-theme cool-theme light-theme';
     // $('[data-theme]').click(function () {
     //   $('[data-theme]').removeClass('selected');
@@ -57,10 +67,10 @@ export class MainScreenComponent extends BaseComponent implements OnInit {
     // });
 
     // toggle background image
-    $('#toggle-bg').change(function (e) {
-      e.preventDefault();
-      $('.page-wrapper').toggleClass('sidebar-bg');
-    });
+    // $('#toggle-bg').change(function (e) {
+    //   e.preventDefault();
+    //   $('.page-wrapper').toggleClass('sidebar-bg');
+    // });
 
     // custom scroll bar is only used on desktop
     // if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
