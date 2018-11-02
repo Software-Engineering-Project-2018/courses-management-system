@@ -12,14 +12,14 @@ Publish: http://stem.somee.com
 		References: Chứa các file hướng dẫn cài đặt môi trường và tài liệu tham khảo  
 	  
 		Source: Chứa mã nguồn -->  
-			client-web-app: Mã nguồn trang web phía client, được viết bằng typescript(angular), html, css ->  
+			client-web-app: Mã nguồn trang web phía client, được viết bằng typescript(angular), html, css, jquery ->  
 				web-app -> src: Code nằm ở thư mục này -->  
 					app: chứa mã nguồn chính  
 					assets: chứa file media (như ảnh, video)  
 
 			Database: Chứa các script tạo database  
 			web-api-server: Mã nguồn của web server -->  
-				WebServer -> WebServer: Code nằm ở thư mục này -->  
+				WebServer -> WebServer: Code nằm ở thư mục này 
 	  
 			Deployment: Đưa code lên host  
 			  
