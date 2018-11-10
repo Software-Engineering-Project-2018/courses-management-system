@@ -18,3 +18,9 @@ body {
     background-position: cover;
   }
 }
+
+.text-link {
+  cursor: pointer;
+  color: #007bff !important;
+  text-decoration: none !important;
+}

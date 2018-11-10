@@ -19,30 +19,24 @@ namespace WebServer.Controllers
 
         [Route("rest/hoc-sinh/get-all")]
         [HttpGet]
-        public List<HocSinh> GetAll()
+        public IQueryable<HocSinh> GetAllHocSinh()
         {
-            return hocSinhReposistory.GetAll();
+            //return hocSinhReposistory.GetAll();
+            return db.HocSinhs;
         }
-
-
-        //// GET: api/HocSinh
-        //public IQueryable<HocSinh> GetHocSinhs()
-        //{
-        //    return db.HocSinhs;
-        //}
 
         //// GET: api/HocSinh/5
         //[ResponseType(typeof(HocSinh))]
-        //public IHttpActionResult GetHocSinh(long id)
-        //{
-        //    HocSinh hocSinh = db.HocSinhs.Find(id);
-        //    if (hocSinh == null)
-        //    {
-        //        return NotFound();
-        //    }
+        public IHttpActionResult GetHocSinh(long id)
+        {
+            HocSinh hocSinh = db.HocSinhs.Find(id);
+            if (hocSinh == null)
+            {
+                return NotFound();
+            }
 
-        //    return Ok(hocSinh);
-        //}
+            return Ok(hocSinh);
+        }
 
         //// PUT: api/HocSinh/5
         //[ResponseType(typeof(void))]

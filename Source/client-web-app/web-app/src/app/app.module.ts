@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { NgScrollbarModule } from 'ngx-scrollbar';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -18,6 +19,12 @@ import { SettingComponent } from './module/user-components/setting/setting.compo
 import { ProfileComponent } from './module/user-components/profile/profile.component';
 import { MainScreenComponent } from './module/main-screen/main-screen.component';
 import { NotificationComponent } from './module/user-components/notification/notification.component';
+import { DashboardComponent } from './module/system-components/dashboard/dashboard.component';
+import { ScoreboardComponent } from './module/user-components/scoreboard/scoreboard.component';
+import { ChangepasswordComponent } from './module/user-components/changepassword/changepassword.component';
+import { StudentsComponent } from './module/user-components/students/students.component';
+import { TeachersComponent } from './module/user-components/teachers/teachers.component';
+import { IncomeComponent } from './module/user-components/income/income.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,13 +38,20 @@ import { NotificationComponent } from './module/user-components/notification/not
     ProfileComponent,
     BaseComponent,
     MainScreenComponent,
-    NotificationComponent
+    NotificationComponent,
+    DashboardComponent,
+    ScoreboardComponent,
+    ChangepasswordComponent,
+    StudentsComponent,
+    TeachersComponent,
+    IncomeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFontAwesomeModule,
-    HttpClientModule
+    HttpClientModule,
+    NgScrollbarModule
   ],
   // providers: [HocSinhService],
   bootstrap: [AppComponent]

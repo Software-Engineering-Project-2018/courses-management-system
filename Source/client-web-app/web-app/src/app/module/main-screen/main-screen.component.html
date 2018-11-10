@@ -5,7 +5,7 @@
     <i class="fa fa-bars"></i>
   </a>
   <nav id="sidebar" class="sidebar-wrapper">
-    <div class="sidebar-content">
+    <ng-scrollbar class="sidebar-content">
       <div class="sidebar-brand">
         <a>BRANCH</a>
         <div id="close-sidebar">
@@ -17,7 +17,9 @@
           <img class="img-responsive img-rounded" src="../../../assets/user.jpg" alt="User picture">
         </div>
         <div class="user-info">
-          <span class="user-name">John
+          <span class="user-name" style="cursor: pointer;"
+          [routerLink]="['/dashboard/profile']" routerLinkActive="router-link-active" >
+            John
             <strong>Cena</strong>
           </span>
           <span class="user-role">Administrator</span>
@@ -45,45 +47,31 @@
 
       <!-- sidebar-menu  -->
       <div class="sidebar-menu">
+
         <ul>
           <li class="header-menu">
             <span>General</span>
           </li>
-          <li class="sidebar-dropdown">
-            <a>
-              <i class="fa fa-columns"></i>
+          <li class="not-contain-dropdown">
+            <a [routerLink]="['/dashboard']" routerLinkActive="router-link-active">
+              <i class="fa fa-wrench"></i>
               <span>Dashboard</span>
-              <span class="badge badge-pill badge-danger">New</span>
             </a>
-            <div class="sidebar-submenu">
-              <ul>
-                <li>
-                  <a [routerLink]="['/dashboard']" routerLinkActive="router-link-active" >Dashboard 1
-                    <span class="badge badge-pill badge-success">Pro</span>
-                  </a>
-                </li>
-                <li>
-                  <a [routerLink]="['/dashboard']" routerLinkActive="router-link-active" >Dashboard 2
-                  </a>
-                </li>
-                <li>
-                  <a [routerLink]="['/dashboard']" routerLinkActive="router-link-active" >Dashboard 3
-                  </a>
-                </li>
-              </ul>
-            </div>
           </li>
           <li class="sidebar-dropdown">
             <a>
               <i class="fa fa-shopping-cart"></i>
-              <span>Notifications</span>
+              <span>Thông báo</span>
               <span class="badge badge-pill badge-primary">3</span>
             </a>
             <div class="sidebar-submenu">
               <ul>
                 <li>
-                  <a [routerLink]="['/dashboard/notification']" routerLinkActive="router-link-active" >abc
-
+                  <a [routerLink]="['/dashboard/notification']" routerLinkActive="router-link-active">
+                    Thông báo khóa học
+                  </a>
+                  <a [routerLink]="['/dashboard/notification']" routerLinkActive="router-link-active">
+                    Thông báo chung
                   </a>
                 </li>
               </ul>
@@ -92,48 +80,88 @@
           <li class="sidebar-dropdown">
             <a>
               <i class="fa fa-address-book"></i>
-              <span>Courses</span>
+              <span>Khóa học</span>
+              <span class="badge badge-pill badge-danger">New</span>
             </a>
             <div class="sidebar-submenu">
               <ul>
-                <li [routerLink]="['/dashboard/courses']" routerLinkActive="router-link-active">
-                  <a>Pie chart</a>
+                <li>
+                  <a [routerLink]="['/dashboard/courses']" routerLinkActive="router-link-active">Danh sách khóa học</a>
                 </li>
                 <li>
-                  <a [routerLink]="['/dashboard/courses']" routerLinkActive="router-link-active">Line chart</a>
+                  <a [routerLink]="['/dashboard/courses']" routerLinkActive="router-link-active">Khóa học của bạn</a>
+                </li>
+                <li>
+                  <a [routerLink]="['/dashboard/scoreboard']" routerLinkActive="router-link-active">Xem điểm</a>
                 </li>
               </ul>
             </div>
           </li>
-          <li class="header-menu">
-            <span>Extra</span>
-          </li>
-          <li class="not-contain-dropdown">
-            <a [routerLink]="['/dashboard/settings']" routerLinkActive="router-link-active">
-              <i class="fa fa-wrench"></i>
-              <span>Setting</span>
+          <li class="sidebar-dropdown">
+            <a>
+              <i class="fa fa-shopping-cart"></i>
+              <span>Dành cho quản lý</span>
             </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a [routerLink]="['/dashboard/courses']" routerLinkActive="router-link-active">
+                    Danh sách khóa học
+                  </a>
+                  <a [routerLink]="['/dashboard/teachers']" routerLinkActive="router-link-active">
+                    Danh sách giáo viên
+                  </a>
+                  <a [routerLink]="['/dashboard/students']" routerLinkActive="router-link-active">
+                    Danh sách học sinh
+                  </a>
+                  <a [routerLink]="['/dashboard/income']" routerLinkActive="router-link-active">
+                    Quản lý thu chi
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="sidebar-dropdown">
+            <a>
+              <i class="fa fa-shopping-cart"></i>
+              <span>Tùy chọn</span>
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a [routerLink]="['/dashboard/profile']" routerLinkActive="router-link-active">
+                    Thông tin cá nhân
+                  </a>
+                  <a [routerLink]="['/dashboard/changepassword']" routerLinkActive="router-link-active">
+                    Đổi mật khẩu
+                  </a>
+                  <a [routerLink]="['/dashboard/settings']" routerLinkActive="router-link-active">
+                    Cài đặt khác
+                  </a>
+                </li>
+              </ul>
+            </div>
           </li>
           <li class="not-contain-dropdown">
             <a [routerLink]="['/dashboard/contact']" routerLinkActive="router-link-active">
               <i class="fa fa-address-card"></i>
-              <span>Contact</span>
+              <span>Liên hệ</span>
             </a>
           </li>
           <li class="not-contain-dropdown">
             <a href="#">
               <i class="fa fa-lock"></i>
-              <span>Sign out</span>
+              <span>Đăng xuất</span>
             </a>
           </li>
         </ul>
       </div>
 
       <!-- END sidebar-menu  -->
-    </div>
+    </ng-scrollbar>
 
     <!-- sidebar-content  -->
-    <div class="sidebar-footer">
+    <!-- <div class="sidebar-footer">
       <div class="dropdown">
         <a [routerLink]="['/dashboard/notification']" routerLinkActive="router-link-active">
           <i class="fa fa-bell"></i>
@@ -157,7 +185,7 @@
           <i class="fa fa-power-off"></i>
         </a>
       </div>
-    </div>
+    </div> -->
 
     <!-- ENDsidebar-content  -->
 
@@ -172,5 +200,16 @@
     </div>
   </main>
   <!-- END page-content -->
+
+  <!-- Footer -->
+  <footer class="page-footer font-small blue pt-4">
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2018 Copyright:
+      <a href="https://stem.somee.com/">stem.somee.com</a>
+    </div>
+    <!-- Copyright -->
+
+  </footer>
+  <!-- Footer -->
 
 </div>

@@ -11,13 +11,14 @@ import { SettingComponent } from './module/user-components/setting/setting.compo
 import { ContactComponent } from './module/system-components/contact/contact.component';
 import { MainScreenComponent } from './module/main-screen/main-screen.component';
 import { NotificationComponent } from './module/user-components/notification/notification.component';
+import { DashboardComponent } from './module/system-components/dashboard/dashboard.component';
+import { ScoreboardComponent } from './module/user-components/scoreboard/scoreboard.component';
+import { StudentsComponent } from './module/user-components/students/students.component';
+import { TeachersComponent } from './module/user-components/teachers/teachers.component';
+import { IncomeComponent } from './module/user-components/income/income.component';
+import { ChangepasswordComponent } from './module/user-components/changepassword/changepassword.component';
 
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   redirectTo: '/home/hang-hoa/xuat-ban-hang-hoa',
-  //   pathMatch: 'full'
-  // },
   { path: '', component: HomePageComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
@@ -28,11 +29,31 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: ProfileComponent
+        component: DashboardComponent
+      },
+      {
+        path: 'notification',
+        component: NotificationComponent
       },
       {
         path: 'courses',
         component: CoursesComponent
+      },
+      {
+        path: 'scoreboard',
+        component: ScoreboardComponent
+      },
+      {
+        path: 'students',
+        component: StudentsComponent
+      },
+      {
+        path: 'teachers',
+        component: TeachersComponent
+      },
+      {
+        path: 'income',
+        component: IncomeComponent
       },
       {
         path: 'settings',
@@ -43,8 +64,8 @@ const routes: Routes = [
         component: ProfileComponent
       },
       {
-        path: 'notification',
-        component: NotificationComponent
+        path: 'changepassword',
+        component: ChangepasswordComponent
       },
       {
         path: 'contact',

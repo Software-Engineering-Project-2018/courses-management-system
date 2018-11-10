@@ -216,30 +216,32 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HocSinhController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Database.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Database.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Database.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Database.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Database.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\HocSinh.cs">
-      <DependentUpon>MainModels.tt</DependentUpon>
+      <DependentUpon>Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\MainModels.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MainModels.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\MainModels.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MainModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\MainModels.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MainModels.edmx</DependentUpon>
+    <Compile Include="Models\HocSinh1.cs">
+      <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BaseReposistory.cs" />
@@ -251,16 +253,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
-    <Content Include="Models\MainModels.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>MainModels.Context.cs</LastGenOutput>
-      <DependentUpon>MainModels.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\MainModels.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MainModels.edmx</DependentUpon>
-      <LastGenOutput>MainModels.cs</LastGenOutput>
-    </Content>
     <Content Include="Areas\HelpPage\Views\Web.config" />
     <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\ResourceModel.cshtml" />
@@ -283,12 +275,15 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="Models\MainModels.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>MainModels.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\MainModels.edmx.diagram">
-      <DependentUpon>MainModels.edmx</DependentUpon>
+    <Content Include="Models\Database.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Database.edmx</DependentUpon>
+      <LastGenOutput>Database.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Database.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Database.edmx</DependentUpon>
+      <LastGenOutput>Database.cs</LastGenOutput>
     </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -299,10 +294,16 @@
     </Content>
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="ClassDiagram1.cd" />
+    <EntityDeploy Include="Models\Database.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Database.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Database.edmx.diagram">
+      <DependentUpon>Database.edmx</DependentUpon>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -4,8 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="3425397eea1644599d390592875e8cd5" Name="Diagram1">
+      <Diagram DiagramId="300b3dda4936440394575077e93ac6b9" Name="Diagram1">
         <EntityTypeShape EntityType="CoursesSystemModel.HocSinh" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoursesSystemModel.HocSinh1" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -12,16 +12,16 @@ namespace WebServer.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class HocSinh
+    public partial class HocSinh1
     {
-        public long HocSinhId { get; set; }
-        public string TenHocSinh { get; set; }
+        public long HocSinh1Id { get; set; }
+        public string TenHocSinh1 { get; set; }
         public Nullable<System.DateTime> NgaySinh { get; set; }
         public string SoDienThoai { get; set; }
         public string DiaChi { get; set; }
+        public string TenDangNhap { get; set; }
         public string Email { get; set; }
         public string MatKhau { get; set; }
-        public string TenDangNhap { get; set; }
         public string Avatar { get; set; }
     }
 }

@@ -638,7 +638,9 @@ body {
 }
 
 @media screen and (min-width: 768px) {
-  .page-wrapper.toggled .page-content {
+
+  .page-wrapper.toggled .page-content,
+  .page-wrapper.toggled .page-footer {
     padding-left: 300px;
   }
 }
@@ -1081,3 +1083,15 @@ body {
 }
 
 /*---------------- END Scroll bar style   --------------- */
+
+.page-content {
+  min-height: calc(100vh - 86px);
+}
+
+::ng-deep .ng-scrollbar-view {
+  width: 100% !important;
+}
+
+::ng-deep ::-webkit-scrollbar {
+  display: none;
+}
