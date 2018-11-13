@@ -13,96 +13,64 @@ using WebServer.Repository;
 
 namespace WebServer.Controllers
 {
+    //Kế thừa từ BaseController
     public class HocSinhController : BaseController
     {
+        // Tạo biến hocSinhReposistory để gọi các hàm từ HocSinhReposistory
         private HocSinhReposistory hocSinhReposistory = new HocSinhReposistory();
+        
+        // API Thêm mới sinh
+        [Route("rest/hoc-sinh/insert")] //Đây là chuỗi url dùng để client có gọi đến server qua url này
+        [HttpPost]   //Phương thức truyền của http (Get, Post, Delete...)
+        public IHttpActionResult InsertHocSinh([FromBody] HocSinh hocSinh)
+        {
+            // Chỉ cần gọi hàm từ hocSinhReposistory và trả về
+            return Ok(hocSinhReposistory.InsertHocSinh(hocSinh));
+        }
 
+        //API Sửa thông tin học sinh
+        [Route("rest/hoc-sinh/update")]
+        [HttpPost]
+        public IHttpActionResult UpdateHocSinh([FromBody] HocSinh hocSinh)
+        {
+            return Ok(hocSinhReposistory.UpdateHocSinh(hocSinh));
+        }
+
+        //API Lấy tất cả học sinh
         [Route("rest/hoc-sinh/get-all")]
         [HttpGet]
-        public IQueryable<HocSinh> GetAllHocSinh()
+        public IHttpActionResult GetAllHocSinh()
         {
-            //return hocSinhReposistory.GetAll();
-            return db.HocSinhs;
+            return Ok(hocSinhReposistory.GetAllHocSinh());
         }
 
-        //// GET: api/HocSinh/5
-        //[ResponseType(typeof(HocSinh))]
-        public IHttpActionResult GetHocSinh(long id)
+        //API Lấy thông tin 1 học sinh
+        [Route("rest/hoc-sinh/get")]
+        [HttpGet]
+        public IHttpActionResult GetOneHocSinh(long hocSinhId)
         {
-            HocSinh hocSinh = db.HocSinhs.Find(id);
-            if (hocSinh == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(hocSinh);
+            return Ok(hocSinhReposistory.GetOneHocSinhById(hocSinhId));
         }
 
-        //// PUT: api/HocSinh/5
-        //[ResponseType(typeof(void))]
-        //public IHttpActionResult PutHocSinh(long id, HocSinh hocSinh)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        //API Delete 1 học sinh
+        [Route("rest/hoc-sinh/delete")]
+        [HttpDelete]
+        public IHttpActionResult DeleteHocSinh(long hocSinhId)
+        {
+            return Ok(hocSinhReposistory.DeleteHocSinhById(hocSinhId));
+        }
 
-        //    if (id != hocSinh.HocSinhId)
-        //    {
-        //        return BadRequest();
-        //    }
 
-        //    db.Entry(hocSinh).State = EntityState.Modified;
+        //API Resert password
+        [Route("rest/hoc-sinh/reset-password")]
+        [HttpPost]
+        public IHttpActionResult ResetPassword([FromBody] HocSinh hocSinh)
+        {
+            return Ok(hocSinhReposistory.ResetPassword(hocSinh));
+        }
 
-        //    try
-        //    {
-        //        db.SaveChanges();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!HocSinhExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
 
-        //    return StatusCode(HttpStatusCode.NoContent);
-        //}
 
-        //// POST: api/HocSinh
-        //[ResponseType(typeof(HocSinh))]
-        //public IHttpActionResult PostHocSinh(HocSinh hocSinh)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    db.HocSinhs.Add(hocSinh);
-        //    db.SaveChanges();
-
-        //    return CreatedAtRoute("DefaultApi", new { id = hocSinh.HocSinhId }, hocSinh);
-        //}
-
-        //// DELETE: api/HocSinh/5
-        //[ResponseType(typeof(HocSinh))]
-        //public IHttpActionResult DeleteHocSinh(long id)
-        //{
-        //    HocSinh hocSinh = db.HocSinhs.Find(id);
-        //    if (hocSinh == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    db.HocSinhs.Remove(hocSinh);
-        //    db.SaveChanges();
-
-        //    return Ok(hocSinh);
-        //}
 
         //protected override void Dispose(bool disposing)
         //{
