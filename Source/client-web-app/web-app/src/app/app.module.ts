@@ -25,6 +25,9 @@ import { ChangepasswordComponent } from './module/user-components/changepassword
 import { StudentsComponent } from './module/user-components/students/students.component';
 import { TeachersComponent } from './module/user-components/teachers/teachers.component';
 import { IncomeComponent } from './module/user-components/income/income.component';
+import { CourseInfoComponent } from './module/user-components/course-info/course-info.component';
+import { LessonComponent } from './module/user-components/lesson/lesson.component';
+import { UserInfoComponent } from './module/user-components/user-info/user-info.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +47,10 @@ import { IncomeComponent } from './module/user-components/income/income.componen
     ChangepasswordComponent,
     StudentsComponent,
     TeachersComponent,
-    IncomeComponent
+    IncomeComponent,
+    CourseInfoComponent,
+    LessonComponent,
+    UserInfoComponent
   ],
   imports: [
     BrowserModule,

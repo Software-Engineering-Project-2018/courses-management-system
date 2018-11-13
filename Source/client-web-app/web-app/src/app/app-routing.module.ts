@@ -17,6 +17,9 @@ import { StudentsComponent } from './module/user-components/students/students.co
 import { TeachersComponent } from './module/user-components/teachers/teachers.component';
 import { IncomeComponent } from './module/user-components/income/income.component';
 import { ChangepasswordComponent } from './module/user-components/changepassword/changepassword.component';
+import { LessonComponent } from './module/user-components/lesson/lesson.component';
+import { CourseInfoComponent } from './module/user-components/course-info/course-info.component';
+import { UserInfoComponent } from './module/user-components/user-info/user-info.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -70,6 +73,18 @@ const routes: Routes = [
       {
         path: 'contact',
         component: ContactComponent
+      },
+      {
+        path: 'lesson',
+        component: LessonComponent
+      },
+      {
+        path: 'course-info',
+        component: CourseInfoComponent
+      },
+      {
+        path: 'user-info',
+        component: UserInfoComponent
       }
     ]
   },

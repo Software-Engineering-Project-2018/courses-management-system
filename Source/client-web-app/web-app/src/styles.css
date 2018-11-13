@@ -24,3 +24,12 @@ body {
   color: #007bff !important;
   text-decoration: none !important;
 }
+
+a {
+  cursor: pointer;
+}
+
+
+.dropdown-menu.show {
+  padding: 0;
+}
