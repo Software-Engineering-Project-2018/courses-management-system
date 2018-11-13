@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿
 using System.Web.Http;
-using System.Web.Http.Description;
 using WebServer.Models;
 using WebServer.Repository;
 
@@ -19,7 +11,7 @@ namespace WebServer.Controllers
         // Tạo biến hocSinhReposistory để gọi các hàm từ HocSinhReposistory
         private HocSinhReposistory hocSinhReposistory = new HocSinhReposistory();
         
-        // API Thêm mới sinh
+        // API Thêm mới học sinh
         [Route("rest/hoc-sinh/insert")] //Đây là chuỗi url dùng để client có gọi đến server qua url này
         [HttpPost]   //Phương thức truyền của http (Get, Post, Delete...)
         public IHttpActionResult InsertHocSinh([FromBody] HocSinh hocSinh)
