@@ -20,4 +20,17 @@ export class StudentsComponent implements OnInit {
   ngOnInit() {
   }
 
+  deleteHocSinh(hocSinhId) {
+    this.hocSinhService.deleteHocSinh(hocSinhId).subscribe(
+      response => {
+        if (response > 0) {
+          alert('Xóa thành công!');
+          this.hocSinhSelected = this.hocSinhSelected.filter(item => item.HocSinhId !== hocSinhId);
+        } else {
+          alert('Lỗi!');
+        }
+      }
+    );
+  }
+
 }
