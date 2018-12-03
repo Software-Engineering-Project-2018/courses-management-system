@@ -6,10 +6,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./courses.component.css']
 })
 export class CoursesComponent implements OnInit {
-
+  isSearching = false;
   constructor() { }
 
   ngOnInit() {
   }
+  onClickSearchIcon() {
+    if (this.isSearching === false) {
+      this.isSearching = true;
+    } else {
+      this.getData();
+    }
+  }
 
+  getData(): void {
+
+  }
 }

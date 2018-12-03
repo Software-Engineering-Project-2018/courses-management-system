@@ -1,7 +1,128 @@
-<div class="alert alert-secondary" role="alert">
-    Khóa học 1
-  
-  <!-- Default dropleft button -->
+<div id="courses-screen">
+  <div class="header-content">
+    <h4 class="title d-inline-block">Danh sách khóa học</h4>
+    <a class="float-right" (click)="onClickSearchIcon()">
+        <i class="fa fa-search pr-3"></i>
+    </a>
+    <input *ngIf="isSearching" type="text" name="" class="float-right">
+  </div>
+  <div class="body-content mt-3">
+    <div class="item row">
+      <div class="col-10">
+        <h5 class="course-title">
+          <i class="fa fa-address-book"></i>
+          <a> Hệ điều hành - CQ2016/1 + 2</a>
+        </h5>
+        <p class="teacher-name">Giáo viên: Phạm Tuấn Sơn</p>
+      </div>
+      <div class="col-2">
+        <button *ngIf="true" type="button" class="btn btn-light float-right">Đăng ký</button>
+        <span *ngIf="false">Đã đăng ký</span>
+      </div>
+    </div>
+    <div class="item row">
+      <div class="col-10">
+        <h5 class="course-title">
+          <i class="fa fa-address-book"></i>
+          <a> Hệ điều hành - CQ2016/1 + 2</a>
+        </h5>
+        <p class="teacher-name">Giáo viên: Phạm Tuấn Sơn</p>
+      </div>
+      <div class="col-2">
+          <button *ngIf="false" type="button" class="btn btn-light float-right">Đăng ký</button>
+          <span *ngIf="true">Đã đăng ký</span>
+      </div>
+    </div>
+    <div class="item row">
+      <div class="col-10">
+        <h5 class="course-title">
+          <i class="fa fa-address-book"></i>
+          <a> Hệ điều hành - CQ2016/1 + 2</a>
+        </h5>
+        <p class="teacher-name">Giáo viên: Phạm Tuấn Sơn</p>
+      </div>
+      <div class="col-2">
+          <button *ngIf="true" type="button" class="btn btn-light float-right">Đăng ký</button>
+          <span *ngIf="false">Đã đăng ký</span>
+      </div>
+    </div>
+    <div class="item row">
+      <div class="col-10">
+        <h5 class="course-title">
+          <i class="fa fa-address-book"></i>
+          <a> Hệ điều hành - CQ2016/1 + 2</a>
+        </h5>
+        <p class="teacher-name">Giáo viên: Phạm Tuấn Sơn</p>
+      </div>
+      <div class="col-2">
+          <button *ngIf="true" type="button" class="btn btn-light float-right">Đăng ký</button>
+          <span *ngIf="false">Đã đăng ký</span>
+      </div>
+    </div>
+    <div class="item row">
+      <div class="col-10">
+        <h5 class="course-title">
+          <i class="fa fa-address-book"></i>
+          <a> Hệ điều hành - CQ2016/1 + 2</a>
+        </h5>
+        <p class="teacher-name">Giáo viên: Phạm Tuấn Sơn</p>
+      </div>
+      <div class="col-2">
+        <button type="button" class="btn btn-light float-right">Đăng ký</button>
+      </div>
+    </div>
+    <div class="item row">
+      <div class="col-10">
+        <h5 class="course-title">
+          <i class="fa fa-address-book"></i>
+          <a> Hệ điều hành - CQ2016/1 + 2</a>
+        </h5>
+        <p class="teacher-name">Giáo viên: Phạm Tuấn Sơn</p>
+      </div>
+      <div class="col-2">
+        <button type="button" class="btn btn-light float-right">Đăng ký</button>
+      </div>
+    </div>
+    <div class="item row">
+      <div class="col-10">
+        <h5 class="course-title">
+          <i class="fa fa-address-book"></i>
+          <a> Hệ điều hành - CQ2016/1 + 2</a>
+        </h5>
+        <p class="teacher-name">Giáo viên: Phạm Tuấn Sơn</p>
+      </div>
+      <div class="col-2">
+        <button type="button" class="btn btn-light float-right">Đăng ký</button>
+      </div>
+    </div>
+    <div class="item row">
+      <div class="col-10">
+        <h5 class="course-title">
+          <i class="fa fa-address-book"></i>
+          <a> Hệ điều hành - CQ2016/1 + 2</a>
+        </h5>
+        <p class="teacher-name">Giáo viên: Phạm Tuấn Sơn</p>
+      </div>
+      <div class="col-2">
+        <button type="button" class="btn btn-light float-right">Đăng ký</button>
+      </div>
+    </div>
+    <div class="item row">
+      <div class="col-10">
+        <h5 class="course-title">
+          <i class="fa fa-address-book"></i>
+          <a> Hệ điều hành - CQ2016/1 + 2</a>
+        </h5>
+        <p class="teacher-name">Giáo viên: Phạm Tuấn Sơn</p>
+      </div>
+      <div class="col-2">
+        <button type="button" class="btn btn-light float-right">Đăng ký</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="alert alert-secondary" role="alert">
   <div class="btn-group dropleft float-right">
     <i class="fa fa-ellipsis-v" data-toggle="dropdown" style="font-size: 25px; line-height: 30px; cursor: pointer;"></i>
     <div class="dropdown-menu">
@@ -16,7 +137,6 @@
     </div>
   </div>
 
-  <!-- Modal -->
   <div class="modal fade" id="acceptDeleteModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -36,4 +156,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

@@ -1,9 +1,64 @@
 <ng-scrollbar class="profile">
 
-  <div id="login-screen">
-    <div class="jumbotron jumbotron">
-      <div class="container">
-        <p>Profile works!</p>
+  <div id="profile-screen">
+    <div class="header-content">
+      <h4 class="title d-inline-block">Huỳnh Duy Tân</h4>
+    </div>
+    <div class="body-content">
+      <div class="avatar body-content-row">
+        <h5>Ảnh đại diện</h5>
+      </div>
+      <div class="info body-content-row">
+        <h5>Thông tin</h5>
+        <form>
+          <div class="form-group row">
+            <label for="exampleInputName" class="col-12 col-lg-4">Tên đầy đủ</label>
+            <input type="text" class="form-control col-12 col-lg-7" id="exampleInputName" placeholder="Nhập họ tên của bạn">
+          </div>
+          <div class="form-group row">
+            <label for="exampleInputIdNumber" class="col-12 col-lg-4">Mã số</label>
+            <input type="text" class="form-control col-12 col-lg-7" id="exampleInputIdNumber" placeholder="Nhập mã số của bạn">
+          </div>
+          <div class="form-group row">
+            <label for="exampleInputBirth" class="col-12 col-lg-4">Ngày sinh</label>
+            <input type="date" class="form-control col-12 col-lg-7" id="exampleInputBirth">
+          </div>
+          <div class="form-group row">
+            <label for="exampleInputAddress" class="col-12 col-lg-4">Số điện thoại</label>
+            <input type="tel" class="form-control col-12 col-lg-7" id="exampleInputTel" placeholder="Nhập số điện thoại của bạn">
+          </div>
+          <div class="form-group row">
+            <label for="exampleInputAddress" class="col-12 col-lg-4">Địa chỉ</label>
+            <input type="email" class="form-control col-12 col-lg-7" id="exampleInputAddress" placeholder="Nhập địa chỉ của bạn">
+          </div>
+          <div class="form-group row">
+            <label for="exampleInputGender" class="col-12 col-lg-4">Giới tính</label>
+            <select class="custom-select mr-sm-2 col-12 col-lg-7" id="exampleInputGender">
+              <option selected>Chọn</option>
+              <option value="1">Nam</option>
+              <option value="2">Nữ</option>
+              <option value="3">Khác</option>
+            </select>
+          </div>
+        </form>
+
+      </div>
+      <div class="pwchange body-content-row">
+        <h5>Mật khẩu</h5>
+        <form>
+            <div class="form-group row">
+              <label class="col-12 col-lg-4" for="exampleInputPasswordOld">Mật khẩu cũ</label>
+              <input type="password" class="form-control col-12 col-lg-7" id="exampleInputPasswordOld" placeholder="Mật khẩu cũ">
+            </div>
+          <div class="form-group row">
+            <label class="col-12 col-lg-4" for="exampleInputPasswordNew1">Mật khẩu mới</label>
+            <input type="password" class="form-control col-12 col-lg-7" id="exampleInputPasswordNew1" placeholder="Mật khẩu mới">
+          </div>
+          <div class="form-group row">
+            <label class="col-12 col-lg-4" for="exampleInputPasswordNew2">Nhâp lại</label>
+            <input type="password" class="form-control col-12 col-lg-7" id="exampleInputPasswordNew2" placeholder="Nhập lại">
+          </div>
+        </form>
       </div>
     </div>
   </div>
