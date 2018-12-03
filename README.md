@@ -1,6 +1,6 @@
 # courses-management-system  
 Angular 6 &amp; asp.net  
-Publish: http:/quanlylophoc.tk
+Publish: http://quanlylophoc.tk
   
 * Cấu trúc cây thư mục:  
   
