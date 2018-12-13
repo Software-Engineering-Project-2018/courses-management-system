@@ -19,6 +19,10 @@ body {
   }
 }
 
+* {
+  font-size: 13px;
+}
+
 .text-link {
   cursor: pointer;
   color: #007bff !important;

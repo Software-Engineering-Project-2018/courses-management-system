@@ -20,6 +20,7 @@ import { ChangepasswordComponent } from './module/user-components/changepassword
 import { LessonComponent } from './module/user-components/lesson/lesson.component';
 import { CourseInfoComponent } from './module/user-components/course-info/course-info.component';
 import { UserInfoComponent } from './module/user-components/user-info/user-info.component';
+import { EnrollCourseComponent } from './module/user-components/enroll-course/enroll-course.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -81,6 +82,10 @@ const routes: Routes = [
       {
         path: 'course-info',
         component: CourseInfoComponent
+      },
+      {
+        path: 'enroll-course',
+        component: EnrollCourseComponent
       },
       {
         path: 'user-info',

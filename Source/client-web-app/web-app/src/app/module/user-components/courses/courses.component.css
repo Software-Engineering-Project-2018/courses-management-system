@@ -19,5 +19,5 @@
 }
 
 #courses-screen .body-content .item .col-2 span {
-  margin-left: -10px;
+  float: right;
 }

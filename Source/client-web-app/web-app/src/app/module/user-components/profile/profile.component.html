@@ -2,61 +2,170 @@
 
   <div id="profile-screen">
     <div class="header-content">
-      <h4 class="title d-inline-block">Huỳnh Duy Tân</h4>
+      <h4 class="title d-inline-block" placement="right" ngbTooltip="Tên người dùng.">HuynhDuyTan</h4>
     </div>
+
     <div class="body-content">
       <div class="avatar body-content-row">
-        <h5>Ảnh đại diện</h5>
+        <!-- <h5>Ảnh đại diện</h5> -->
+
+        <div class="position-relative text-center pb-3" placement="right" ngbTooltip="Tải lên ảnh đại diện.">
+          <img [src]="data.image ? data.image : defautAvatar" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight"
+            data-toggle="modal" data-target="#avatarEditterModalCenter" placement="top" ngbTooltip="Nhấn để cập nhật ảnh đại diện.">
+
+        </div>
+
       </div>
       <div class="info body-content-row">
-        <h5>Thông tin</h5>
-        <form>
-          <div class="form-group row">
-            <label for="exampleInputName" class="col-12 col-lg-4">Tên đầy đủ</label>
-            <input type="text" class="form-control col-12 col-lg-7" id="exampleInputName" placeholder="Nhập họ tên của bạn">
+        <h5>Quản lý Thông tin cá nhân</h5>
+        <form [formGroup]="infoForm" (ngSubmit)="changeInfoOnClick(infoForm.value)">
+          <div class="form-group" [ngClass]="{'has-error':!infoForm.controls['name'].valid && infoForm.controls['name'].touched}">
+            <label>Họ tên đầy đủ: </label>
+            <input class="form-control" type="text" placeholder="Nguyễn Văn A" [formControl]="infoForm.controls['name']"
+            placement="top" ngbTooltip="Nhập họ tên của bạn.">
+            <div *ngIf="infoForm.controls['name'].hasError('required') && infoForm.controls['name'].touched" class="alert alert-danger">Chưa
+              nhập họ tên.</div>
+            <div *ngIf="infoForm.controls['name'].hasError('minlength') && infoForm.controls['name'].touched" class="alert alert-danger">Tên
+              quá ngắn.</div>
+            <div *ngIf="infoForm.controls['name'].hasError('maxlength') && infoForm.controls['name'].touched" class="alert alert-danger">Tên
+              quá dài.</div>
           </div>
-          <div class="form-group row">
-            <label for="exampleInputIdNumber" class="col-12 col-lg-4">Mã số</label>
-            <input type="text" class="form-control col-12 col-lg-7" id="exampleInputIdNumber" placeholder="Nhập mã số của bạn">
+          <div class="form-group" [ngClass]="{'has-error':!infoForm.controls['id'].valid && infoForm.controls['id'].touched}">
+            <label>Mã số: </label>
+            <input class="form-control" type="text" placeholder="1612000" [formControl]="infoForm.controls['id']"
+            placement="top" ngbTooltip="Nhập mã số của bạn.">
+            <div *ngIf="infoForm.controls['id'].hasError('required') && infoForm.controls['id'].touched" class="alert alert-danger">Chưa
+              nhập mã số.</div>
+            <div *ngIf="infoForm.controls['id'].hasError('minlength') && infoForm.controls['id'].touched" class="alert alert-danger">Mã
+              số chứa ít nhất 7 chữ số.</div>
+            <div *ngIf="infoForm.controls['id'].hasError('maxlength') && infoForm.controls['id'].touched" class="alert alert-danger">Mã
+              số chứa tối đa 8 chữ số.</div>
           </div>
-          <div class="form-group row">
-            <label for="exampleInputBirth" class="col-12 col-lg-4">Ngày sinh</label>
-            <input type="date" class="form-control col-12 col-lg-7" id="exampleInputBirth">
+          <div class="form-group" [ngClass]="{'has-error':!infoForm.controls['id'].valid && infoForm.controls['id'].touched}">
+            <label>Ngày sinh: </label>
+            <div class="input-group" placement="top" ngbTooltip="Chọn ngày sinh.">
+              <input class="form-control" placeholder="yyyy-mm-dd" [formControl]="infoForm.controls['birthday']" name="dp"
+                [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                  <i class="fa fa-calendar"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="infoForm.controls['birthday'].hasError('required') && infoForm.controls['birthday'].touched"
+              class="alert alert-danger">Chọn ngày sinh.</div>
+            <div *ngIf="infoForm.controls['birthday'].hasError('minlength') && infoForm.controls['birthday'].touched"
+              class="alert alert-danger">Chưa chọn ngày sinh.</div>
           </div>
-          <div class="form-group row">
-            <label for="exampleInputAddress" class="col-12 col-lg-4">Số điện thoại</label>
-            <input type="tel" class="form-control col-12 col-lg-7" id="exampleInputTel" placeholder="Nhập số điện thoại của bạn">
+          <div class="form-group">
+            <label>Giới tính: </label>
+            <div class="row" placement="top" ngbTooltip="Chọn giới tính.">
+              <div class="radio col-4">
+                <label>
+                  <input type="radio" name="gender" value="Male" [formControl]="infoForm.controls['gender']">
+                  Nam
+                </label>
+              </div>
+              <div class="radio col-4">
+                <label>
+                  <input type="radio" name="gender" value="Female" [formControl]="infoForm.controls['gender']">
+                  Nữ
+                </label>
+              </div>
+              <div class="radio col-4">
+                <label>
+                  <input type="radio" name="gender" value="Other" [formControl]="infoForm.controls['gender']">
+                  Khác
+                </label>
+              </div>
+            </div>
+
+            <div class="alert alert-danger" *ngIf="!infoForm.controls['gender'].valid && infoForm.controls['gender'].touched">Bạn
+              phải chọn giới tính.</div>
           </div>
-          <div class="form-group row">
-            <label for="exampleInputAddress" class="col-12 col-lg-4">Địa chỉ</label>
-            <input type="email" class="form-control col-12 col-lg-7" id="exampleInputAddress" placeholder="Nhập địa chỉ của bạn">
+          <div class="form-group" [ngClass]="{'has-error':!infoForm.controls['id'].valid && infoForm.controls['id'].touched}">
+            <label>Số điện thoại: </label>
+            <input class="form-control" type="tel" placeholder="0987654321" [formControl]="infoForm.controls['phone']"
+            placement="top" ngbTooltip="Nhập số điện thoại.">
+            <div *ngIf="infoForm.controls['phone'].hasError('required') && infoForm.controls['phone'].touched" class="alert alert-danger">Chưa
+              nhập số điện thoại.</div>
+            <div *ngIf="infoForm.controls['phone'].hasError('minlength') && !infoForm.controls['phone'].hasError('pattern') && infoForm.controls['phone'].touched"
+              class="alert alert-danger">Số
+              điện thoại không hợp lệ.</div>
+            <div *ngIf="infoForm.controls['phone'].hasError('maxlength') && !infoForm.controls['phone'].hasError('pattern') && infoForm.controls['phone'].touched"
+              class="alert alert-danger">Số
+              điện thoại không hợp lệ.</div>
+            <div *ngIf="infoForm.controls['phone'].hasError('pattern') && infoForm.controls['phone'].touched" class="alert alert-danger">Số
+              điện thoại không hợp lệ.</div>
           </div>
-          <div class="form-group row">
-            <label for="exampleInputGender" class="col-12 col-lg-4">Giới tính</label>
-            <select class="custom-select mr-sm-2 col-12 col-lg-7" id="exampleInputGender">
-              <option selected>Chọn</option>
-              <option value="1">Nam</option>
-              <option value="2">Nữ</option>
-              <option value="3">Khác</option>
-            </select>
+          <div class="form-group" [ngClass]="{'has-error':!infoForm.controls['email'].valid && infoForm.controls['email'].touched}">
+            <label>Email: </label>
+            <input class="form-control" type="emailks" placeholder="example@example.com" [formControl]="infoForm.controls['email']"
+            placement="top" ngbTooltip="Nhập email.">
+            <div *ngIf="infoForm.controls['email'].hasError('required') && infoForm.controls['email'].touched" class="alert alert-danger">Chưa
+              nhập email.</div>
+            <div *ngIf="infoForm.controls['email'].hasError('email') && infoForm.controls['email'].touched" class="alert alert-danger">Địa
+              chỉ email không hợp lệ.</div>
+          </div>
+          <div class="form-group" [ngClass]="{'has-error':!infoForm.controls['address'].valid && infoForm.controls['address'].touched}">
+            <label>Địa chỉ: </label>
+            <input class="form-control" type="text" placeholder="227 Nguyễn Văn Cừ, phương 4, quận 5, TP.HCM"
+              [formControl]="infoForm.controls['address']" placement="top" ngbTooltip="Nhập địa chỉ.">
+            <div *ngIf="infoForm.controls['address'].hasError('required') && infoForm.controls['address'].touched"
+              class="alert alert-danger">Chưa nhập địa chỉ.</div>
+          </div>
+          <!-- <label class="checkbox-inline">
+              <input type="checkbox" value="hiking" name="hiking" [formControl]="infoForm.controls['hiking']"> Hiking
+            </label> -->
+
+          <div class="form-group text-center">
+            <button type="submit" class="btn btn-success m-2" [disabled]="!infoForm.valid" placement="bottom"
+              ngbTooltip="Nhấn để lưu.">
+              Lưu
+            </button>
+
+            <button class="btn btn-danger m-2" placement="top" ngbTooltip="Nhập lại.">Đặt lại</button>
           </div>
         </form>
 
       </div>
       <div class="pwchange body-content-row">
-        <h5>Mật khẩu</h5>
-        <form>
-            <div class="form-group row">
-              <label class="col-12 col-lg-4" for="exampleInputPasswordOld">Mật khẩu cũ</label>
-              <input type="password" class="form-control col-12 col-lg-7" id="exampleInputPasswordOld" placeholder="Mật khẩu cũ">
-            </div>
-          <div class="form-group row">
-            <label class="col-12 col-lg-4" for="exampleInputPasswordNew1">Mật khẩu mới</label>
-            <input type="password" class="form-control col-12 col-lg-7" id="exampleInputPasswordNew1" placeholder="Mật khẩu mới">
+        <h5>Thay đổi mật khẩu</h5>
+        <form [formGroup]="infoForm" (ngSubmit)="changePasswordOnClick(passwordForm.value)">
+          <div class="form-group" [ngClass]="{'has-error':!passwordForm.controls['oldPassword'].valid && passwordForm.controls['oldPassword'].touched}">
+            <label>Mật khẩu hiện tại: </label>
+            <input class="form-control" type="password" [formControl]="passwordForm.controls['oldPassword']">
+            <div *ngIf="passwordForm.controls['oldPassword'].hasError('required') && passwordForm.controls['oldPassword'].touched"
+              class="alert alert-danger">
+              Không được để trống.</div>
           </div>
-          <div class="form-group row">
-            <label class="col-12 col-lg-4" for="exampleInputPasswordNew2">Nhâp lại</label>
-            <input type="password" class="form-control col-12 col-lg-7" id="exampleInputPasswordNew2" placeholder="Nhập lại">
+          <div class="form-group" [ngClass]="{'has-error':!passwordForm.controls['newPassword'].valid && passwordForm.controls['newPassword'].touched}">
+            <label>Mật khẩu mới: </label>
+            <input class="form-control" type="password" [formControl]="passwordForm.controls['newPassword']">
+            <div *ngIf="passwordForm.controls['newPassword'].hasError('required') && passwordForm.controls['newPassword'].touched"
+              class="alert alert-danger">
+              Không được để trống.</div>
+            <div *ngIf="passwordForm.controls['newPassword'].hasError('minLength') && passwordForm.controls['newPassword'].touched"
+              class="alert alert-danger">
+              Mật khẩu phải ít nhất 8 kí tự.</div>
+          </div>
+          <div class="form-group" [ngClass]="{'has-error':!passwordForm.controls['confirmPassword'].valid && passwordForm.controls['confirmPassword'].touched}">
+            <label>Nhập lại mật khẩu: </label>
+            <input class="form-control" type="password" [formControl]="passwordForm.controls['confirmPassword']">
+            <div *ngIf="passwordForm.controls['confirmPassword'].hasError('required') && passwordForm.controls['confirmPassword'].touched"
+              class="alert alert-danger">
+              Không được để trống.</div>
+            <div *ngIf="passwordForm.controls['newPassword'].value !== passwordForm.controls['confirmPassword'].value && !passwordForm.controls['confirmPassword'].hasError('required') "
+              class="alert alert-danger">
+              Mật khẩu không khớp.</div>
+          </div>
+          <div class="form-group text-center">
+            <button type="submit" class="btn btn-success m-2" [disabled]="!passwordForm.valid" placement="top"
+              ngbTooltip="Nhấn để lưu mật khẩu.">
+              Lưu
+            </button>
+
+            <button class="btn btn-danger m-2" placement="bottom" ngbTooltip="Nhập lại.">Đặt lại</button>
           </div>
         </form>
       </div>
@@ -64,3 +173,26 @@
   </div>
 
 </ng-scrollbar>
+
+<!-- Modal -->
+<div class="modal fade" id="avatarEditterModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="avatarEditterModalCenterTitle">Tải ảnh</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <img-cropper [image]="data" [settings]="cropperSettings"
+        placement="top" ngbTooltip="Nhấn tải lên để cập nhật ảnh đại diện."></img-cropper><br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
+        <button type="button" class="btn btn-success">Lưu</button>
+      </div>
+    </div>
+  </div>
+</div>

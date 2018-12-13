@@ -3,7 +3,10 @@ import { NgModule } from '@angular/core';
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -28,9 +31,11 @@ import { IncomeComponent } from './module/user-components/income/income.componen
 import { CourseInfoComponent } from './module/user-components/course-info/course-info.component';
 import { LessonComponent } from './module/user-components/lesson/lesson.component';
 import { UserInfoComponent } from './module/user-components/user-info/user-info.component';
+import { EnrollCourseComponent } from './module/user-components/enroll-course/enroll-course.component';
 @NgModule({
   declarations: [
     AppComponent,
+    ImageCropperComponent,
     HomePageComponent,
     LoginComponent,
     RegisterComponent,
@@ -50,14 +55,20 @@ import { UserInfoComponent } from './module/user-components/user-info/user-info.
     IncomeComponent,
     CourseInfoComponent,
     LessonComponent,
-    UserInfoComponent
+    UserInfoComponent,
+    EnrollCourseComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFontAwesomeModule,
     HttpClientModule,
-    NgScrollbarModule
+    NgbModule.forRoot(),
+    NgScrollbarModule,
+    FormsModule,
+    ReactiveFormsModule
+    // ImageCropperComponent,
+    // CropperSettings
   ],
   // providers: [HocSinhService],
   bootstrap: [AppComponent]
