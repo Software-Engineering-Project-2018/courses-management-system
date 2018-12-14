@@ -21,11 +21,13 @@ body {
 
 * {
   font-size: 13px;
+  font-family: "Times New Roman", Times, serif;
+  box-sizing: border-box;
 }
 
 .text-link {
   cursor: pointer;
-  color: #007bff !important;
+  color: #63a4cfdb !important;
   text-decoration: none !important;
 }
 
@@ -33,7 +35,20 @@ a {
   cursor: pointer;
 }
 
+.default-color {
+  color: #63a4cfdb;
+}
+
+.default-fontsize {
+  font-size: 13px;
+}
 
 .dropdown-menu.show {
   padding: 0;
+}
+
+/* validation notice */
+.form-group .alert {
+  position: absolute;
+  right: 0;
 }

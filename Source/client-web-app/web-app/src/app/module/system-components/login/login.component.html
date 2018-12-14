@@ -1,79 +1,68 @@
 <div id="login-screen">
-  <div class="jumbotron jumbotron">
-    <div class="container">
-      <h1 class="display-6 text-uppercase text-center text-monospace">Sign in</h1>
-      <hr class="my-4">
-      <form>
-        <div class="form-group row">
-          <label class="col-sm-2 col-form-label">Email</label>
-          <div class="col-sm-10">
-            <input type="email" class="form-control" placeholder="Email" required>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-2 col-form-label">Password</label>
-          <div class="col-sm-10">
-            <input type="password" class="form-control" id="inputPassword3" placeholder="Password" required>
-          </div>
-        </div>
-        <div class="form-group row">
-          <div class="col-sm-12">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox">
-              <label class="form-check-label" for="gridCheck1">
-                Remember me.
-              </label>
-            </div>
-          </div>
-        </div>
-        <div class="form-group row">
-          <div class="col-sm-12">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox">
-              <label class="form-check-label" for="gridCheck1">
-                I agree with the <a class="text-link" data-toggle="modal" data-target="#signUpModal">Terms and Conditions</a>
-              </label>
-            </div>
-          </div>
-        </div>
-        <div class="form-group row">
-          <div class="col-sm-12 text-center">
-            <button type="submit" class="btn btn-success" routerLink="/dashboard">Login</button>
-          </div>
+  <div class="container-login">
+    <div class="wrap-login">
+      <div class="login-title">
+        ĐĂNG NHẬP
+      </div>
+      <form [formGroup]="loginForm" (ngSubmit)="loginOnClick()" #captchaProtectedForm="ngForm">
+        <div class="form-group mb-5" [ngClass]="{'has-error':!loginForm.controls['username'].valid 
+            && loginForm.controls['username'].touched}">
+          <input class="form-control" type="text" [formControl]="loginForm.controls['username']" placeholder="Tên đăng nhập">
+          <div *ngIf="loginForm.controls['username'].hasError('required') && loginForm.controls['username'].touched"
+            class="alert text-danger">
+            <i class="fa fa-exclamation-triangle"></i>
+            Tên đăng nhập không được để trống.</div>
         </div>
 
-        <div class="form-group row">
-          <div class="col-12 col-sm-6 text-left">
-            <a routerLink="/forgot-password">Forgot password?</a>
+        <div class="form-group mb-5" [ngClass]="{'has-error':!loginForm.controls['password'].valid
+             && loginForm.controls['password'].touched}">
+          <input class="form-control" type="password" [formControl]="loginForm.controls['password']" placeholder="Mật khẩu">
+          <div *ngIf="loginForm.controls['password'].hasError('required') && loginForm.controls['password'].touched"
+            class="alert text-danger">
+            <i class="fa fa-exclamation-triangle"></i>
+            Mật khẩu không được để trống.</div>
+        </div>
+
+        <div class="form-group text-center mb-3">
+          <re-captcha
+          [(ngModel)]="formModel.captcha"
+          name="captcha"
+          required
+          siteKey="6LcOuyYTAAAAAHTjFuqhA52fmfJ_j5iFk5PsfXaU"
+          #captchaControl="ngModel"
+          ></re-captcha>
+         <div *ngIf="!captchaControl.valid && captchaControl.pristine"
+            class="alert text-danger">
+            <i class="fa fa-exclamation-triangle"></i>
+            Xác thực bằng captcha?
           </div>
-          <div class="col-12 col-sm-6 text-sm-right">
-            <a routerLink="/register">I had an account.</a>
+          <div *ngIf="captchaControl.valid"
+             class="alert text-danger">
+             <i class="fa fa-exclamation-triangle"></i>
+             Bạn là rô bốt?
           </div>
+        </div>
+        <!-- <div [hidden]="captchaControl.valid || captchaControl.pristine" class="error">Captcha must be solved</div>
+        <div [hidden]="!captchaControl.valid" class="success">Captcha is valid</div>
+        <div [hidden]="captchaProtectedForm.form.valid" class="error">The form must be filled out</div>
+        <div [hidden]="!captchaProtectedForm.form.valid" class="success">The form is valid</div> -->
+
+        <div class="text-right m-3">
+          <a class="text-link" [routerLink]="['/forgot-password']" routerLinkActive="router-link-active">
+            Quên mật khẩu?
+          </a>
+        </div>
+
+        <div class="form-group text-center">
+          <button type="submit" class="btn btn-success" [disabled]="!loginForm.valid">
+            ĐĂNG NHẬP
+          </button>
+        </div>
+        <div class="text-center mt-5 pt-5">
+          <p>Chưa có tài khoản?</p>
+          <a class="text-link" [routerLink]="['/register']" routerLinkActive="router-link-active">ĐĂNG KÝ NGAY</a>
         </div>
       </form>
-
-    </div>
-  </div>
-</div>
-
-
-<!-- Modal -->
-<div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Điều khoản</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
     </div>
   </div>
 </div>

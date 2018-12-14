@@ -1,3 +1,155 @@
-<p>
-  register works!
-</p>
+<div id="register-screen">
+  <div class="container-register">
+    <div class="wrap-register">
+      <div class="register-title">
+        ĐĂNG KÝ
+      </div>
+      <form [formGroup]="registerForm" (ngSubmit)="registerOnClick()" class="row">
+        <div class="form-group col-12 col-md-6" [ngClass]="{'has-error':!registerForm.controls['name'].valid && registerForm.controls['name'].touched}">
+          <label>Họ tên đầy đủ: </label>
+          <input class="form-control" type="text" placeholder="Nguyễn Văn A" [formControl]="registerForm.controls['name']"
+            placement="top" ngbTooltip="Nhập họ tên của bạn.">
+          <div *ngIf="registerForm.controls['name'].hasError('required') && registerForm.controls['name'].touched"
+            class="alert  text-danger">
+            <i class="fa fa-exclamation-triangle"></i>
+            Chưa nhập họ tên.</div>
+          <div *ngIf="registerForm.controls['name'].hasError('minlength') && registerForm.controls['name'].touched"
+            class="alert text-danger">
+            <i class="fa fa-exclamation-triangle"></i>
+            Tên quá ngắn.</div>
+          <div *ngIf="registerForm.controls['name'].hasError('maxlength') && registerForm.controls['name'].touched"
+            class="alert text-danger">
+            <i class="fa fa-exclamation-triangle"></i>
+            Tên quá dài.</div>
+        </div>
+
+        <div class="form-group col-12 col-md-6" [ngClass]="{'has-error':!registerForm.controls['gender'].valid && registerForm.controls['gender'].touched}">
+          <label>Giới tính: </label>
+          <select class="custom-select form-control" placement="top" ngbTooltip="Chọn giới tính.">
+            <option selected>Giới tính...</option>
+            <option value="1">Nam</option>
+            <option value="2">Nũ</option>
+            <option value="3">Khác</option>
+          </select>
+
+          <div *ngIf="!registerForm.controls['gender'].valid && registerForm.controls['gender'].touched" class="alert text-danger">
+            <i class="fa fa-exclamation-triangle"></i>
+            Bạn phải chọn giới tính.</div>
+        </div>
+
+        <div class="form-group col-12 col-md-6" [ngClass]="{'has-error':!registerForm.controls['birthday'].valid && registerForm.controls['birthday'].touched}">
+          <label>Ngày sinh: </label>
+          <div class="input-group" placement="top" ngbTooltip="Chọn ngày sinh.">
+            <input class="form-control" placeholder="yyyy-mm-dd" [formControl]="registerForm.controls['birthday']" name="dp"
+              ngbDatepicker #d="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar border-0" (click)="d.toggle()" type="button">
+                <i class="fa fa-calendar"></i>
+              </button>
+            </div>
+          </div>
+          <div *ngIf="registerForm.controls['birthday'].hasError('required') && registerForm.controls['birthday'].touched"
+            class="alert text-danger">
+            <i class="fa fa-exclamation-triangle"></i>Chọn ngày sinh.</div>
+          <div *ngIf="registerForm.controls['birthday'].hasError('minlength') && registerForm.controls['birthday'].touched"
+            class="alert text-danger">
+            <i class="fa fa-exclamation-triangle"></i>Chưa chọn ngày sinh.</div>
+        </div>
+
+        <div class="form-group col-12 col-md-6" [ngClass]="{'has-error':!registerForm.controls['phone'].valid && registerForm.controls['phone'].touched}">
+          <label>Số điện thoại: </label>
+          <input class="form-control" type="tel" placeholder="0987654321" [formControl]="registerForm.controls['phone']"
+            placement="top" ngbTooltip="Nhập số điện thoại.">
+          <div *ngIf="registerForm.controls['phone'].hasError('required') && registerForm.controls['phone'].touched"
+            class="alert text-danger">
+            <i class="fa fa-exclamation-triangle"></i>
+            Chưa nhập số điện thoại.</div>
+          <div *ngIf="registerForm.controls['phone'].hasError('minlength') && !registerForm.controls['phone'].hasError('pattern') && registerForm.controls['phone'].touched"
+            class="alert text-danger">
+            <i class="fa fa-exclamation-triangle"></i>
+            Số điện thoại không hợp lệ.</div>
+          <div *ngIf="registerForm.controls['phone'].hasError('maxlength') && !registerForm.controls['phone'].hasError('pattern') && registerForm.controls['phone'].touched"
+            class="alert text-danger">
+            <i class="fa fa-exclamation-triangle"></i>
+            Số điện thoại không hợp lệ.</div>
+          <div *ngIf="registerForm.controls['phone'].hasError('pattern') && registerForm.controls['phone'].touched"
+            class="alert text-danger">
+            <i class="fa fa-exclamation-triangle"></i>
+            Số điện thoại không hợp lệ.</div>
+        </div>
+        <div class="form-group col-12" [ngClass]="{'has-error':!registerForm.controls['email'].valid && registerForm.controls['email'].touched}">
+          <label>Email: </label>
+          <input class="form-control" type="emailks" placeholder="example@example.com" [formControl]="registerForm.controls['email']"
+            placement="top" ngbTooltip="Nhập email.">
+          <div *ngIf="registerForm.controls['email'].hasError('required') && registerForm.controls['email'].touched"
+            class="alert text-danger">
+            <i class="fa fa-exclamation-triangle"></i>
+            Chưa nhập email.</div>
+          <div *ngIf="registerForm.controls['email'].hasError('email') && registerForm.controls['email'].touched" class="alert text-danger">
+            <i class="fa fa-exclamation-triangle"></i>
+            Địa chỉ email không hợp lệ.</div>
+        </div>
+
+        <div class="form-group col-12 col-md-12" [ngClass]="{'has-error':!registerForm.controls['address'].valid && registerForm.controls['address'].touched}">
+          <label>Địa chỉ: </label>
+          <input class="form-control" type="text" placeholder="227 Nguyễn Văn Cừ, phương 4, quận 5, TP.HCM"
+            [formControl]="registerForm.controls['address']" placement="top" ngbTooltip="Nhập địa chỉ.">
+          <div *ngIf="registerForm.controls['address'].hasError('required') && registerForm.controls['address'].touched"
+            class="alert text-danger">
+            <i class="fa fa-exclamation-triangle"></i>
+            Chưa nhập địa chỉ.</div>
+        </div>
+
+        <div class="form-group custom-control custom-checkbox col-12 col-md-12 text-center m-3" placement="top"
+          ngbTooltip="Đồng ý với điều khoản & dịch vụ." [ngClass]="{'has-error':!registerForm.controls['agree-terms'].valid && registerForm.controls['agree-terms'].touched}">
+          <input type="checkbox" class="custom-control-input" id="customCheck1">
+          <label class="custom-control-label" for="customCheck1">Đồng ý với tất cả
+            <span class="text-link" data-toggle="modal" data-target="#termsModal">
+              Điều khoản và dịch vụ
+            </span>.
+          </label>
+
+          <div *ngIf="registerForm.controls['address'].hasError('requiredTrue') && registerForm.controls['agree-terms'].touched"
+            class="alert text-danger">
+            <i class="fa fa-exclamation-triangle"></i>
+            Chưa đồng ý với điều khoản & dịch vụ.
+          </div>
+        </div>
+
+        <div class="form-group text-center col-12 col-sm-6">
+          <button type="submit" class="btn btn-success col-12 col-sm-6" [disabled]="!registerForm.valid">
+            ĐĂNG KÝ
+          </button>
+        </div>
+
+        <div class="form-group text-center col-12 col-sm-6">
+          <button class="btn btn-success btn-login col-12 col-sm-6" [routerLink]="['/login']" routerLinkActive="router-link-active">
+            ĐĂNG NHẬP
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Điều khoản & dịch vụ</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Không có dữ liệu.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

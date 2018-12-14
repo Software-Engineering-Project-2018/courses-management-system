@@ -28,6 +28,7 @@
     "font-awesome": "^4.7.0",
     "jquery": "^3.3.1",
     "jquery-slim": "^3.0.0",
+    "ng-recaptcha": "^4.2.1",
     "ng2-img-cropper": "^0.9.0",
     "ngx-scrollbar": "^3.1.2",
     "popper.js": "^1.14.5",

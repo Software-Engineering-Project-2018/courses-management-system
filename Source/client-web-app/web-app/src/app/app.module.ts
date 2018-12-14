@@ -4,7 +4,8 @@ import { NgModule } from '@angular/core';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
+import { RecaptchaModule, RECAPTCHA_SETTINGS, RecaptchaSettings, RECAPTCHA_LANGUAGE } from 'ng-recaptcha';
+import { ImageCropperModule } from 'ng2-img-cropper';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -35,7 +36,6 @@ import { EnrollCourseComponent } from './module/user-components/enroll-course/en
 @NgModule({
   declarations: [
     AppComponent,
-    ImageCropperComponent,
     HomePageComponent,
     LoginComponent,
     RegisterComponent,
@@ -65,12 +65,17 @@ import { EnrollCourseComponent } from './module/user-components/enroll-course/en
     HttpClientModule,
     NgbModule.forRoot(),
     NgScrollbarModule,
+    ImageCropperModule,
+    RecaptchaModule.forRoot(),
     FormsModule,
     ReactiveFormsModule
-    // ImageCropperComponent,
-    // CropperSettings
   ],
-  // providers: [HocSinhService],
+  providers: [
+    // {
+    //   provide: RECAPTCHA_LANGUAGE,
+    //   useValue: 'vi',
+    // },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

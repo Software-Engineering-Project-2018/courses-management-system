@@ -18,7 +18,7 @@
       </div>
       <div class="info body-content-row">
         <h5>Quản lý Thông tin cá nhân</h5>
-        <form [formGroup]="infoForm" (ngSubmit)="changeInfoOnClick(infoForm.value)">
+        <form [formGroup]="infoForm" (ngSubmit)="changeInfoOnClick()">
           <div class="form-group" [ngClass]="{'has-error':!infoForm.controls['name'].valid && infoForm.controls['name'].touched}">
             <label>Họ tên đầy đủ: </label>
             <input class="form-control" type="text" placeholder="Nguyễn Văn A" [formControl]="infoForm.controls['name']"
@@ -41,11 +41,11 @@
             <div *ngIf="infoForm.controls['id'].hasError('maxlength') && infoForm.controls['id'].touched" class="alert alert-danger">Mã
               số chứa tối đa 8 chữ số.</div>
           </div>
-          <div class="form-group" [ngClass]="{'has-error':!infoForm.controls['id'].valid && infoForm.controls['id'].touched}">
+          <div class="form-group" [ngClass]="{'has-error':!infoForm.controls['birthday'].valid && infoForm.controls['birthday'].touched}">
             <label>Ngày sinh: </label>
             <div class="input-group" placement="top" ngbTooltip="Chọn ngày sinh.">
               <input class="form-control" placeholder="yyyy-mm-dd" [formControl]="infoForm.controls['birthday']" name="dp"
-                [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                 ngbDatepicker #d="ngbDatepicker">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
                   <i class="fa fa-calendar"></i>
@@ -83,7 +83,7 @@
             <div class="alert alert-danger" *ngIf="!infoForm.controls['gender'].valid && infoForm.controls['gender'].touched">Bạn
               phải chọn giới tính.</div>
           </div>
-          <div class="form-group" [ngClass]="{'has-error':!infoForm.controls['id'].valid && infoForm.controls['id'].touched}">
+          <div class="form-group" [ngClass]="{'has-error':!infoForm.controls['phone'].valid && infoForm.controls['phone'].touched}">
             <label>Số điện thoại: </label>
             <input class="form-control" type="tel" placeholder="0987654321" [formControl]="infoForm.controls['phone']"
             placement="top" ngbTooltip="Nhập số điện thoại.">
@@ -131,7 +131,7 @@
       </div>
       <div class="pwchange body-content-row">
         <h5>Thay đổi mật khẩu</h5>
-        <form [formGroup]="infoForm" (ngSubmit)="changePasswordOnClick(passwordForm.value)">
+        <form [formGroup]="infoForm" (ngSubmit)="changePasswordOnClick()">
           <div class="form-group" [ngClass]="{'has-error':!passwordForm.controls['oldPassword'].valid && passwordForm.controls['oldPassword'].touched}">
             <label>Mật khẩu hiện tại: </label>
             <input class="form-control" type="password" [formControl]="passwordForm.controls['oldPassword']">

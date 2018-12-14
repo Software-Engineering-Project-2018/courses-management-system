@@ -59,7 +59,11 @@ export class ProfileComponent implements OnInit {
     console.log(value);
   }
 
-  changPasswordOnClick() {
+  changeInfoOnClick() {
+
+  }
+
+  changePasswordOnClick() {
 
   }
 }
