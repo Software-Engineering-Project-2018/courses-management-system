@@ -29,4 +29,6 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   ngOnInit() {
   }
 
+  registerOnClick() {
+  }
 }

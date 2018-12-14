@@ -23,4 +23,6 @@ export class ForgotPasswordComponent extends BaseComponent implements OnInit {
   ngOnInit() {
   }
 
+  forgotPasswordOnClick() {
+  }
 }
