@@ -7,6 +7,98 @@ namespace WebServer.Repository
 {
     public class HocSinhReposistory : BaseReposistory
     {
+        public HocSinh LoginHocSinh(string userName, string password)
+        {
+            //Giá trị trả về của hàm này
+            HocSinh queryResult = new HocSinh();
+
+            //Cấu lệnh truy vấn ở dạng string
+            string queryString = "SELECT * FROM HocSinh WHERE (TenDangNhap = @userName OR Email = @userName) AND MatKhau = @password";
+
+            //Mở kết nối đến database
+            using (SqlConnection connection =
+                new SqlConnection(this.ConnectionString))
+            {
+                // Khởi tạo command với tham số truyền vào là userName, password
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("@userName", userName);
+                command.Parameters.AddWithValue("@password", password);
+
+                //Mở kết nối và thực hiện query vào database
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                //Đọc dữ liệu trả về từ truy vấn ở trên
+                while (reader.Read())
+                {
+                    //Lấy từng cột đọc được lưu vào queryResult
+                    if (reader["HocSinhId"] != DBNull.Value)
+                    {
+                        queryResult.HocSinhId = (long)reader["HocSinhId"];
+                    }
+                    if (reader["TenHocSinh"] != DBNull.Value)
+                    {
+                        queryResult.TenHocSinh = (string)reader["TenHocSinh"];
+                    }
+                    if (reader["NgaySinh"] != DBNull.Value)
+                    {
+                        queryResult.NgaySinh = (DateTime)reader["NgaySinh"];
+                    }
+                    if (reader["SoDienThoai"] != DBNull.Value)
+                    {
+                        queryResult.SoDienThoai = (string)reader["SoDienThoai"];
+                    }
+                    if (reader["DiaChi"] != DBNull.Value)
+                    {
+                        queryResult.DiaChi = (string)reader["DiaChi"];
+                    }
+                    if (reader["Email"] != DBNull.Value)
+                    {
+                        queryResult.Email = (string)reader["Email"];
+                    }
+                    if (reader["MatKhau"] != DBNull.Value)
+                    {
+                        queryResult.MatKhau = (string)reader["MatKhau"];
+                    }
+                    if (reader["TenDangNhap"] != DBNull.Value)
+                    {
+                        queryResult.TenDangNhap = (string)reader["TenDangNhap"];
+                    }
+                    if (reader["Avatar"] != DBNull.Value)
+                    {
+                        queryResult.Avatar = (string)reader["Avatar"];
+                    }
+                }
+                //Đóng kết nối
+                reader.Close();
+                connection.Close();
+            }
+            //Trả về kết quả
+            return queryResult;
+        }
+        public void ChangePasswordHocSinh(string userName, string oldPassword, string newPassword)
+        {
+            string queryString = "UPDATE HocSinh SET MatKhau = @newPassword"
+                               + " WHERE (TenDangNhap = @userName OR Email = @userName) AND MatKhau = @oldPassword";
+            //Mở kết nối đến database
+            using (SqlConnection connection =
+                new SqlConnection(this.ConnectionString))
+            {
+                // Khởi tạo command với các tham số truyền vào là các trường trong đối tượng HocSinh
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("@newPassword", newPassword);
+                command.Parameters.AddWithValue("@userName", userName);
+                command.Parameters.AddWithValue("@oldPassword", oldPassword);
+
+                //Mở kết nối và thực hiện query vào database
+                connection.Open();
+                command.ExecuteNonQuery(); //Không có giá trị trả về: dùng ExecuteNonQuery
+
+                //Đóng kết nối
+                connection.Close();
+            }
+        }
+
         public HocSinh InsertHocSinh(HocSinh hocSinh)
         {
             //Mật khẩu mặc định khi thêm mới tài khoản
@@ -54,7 +146,6 @@ namespace WebServer.Repository
 
         public HocSinh UpdateHocSinh(HocSinh hocSinh)
         {
-            //HocSinhId tự động được sinh ra, ta không cần phải truyền vào HocSinhId ở câu query
             string queryString = "UPDATE HocSinh SET TenHocSinh = @tenHocSinh, NgaySinh = @ngaySinh, SoDienThoai = @soDienThoai, DiaChi = @diaChi, Email = @email, MatKhau = @matKhau, TenDangNhap = @tenDangNhap, Avatar = @avatar"
                                + "  WHERE HocSinhId = @hocSinhId";
             //Mở kết nối đến database

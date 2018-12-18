@@ -28,6 +28,8 @@ namespace WebServer
 
         public static void Register(HttpConfiguration config)
         {
+            //config.Filters.Add(new AuthorizeAttribute());
+
             // New code
             var corsAttr = new EnableCorsAttribute("*", "*", "*");
             config.EnableCors(corsAttr);
