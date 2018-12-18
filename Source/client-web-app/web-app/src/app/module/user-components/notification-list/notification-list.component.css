@@ -1,0 +1,23 @@
+#notification-screen .header-content {
+  border-bottom: 1px solid #ccc;
+}
+
+#notification-screen .header-content input {
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #ccc;
+}
+
+#notification-screen .body-content .item {
+  border-bottom: 1px dashed #ccc;
+  margin: 6px;
+}
+
+#notification-screen .body-content .item .col-2 {
+  margin-top: 14px;
+  white-space: nowrap;
+}
+
+#notification-screen .body-content .item .col-2 span {
+  float: right;
+}

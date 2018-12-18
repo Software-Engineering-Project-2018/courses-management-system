@@ -9,6 +9,6 @@ namespace WebServer.Controllers
     public class BaseController : ApiController
     {
         protected CoursesSystemEntities db = new CoursesSystemEntities();
-        
+
     }
 }

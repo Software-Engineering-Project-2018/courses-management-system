@@ -1,0 +1,23 @@
+#teacher-list-screen .header-content {
+  border-bottom: 1px solid #ccc;
+}
+
+#teacher-list-screen .header-content input {
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #ccc;
+}
+
+#teacher-list-screen .body-content .item {
+  border-bottom: 1px dashed #ccc;
+  margin: 6px;
+}
+
+#teacher-list-screen .body-content .item .col-2 {
+  margin-top: 14px;
+  white-space: nowrap;
+}
+
+#teacher-list-screen .body-content .item .col-2 span {
+  float: right;
+}

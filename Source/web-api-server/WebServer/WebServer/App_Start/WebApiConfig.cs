@@ -30,8 +30,12 @@ namespace WebServer
         {
             //config.Filters.Add(new AuthorizeAttribute());
 
-            // New code
-            var corsAttr = new EnableCorsAttribute("*", "*", "*");
+#if DEBUG
+            var corsAttr = new EnableCorsAttribute("http://localhost:50734", "*", "*");
+#endif
+#if !DEBUG
+            var corsAttr = new EnableCorsAttribute("quanlylophoc.tk", "*", "*");
+#endif
             config.EnableCors(corsAttr);
 
             // Web API configuration and services

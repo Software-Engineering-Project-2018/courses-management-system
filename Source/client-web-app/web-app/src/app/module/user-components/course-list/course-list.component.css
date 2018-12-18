@@ -1,0 +1,29 @@
+#courses-screen .header-content {
+  border-bottom: 1px solid #ccc;
+}
+
+#courses-screen .header-content input {
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #ccc;
+}
+
+@media (max-width: 480px) {
+  #courses-screen .header-content input {
+    width: 50px;
+  }
+}
+
+#courses-screen .body-content .item {
+  border-bottom: 1px dashed #ccc;
+  margin: 6px;
+}
+
+#courses-screen .body-content .item .col-2 {
+  margin-top: 14px;
+  white-space: nowrap;
+}
+
+#courses-screen .body-content .item .col-2 span {
+  float: right;
+}

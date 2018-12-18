@@ -1066,6 +1066,12 @@ body {
   padding: 20px 40px;
 }
 
+@media (max-width: 480px) {
+  .page-wrapper .page-content {
+    padding: 20px 10px;
+  }
+}
+
 .page-wrapper .page-content {
   overflow-x: hidden;
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, Injector } from '@angular/core';
-import { HocSinhService } from 'src/app/services/hoc-sinh.service';
+import { HocSinhService } from 'src/app/services/data-services/hoc-sinh.service';
 import { CropperSettings } from 'ng2-img-cropper';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
@@ -11,8 +11,17 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 })
 export class ProfileComponent implements OnInit {
 
+  // Form data
+  name = '';
+  id = '';
+  gender = 0;
+  birthday = new Date();
+  phone = '';
+  address = '';
+  email = '';
+
+  //
   infoForm: FormGroup;
-  passwordForm: FormGroup;
   data: any;
   defautAvatar = 'assets/noavatar.png';
   cropperSettings: CropperSettings;
@@ -37,17 +46,6 @@ export class ProfileComponent implements OnInit {
       'address': [null, Validators.compose([Validators.required])],
       'email': [null, Validators.compose([Validators.required, Validators.email])]
     });
-    this.passwordForm = fb.group({
-      'oldPassword': [null, Validators.compose([Validators.required])],
-      'newPassword': [null, Validators.compose([Validators.required, Validators.minLength(8)])],
-      'confirmPassword': [null, Validators.compose([Validators.required])],
-    });
-
-    console.log(this.infoForm);
-    this.infoForm.valueChanges.subscribe((form: any) => {
-      console.log('form changed to:', form);
-    });
-
 
     this.data = {};
   }
@@ -55,15 +53,21 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
   }
 
-  submitForm(value: any) {
-    console.log(value);
+  resetAvatarOnClick() {
+    this.data.image = undefined;
   }
 
   changeInfoOnClick() {
 
   }
 
-  changePasswordOnClick() {
-
+  resetInfoFormOnClick() {
+    this.name = '';
+    this.id = '';
+    this.gender = 0;
+    this.birthday = new Date();
+    this.phone = '';
+    this.address = '';
+    this.email = '';
   }
 }

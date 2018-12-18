@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Owin;
 using Microsoft.Owin.Cors;
@@ -10,7 +9,7 @@ using Owin;
 
 namespace WebServer
 {
-    public class Startup
+    public partial class Startup
     {
         public void ConfigureServices(IServiceCollection services)
         {
@@ -24,6 +23,7 @@ namespace WebServer
 #endif
 
             //Token Auth
+            //ConfigureAuth(app);
             OAuthAuthorizationServerOptions options = new OAuthAuthorizationServerOptions
             {
                 TokenEndpointPath = new PathString("/token"),
@@ -32,7 +32,7 @@ namespace WebServer
             };
 
 #if !DEBUG
-            options.AccessTokenExpireTimeSpan = TimeSpan.FromHours(4);
+              options.AccessTokenExpireTimeSpan = TimeSpan.FromHours(4);
 #endif
 
 #if DEBUG

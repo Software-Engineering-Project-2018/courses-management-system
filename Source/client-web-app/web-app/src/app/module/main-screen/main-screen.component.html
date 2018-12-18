@@ -67,10 +67,10 @@
             <div class="sidebar-submenu">
               <ul>
                 <li>
-                  <a [routerLink]="['/dashboard/notification']" routerLinkActive="router-link-active">
+                  <a [routerLink]="['/dashboard/courses-notification']" routerLinkActive="router-link-active">
                     Thông báo khóa học
                   </a>
-                  <a [routerLink]="['/dashboard/notification']" routerLinkActive="router-link-active">
+                  <a [routerLink]="['/dashboard/general-notification']" routerLinkActive="router-link-active">
                     Thông báo chung
                   </a>
                 </li>
@@ -149,7 +149,7 @@
             </a>
           </li>
           <li class="not-contain-dropdown">
-            <a href="#">
+            <a (click)="logOutOnClick()">
               <i class="fa fa-lock"></i>
               <span>Đăng xuất</span>
             </a>

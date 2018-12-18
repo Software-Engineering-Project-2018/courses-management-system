@@ -5,6 +5,29 @@
         ĐĂNG KÝ
       </div>
       <form [formGroup]="registerForm" (ngSubmit)="registerOnClick()" class="row">
+        <div class="form-group col-12 col-md-6" [ngClass]="{'has-error':!registerForm.controls['username'].valid && registerForm.controls['username'].touched}">
+          <label>Tên người dùng: </label>
+          <input class="form-control" type="text" placeholder="" [formControl]="registerForm.controls['username']"
+          (onValueChanged)="checkUsedUsername()" placement="top" ngbTooltip="Tên dùng để đăng nhập.">
+          
+          <div *ngIf="registerForm.controls['username'].hasError('pattern') && registerForm.controls['username'].touched"
+            class="alert text-danger">
+            <i class="fa fa-exclamation-triangle"></i>
+            Tên người dùng không dấu và không chứa khoảng trắng hay các ký tự đặc biệt.</div>
+          <div *ngIf="registerForm.controls['username'].hasError('required') && registerForm.controls['username'].touched && !registerForm.controls['username'].hasError('pattern')"
+            class="alert  text-danger">
+            <i class="fa fa-exclamation-triangle"></i>
+            Chưa nhập tên người dùng.</div>
+          <div *ngIf="registerForm.controls['username'].hasError('minlength') && registerForm.controls['username'].touched && !registerForm.controls['username'].hasError('pattern')"
+            class="alert text-danger">
+            <i class="fa fa-exclamation-triangle"></i>
+            Tên người dùng quá ngắn.</div>
+          <div *ngIf="registerForm.controls['username'].hasError('maxlength') && registerForm.controls['username'].touched && !registerForm.controls['username'].hasError('pattern')"
+            class="alert text-danger">
+            <i class="fa fa-exclamation-triangle"></i>
+            Tên người dùng quá dài.</div>
+        </div>
+
         <div class="form-group col-12 col-md-6" [ngClass]="{'has-error':!registerForm.controls['name'].valid && registerForm.controls['name'].touched}">
           <label>Họ tên đầy đủ: </label>
           <input class="form-control" type="text" placeholder="Nguyễn Văn A" [formControl]="registerForm.controls['name']"
@@ -25,14 +48,14 @@
 
         <div class="form-group col-12 col-md-6" [ngClass]="{'has-error':!registerForm.controls['gender'].valid && registerForm.controls['gender'].touched}">
           <label>Giới tính: </label>
-          <select class="custom-select form-control" placement="top" ngbTooltip="Chọn giới tính.">
-            <option selected>Giới tính...</option>
+          <select class="custom-select form-control" [formControl]="registerForm.controls['gender']"
+          placement="top" ngbTooltip="Chọn giới tính." placeholder="Chọn giới tính...">
             <option value="1">Nam</option>
             <option value="2">Nũ</option>
-            <option value="3">Khác</option>
+            <option selected value="3">Khác</option>
           </select>
 
-          <div *ngIf="!registerForm.controls['gender'].valid && registerForm.controls['gender'].touched" class="alert text-danger">
+          <div *ngIf="registerForm.controls['gender'].hasError('required') && registerForm.controls['gender'].touched" class="alert text-danger">
             <i class="fa fa-exclamation-triangle"></i>
             Bạn phải chọn giới tính.</div>
         </div>
@@ -51,9 +74,6 @@
           <div *ngIf="registerForm.controls['birthday'].hasError('required') && registerForm.controls['birthday'].touched"
             class="alert text-danger">
             <i class="fa fa-exclamation-triangle"></i>Chọn ngày sinh.</div>
-          <div *ngIf="registerForm.controls['birthday'].hasError('minlength') && registerForm.controls['birthday'].touched"
-            class="alert text-danger">
-            <i class="fa fa-exclamation-triangle"></i>Chưa chọn ngày sinh.</div>
         </div>
 
         <div class="form-group col-12 col-md-6" [ngClass]="{'has-error':!registerForm.controls['phone'].valid && registerForm.controls['phone'].touched}">
@@ -80,7 +100,7 @@
         <div class="form-group col-12" [ngClass]="{'has-error':!registerForm.controls['email'].valid && registerForm.controls['email'].touched}">
           <label>Email: </label>
           <input class="form-control" type="emailks" placeholder="example@example.com" [formControl]="registerForm.controls['email']"
-            placement="top" ngbTooltip="Nhập email.">
+            (onValueChanged)="checkUsedMail()" placement="top" ngbTooltip="Nhập email.">
           <div *ngIf="registerForm.controls['email'].hasError('required') && registerForm.controls['email'].touched"
             class="alert text-danger">
             <i class="fa fa-exclamation-triangle"></i>
@@ -88,6 +108,38 @@
           <div *ngIf="registerForm.controls['email'].hasError('email') && registerForm.controls['email'].touched" class="alert text-danger">
             <i class="fa fa-exclamation-triangle"></i>
             Địa chỉ email không hợp lệ.</div>
+        </div>
+
+        <div class="form-group col-12 col-md-6" [ngClass]="{'has-error':!registerForm.controls['password'].valid && registerForm.controls['password'].touched}">
+          <label>Mật khẩu: </label>
+          <input class="form-control" type="password" [formControl]="registerForm.controls['password']"
+            placement="top" ngbTooltip="Nhập mật khẩu.">
+          <div *ngIf="registerForm.controls['password'].hasError('required') && registerForm.controls['password'].touched"
+            class="alert  text-danger">
+            <i class="fa fa-exclamation-triangle"></i>
+            Chưa nhập mật khẩu.</div>
+          <div *ngIf="registerForm.controls['password'].hasError('minlength') && registerForm.controls['password'].touched"
+            class="alert text-danger">
+            <i class="fa fa-exclamation-triangle"></i>
+           Mật khẩu ít nhất 8 kí tự.</div>
+          <div *ngIf="registerForm.controls['password'].hasError('maxlength') && registerForm.controls['password'].touched"
+            class="alert text-danger">
+            <i class="fa fa-exclamation-triangle"></i>
+            Mật khẩu quá dài.</div>
+        </div>
+
+        <div class="form-group col-12 col-md-6" [ngClass]="{'has-error':!registerForm.controls['confirmPassword'].valid && registerForm.controls['confirmPassword'].touched}">
+          <label>Nhập lại mật khẩu: </label>
+          <input class="form-control" type="password" [formControl]="registerForm.controls['confirmPassword']"
+            placement="top" ngbTooltip="Xác nhận mật khẩu.">
+          <div *ngIf="registerForm.controls['confirmPassword'].hasError('required')"
+            class="alert text-danger">
+            <i class="fa fa-exclamation-triangle"></i>
+           Xác nhận mật khẩu không được để trống.</div>
+           <div *ngIf="(registerForm.controls['password'].value !== registerForm.controls['confirmPassword'].value) && !registerForm.controls['confirmPassword'].hasError('required')"
+             class="alert text-danger">
+             <i class="fa fa-exclamation-triangle"></i>
+            Mật khẩu không khớp.</div>
         </div>
 
         <div class="form-group col-12 col-md-12" [ngClass]="{'has-error':!registerForm.controls['address'].valid && registerForm.controls['address'].touched}">
@@ -102,14 +154,15 @@
 
         <div class="form-group custom-control custom-checkbox col-12 col-md-12 text-center m-3" placement="top"
           ngbTooltip="Đồng ý với điều khoản & dịch vụ." [ngClass]="{'has-error':!registerForm.controls['agree-terms'].valid && registerForm.controls['agree-terms'].touched}">
-          <input type="checkbox" class="custom-control-input" id="customCheck1">
+          <input type="checkbox" [formControl]="registerForm.controls['agree-terms']" 
+           class="custom-control-input" id="customCheck1">
           <label class="custom-control-label" for="customCheck1">Đồng ý với tất cả
             <span class="text-link" data-toggle="modal" data-target="#termsModal">
               Điều khoản và dịch vụ
             </span>.
           </label>
 
-          <div *ngIf="registerForm.controls['address'].hasError('requiredTrue') && registerForm.controls['agree-terms'].touched"
+          <div *ngIf="registerForm.controls['agree-terms'].hasError('requiredTrue')"
             class="alert text-danger">
             <i class="fa fa-exclamation-triangle"></i>
             Chưa đồng ý với điều khoản & dịch vụ.
@@ -117,13 +170,13 @@
         </div>
 
         <div class="form-group text-center col-12 col-sm-6">
-          <button type="submit" class="btn btn-success col-12 col-sm-6" [disabled]="!registerForm.valid">
+          <button type="submit" class="btn btn-success col-12 col-sm-8" [disabled]="!registerForm.valid">
             ĐĂNG KÝ
           </button>
         </div>
 
         <div class="form-group text-center col-12 col-sm-6">
-          <button class="btn btn-success btn-login col-12 col-sm-6" [routerLink]="['/login']" routerLinkActive="router-link-active">
+          <button class="btn btn-success btn-login col-12 col-sm-8" [routerLink]="['/login']" routerLinkActive="router-link-active">
             ĐĂNG NHẬP
           </button>
         </div>

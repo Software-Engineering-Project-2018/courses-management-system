@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Security.Claims;
 using System.Web.Http;
 using WebServer.Models;
 using WebServer.Repository;
@@ -7,14 +8,14 @@ using WebServer.Repository.sp;
 
 namespace WebServer.Controllers
 {
-    //Kế thừa từ BaseController
+    // AuthController chứa các API hệ thống
+    // AuthController Kế thừa từ BaseController
     public class AuthController : BaseController
     {
         // Tạo biến systemsReposistory để gọi các hàm từ SystemsReposistory
         private SystemsReposistory systemsReposistory = new SystemsReposistory();
 
         //API Đăng nhập
-        [Authorize]
         [Route("rest/systems/login")]
         [HttpGet]
         public IHttpActionResult Login([FromBody] dynamic data)
@@ -25,7 +26,6 @@ namespace WebServer.Controllers
         }
 
         //API Đăng ký
-        [Authorize]
         [Route("rest/systems/register")]
         [HttpGet]
         public IHttpActionResult Register([FromBody] dynamic data)
@@ -41,6 +41,18 @@ namespace WebServer.Controllers
             string address = data.address;
             return Ok(systemsReposistory.Register(userType, userName, password,
                 fullName, gender, birthDay, phone, email, address));
+        }
+
+        //API Get thông tin user đăng nhập
+        [Route("rest/systems/get-user-info")]
+        [HttpGet]
+        public IHttpActionResult GetUserInfo()
+        {
+            ClaimsIdentity identityClaims = (ClaimsIdentity)User.Identity; 
+            long userType = Int64.Parse(identityClaims.FindFirst("UserType").Value);
+            long userId = Int64.Parse(identityClaims.FindFirst("UserId").Value);
+
+            return Ok(systemsReposistory.GetUserInfo(userType, userId));
         }
     }
 }

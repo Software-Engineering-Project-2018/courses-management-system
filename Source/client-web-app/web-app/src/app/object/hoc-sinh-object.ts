@@ -1,6 +1,6 @@
-import { BaseObject } from './base-object';
+import { UserObject } from './user-object';
 
-export class HocSinhObject extends BaseObject {
+export class HocSinhObject extends UserObject {
     HocSinhId: number;
     TenHocSinh: string;
     NgaySinh: Date;

@@ -6,17 +6,7 @@
   border-bottom: 1px solid #ccc;
 }
 
-#profile-screen .body-content .body-content-row {
-  margin: 10px 0;
-  border-bottom: 1px dashed #ccc;
-}
-
-#profile-screen .body-content .body-content-row h5 {
-  background: hsla(0, 0%, 0%, 0.43);
-  background-size: contain;
-  width: max-content;
-  padding: 5px 10px;
-  color: #fff;
+#profile-screen .body-content .body-content-row form {
   margin-top: 20px;
 }
 

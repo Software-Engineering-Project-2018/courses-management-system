@@ -52,3 +52,18 @@ a {
   position: absolute;
   right: 0;
 }
+
+/* Global layout */
+.body-content .body-content-row {
+  margin: 10px 0;
+  border-bottom: 1px dashed #ccc;
+}
+
+.body-content .body-content-row h5 {
+  background: hsla(0, 0%, 0%, 0.43);
+  background-size: contain;
+  width: max-content;
+  padding: 5px 10px;
+  color: #fff;
+  margin-top: 20px;
+}

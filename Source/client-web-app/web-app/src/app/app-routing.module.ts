@@ -6,21 +6,24 @@ import { LoginComponent } from './module/system-components/login/login.component
 import { RegisterComponent } from './module/system-components/register/register.component';
 import { ForgotPasswordComponent } from './module/system-components/forgot-password/forgot-password.component';
 import { ProfileComponent } from './module/user-components/profile/profile.component';
-import { CoursesComponent } from './module/user-components/courses/courses.component';
+import { CourseListComponent } from './module/user-components/course-list/course-list.component';
 import { SettingComponent } from './module/user-components/setting/setting.component';
 import { ContactComponent } from './module/system-components/contact/contact.component';
 import { MainScreenComponent } from './module/main-screen/main-screen.component';
-import { NotificationComponent } from './module/user-components/notification/notification.component';
 import { DashboardComponent } from './module/system-components/dashboard/dashboard.component';
 import { ScoreboardComponent } from './module/user-components/scoreboard/scoreboard.component';
-import { StudentsComponent } from './module/user-components/students/students.component';
-import { TeachersComponent } from './module/user-components/teachers/teachers.component';
+import { StudentListComponent } from './module/user-components/student-list/student-list.component';
+import { TeacherListComponent } from './module/user-components/teacher-list/teacher-list.component';
 import { IncomeComponent } from './module/user-components/income/income.component';
 import { ChangepasswordComponent } from './module/user-components/changepassword/changepassword.component';
 import { LessonComponent } from './module/user-components/lesson/lesson.component';
 import { CourseInfoComponent } from './module/user-components/course-info/course-info.component';
 import { UserInfoComponent } from './module/user-components/user-info/user-info.component';
 import { EnrollCourseComponent } from './module/user-components/enroll-course/enroll-course.component';
+import { AuthGuard } from './services/auth-guard';
+import { CourseNotificationListComponent } from './module/user-components/notification-list/courses-notification-list.component';
+import { GeneralNotificationListComponent } from './module/user-components/notification-list/general-notification-list.component';
+import { NotificationInfoComponent } from './module/user-components/notification-info/notification-info.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -36,12 +39,20 @@ const routes: Routes = [
         component: DashboardComponent
       },
       {
+        path: 'courses-notification',
+        component: CourseNotificationListComponent
+      },
+      {
+        path: 'general-notification',
+        component: GeneralNotificationListComponent
+      },
+      {
         path: 'notification',
-        component: NotificationComponent
+        component: NotificationInfoComponent
       },
       {
         path: 'courses',
-        component: CoursesComponent
+        component: CourseListComponent
       },
       {
         path: 'scoreboard',
@@ -49,11 +60,11 @@ const routes: Routes = [
       },
       {
         path: 'students',
-        component: StudentsComponent
+        component: StudentListComponent
       },
       {
         path: 'teachers',
-        component: TeachersComponent
+        component: TeacherListComponent
       },
       {
         path: 'income',
@@ -91,7 +102,8 @@ const routes: Routes = [
         path: 'user-info',
         component: UserInfoComponent
       }
-    ]
+    ],
+    canActivate: [AuthGuard] // khai báo AuthGuard
   },
   { path: 'contact', component: ContactComponent }
 
@@ -103,6 +115,9 @@ const routes: Routes = [
     RouterModule.forRoot(routes, { useHash: true })
   ],
   // declarations: [],
+  providers: [
+    AuthGuard
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

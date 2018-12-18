@@ -23,5 +23,6 @@ namespace WebServer.Models
         public string MatKhau { get; set; }
         public string TenDangNhap { get; set; }
         public string Avatar { get; set; }
+        public long UserType { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import * as $ from 'jquery';
 import { BaseComponent } from '../base/base.component';
 @Component({
@@ -8,8 +8,8 @@ import { BaseComponent } from '../base/base.component';
 })
 export class MainScreenComponent extends BaseComponent implements OnInit {
 
-  constructor() {
-    super();
+  constructor(public injector: Injector) {
+    super(injector);
   }
 
   ngOnInit() {
@@ -84,4 +84,8 @@ export class MainScreenComponent extends BaseComponent implements OnInit {
     // }
   }
 
+  logOutOnClick() {
+    this.logOut();
+    this.router.navigate(['/login']);
+  }
 }
