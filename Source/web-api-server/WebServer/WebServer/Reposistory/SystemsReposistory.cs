@@ -13,11 +13,11 @@ namespace WebServer.Repository.sp
         {
             switch (userType)
             {
-                case 1: //Quan ly
+                case UserBaseDto.TypeAdmin: //Quan ly
                     break;
-                case 2: //GiaoVien
+                case UserBaseDto.TypeTeacher: //GiaoVien
                     break;
-                case 3: //HocSinh
+                case UserBaseDto.TypeStudent: //HocSinh
                     {
                         HocSinh hocSinhDto = new HocSinh();
                         hocSinhDto.TenDangNhap = userName;
@@ -35,7 +35,7 @@ namespace WebServer.Repository.sp
                         }
                     }
                     break;
-                case 4: //Phu huynh
+                case UserBaseDto.TypeParent: //Phu huynh
                     break;
                 default:
                     return false;

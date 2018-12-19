@@ -1,5 +1,5 @@
 import { HocSinhObject } from '../../object/hoc-sinh-object';
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { BaseService } from '../base.service';
@@ -7,12 +7,15 @@ import { BaseService } from '../base.service';
 @Injectable({ providedIn: 'root' })
 export class HocSinhService extends BaseService {
     // private http: Http;
-    constructor(private http: HttpClient) {
-        super();
+    constructor(public injector: Injector, private http: HttpClient) {
+        super(injector);
     }
 
     getAllHocSinh(): Observable<HocSinhObject[]> {
-        return this.http.get<HocSinhObject[]>(this.prefixRestUrl + '/rest/hoc-sinh/get-all').pipe();
+        const httpOptions = {
+            headers: this.httpHeader
+        };
+        return this.http.get<HocSinhObject[]>(this.prefixRestUrl + '/rest/hoc-sinh/get-all', httpOptions).pipe();
     }
 
     getOneHocSinh(hocSinhId: number): Observable<HocSinhObject> {

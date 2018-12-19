@@ -32,7 +32,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
     this.loginForm = fb.group({
       'username': [null, Validators.required],
       'password': [null, Validators.required],
-      'recaptcha': [null, Validators.required]
+      // 'recaptcha': [null, Validators.required]
     });
   }
 

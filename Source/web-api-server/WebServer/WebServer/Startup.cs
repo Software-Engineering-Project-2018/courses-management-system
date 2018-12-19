@@ -26,9 +26,10 @@ namespace WebServer
             //ConfigureAuth(app);
             OAuthAuthorizationServerOptions options = new OAuthAuthorizationServerOptions
             {
+                AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
                 Provider = new OAuthProvider(),
-                AllowInsecureHttp = true
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(2)
             };
 
 #if !DEBUG

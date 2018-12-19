@@ -78,10 +78,10 @@ import { NotificationInfoComponent } from './module/user-components/notification
     ReactiveFormsModule
   ],
   providers: [
-    // {
-    //   provide: RECAPTCHA_LANGUAGE,
-    //   useValue: 'vi',
-    // },
+    {
+      provide: RECAPTCHA_LANGUAGE,
+      useValue: 'vi',
+    },
     {
       provide: HTTP_INTERCEPTORS, // import { HTTP_INTERCEPTORS } from '@angular/common/http';
       useClass: AuthInterceptor,

@@ -1,5 +1,5 @@
 
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { BaseService } from './base.service';
@@ -8,10 +8,8 @@ import { StorageService } from './storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService extends BaseService {
-    protected readonly httpHeader;
-    // private http: Http;
-    constructor(private http: HttpClient, private storageService: StorageService) {
-        super();
+    constructor(public injector: Injector, private http: HttpClient, public storageService: StorageService) {
+        super(injector);
     }
 
     login(userName, password): Observable<any> {
