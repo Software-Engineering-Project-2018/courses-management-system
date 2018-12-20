@@ -1,3 +1,52 @@
-<p>
-  enroll-course works!
-</p>
+<ng-scrollbar class="enroll-course">
+
+  <div id="enroll-coursescreen" class="container">
+    <div class="header-content">
+      <h4 class="title d-inline-block" placement="right" ngbTooltip="Đăng ký kháo học mới">Tham gia khóa học</h4>
+    </div>
+
+    <div class="body-content">
+
+      <div class="info body-content-row">
+        <h5>An toàn và phục hồi dữ liệu - CQ2016/02</h5>
+
+        <div class="info-content row">
+          <div class="col-12">
+            <div class="row">
+              <span class="value">Giáo viên: Nguyễn Đình Thúc</span>
+            </div>
+            <div class="row">
+              <span class="value">Giáo viên: Thái Hùng Văn</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 text-center">
+          <button type="button" class="btn btn-outline-primary"
+          [routerLink]="['/dashboard/course-info']" routerLinkActive="router-link-active" >Tham gia</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</ng-scrollbar>
+
+<!-- Modal -->
+<div class="modal fade" id="avatarModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <!-- <h5 class="modal-title" id="avatarEditterModalCenterTitle">Tải ảnh</h5> -->
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"> &times; </button>
+      </div>
+      <div class="modal-body">
+        <img [src]="defaultAvatar" alt="">
+      </div>
+      <div class="modal-footer border-0">
+        <!-- <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="resetAvatarOnClick()">Hủy</button> -->
+        <button type="button" class="btn btn-success" data-dismiss="modal">Đóng</button>
+      </div>
+    </div>
+  </div>
+</div>

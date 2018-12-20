@@ -2,6 +2,7 @@ import { Component, OnInit, Injector } from '@angular/core';
 import { HocSinhService } from 'src/app/services/data-services/hoc-sinh.service';
 import { CropperSettings } from 'ng2-img-cropper';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { BaseComponent } from '../../base/base.component';
 
 @Component({
   selector: 'app-profile',
@@ -9,7 +10,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
   styleUrls: ['./profile.component.css'],
   providers: [HocSinhService]
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent extends BaseComponent implements OnInit {
 
   // Form data
   name = '';
@@ -23,10 +24,11 @@ export class ProfileComponent implements OnInit {
   //
   infoForm: FormGroup;
   data: any;
-  defautAvatar = 'assets/noavatar.png';
   cropperSettings: CropperSettings;
 
-  constructor(fb: FormBuilder) {
+  constructor(fb: FormBuilder,
+    injector: Injector) {
+    super(injector);
     this.cropperSettings = new CropperSettings();
     this.cropperSettings.width = 100;
     this.cropperSettings.height = 100;

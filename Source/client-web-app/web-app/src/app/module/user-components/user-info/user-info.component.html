@@ -1,3 +1,105 @@
-<p>
-  user-info works!
-</p>
+<ng-scrollbar class="user-info">
+
+  <div id="user-info-screen" class="container">
+    <div class="header-content">
+      <h4 class="title d-inline-block" placement="right" ngbTooltip="Tên người dùng.">HuynhDuyTan</h4>
+    </div>
+
+    <div class="body-content">
+      <!-- <div class="avatar body-content-row">
+        <h5>Ảnh đại diện</h5>
+      </div> -->
+      <div class="info body-content-row">
+        <h5>Thông tin cá nhân</h5>
+
+        <div class="info-content row">
+          <div class="position-relative pb-3 col-12 col-md-4">
+            <img [src]="defaultAvatar" data-toggle="modal" data-target="#avatarModalCenter" placement="top" ngbTooltip="Nhấn để xem ảnh đại diện.">
+          </div>
+          <div class="col-12 col-md-8">
+            <div class="row">
+              <label>Mã học sinh: </label>
+              <span class="value">1612597</span>
+            </div>
+            <div class="row">
+              <label>Ngày sinh: </label>
+              <span class="value">10/10/1998</span>
+            </div>
+            <div class="row">
+              <label>Giới tính: </label>
+              <span class="value">Nam</span>
+            </div>
+            <div class="row">
+              <label>Số điện thoại: </label>
+              <span class="value">03 633 839 93</span>
+            </div>
+            <div class="row">
+              <label>Mã học sinh: </label>
+              <span class="value">1612597</span>
+            </div>
+            <div class="row">
+              <label>Email: </label>
+              <span class="value">duytan.0422@gmail.com</span>
+            </div>
+            <div class="row">
+              <label>Đĩa chỉ: </label>
+              <span class="value">39/9 Trinh Hoai Duc, Hiep phu, Q9</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="info body-content-row">
+        <h5>Các khóa học đã tham gia</h5>
+
+        <div class="info-content row">
+          <div class="col-12">
+            <div class="row">
+              <span class="value">Hệ điều hành - CQ2016/1</span>
+            </div>
+            <div class="row">
+              <span class="value">Nhập môn công nghệ phần mềm - CQ2016/1</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="info body-content-row">
+        <h5>Danh sách phụ huynh</h5>
+
+        <div class="info-content row">
+          <div class="col-12">
+            <div class="row">
+              <span class="value">Nguyễn văn A</span>
+            </div>
+            <div class="row">
+              <span class="value">Nguyễn thị B</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</ng-scrollbar>
+
+<!-- Modal -->
+<div class="modal fade" id="avatarModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <!-- <h5 class="modal-title" id="avatarEditterModalCenterTitle">Tải ảnh</h5> -->
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"> &times; </button>
+      </div>
+      <div class="modal-body">
+        <img [src]="defaultAvatar" alt="">
+      </div>
+      <div class="modal-footer border-0">
+        <!-- <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="resetAvatarOnClick()">Hủy</button> -->
+        <button type="button" class="btn btn-success" data-dismiss="modal">Đóng</button>
+      </div>
+    </div>
+  </div>
+</div>

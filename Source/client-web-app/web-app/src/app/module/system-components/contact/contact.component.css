@@ -1,0 +1,21 @@
+.google-maps-frame iframe {
+  pointer-events: none;
+  width: 100%;
+}
+
+.contact-info {
+  border-bottom: 1px solid #ddd;
+}
+
+.contact-info ul {
+  list-style: none;
+}
+
+.contact-info ul li {
+  padding-bottom: 5px;
+
+}
+
+.customer-info {
+  margin-top: 20px;
+}

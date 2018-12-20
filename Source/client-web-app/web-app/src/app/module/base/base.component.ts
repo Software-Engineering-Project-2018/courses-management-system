@@ -7,9 +7,11 @@ import { AuthService } from 'src/app/services/auth.service';
 export abstract class BaseComponent implements OnInit {
 
   // reCapchaKey release
-  // reCapchaKey = '6Le5JYMUAAAAAOapCSjVdpVTIWv7wH2N9eLRkAiA';
+  reCapchaKey = '6Le5JYMUAAAAAAsRXUGY2wnnEBXcuQV_THAvTxIx';
   // reCapchaKey debugging
-  reCapchaKey = '6LcOuyYTAAAAAHTjFuqhA52fmfJ_j5iFk5PsfXaU';
+  // reCapchaKey = '6LcOuyYTAAAAAHTjFuqhA52fmfJ_j5iFk5PsfXaU';
+
+  defaultAvatar = 'assets/noavatar.png';
   protected router: Router;
   UserLogin: UserObject;
 

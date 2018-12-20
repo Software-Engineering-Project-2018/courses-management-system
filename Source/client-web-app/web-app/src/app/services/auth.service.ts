@@ -2,9 +2,9 @@
 import { Injectable, Injector } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { BaseService } from './base.service';
 import * as moment from 'moment';
 import { StorageService } from './storage.service';
+import { BaseService } from '../module/base/base.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService extends BaseService {

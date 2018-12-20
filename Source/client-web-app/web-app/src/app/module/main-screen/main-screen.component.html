@@ -1,9 +1,6 @@
-<div class="page-wrapper chiller-theme sidebar-bg bg1 toggled">
+<div class="page-wrapper chiller-theme sidebar-bg bg1" [ngClass]="{'toggled': !isMobile}">
 
   <!-- sidebar-wrapper  -->
-  <a id="show-sidebar" class="btn btn-sm btn-dark">
-    <i class="fa fa-bars"></i>
-  </a>
   <nav id="sidebar" class="sidebar-wrapper">
     <ng-scrollbar class="sidebar-content">
       <div class="sidebar-brand">
@@ -17,8 +14,7 @@
           <img class="img-responsive img-rounded" src="../../../assets/user.jpg" alt="User picture">
         </div>
         <div class="user-info">
-          <span class="user-name" style="cursor: pointer;"
-          [routerLink]="['/dashboard/profile']" routerLinkActive="router-link-active" >
+          <span class="user-name" style="cursor: pointer;" [routerLink]="['/dashboard/profile']" routerLinkActive="router-link-active">
             John
             <strong>Cena</strong>
           </span>
@@ -49,9 +45,6 @@
       <div class="sidebar-menu">
 
         <ul>
-          <li class="header-menu">
-            <span>General</span>
-          </li>
           <li class="not-contain-dropdown">
             <a [routerLink]="['/dashboard']" routerLinkActive="router-link-active">
               <i class="fa fa-align-justify"></i>
@@ -60,7 +53,7 @@
           </li>
           <li class="sidebar-dropdown">
             <a>
-                <i class="fa fa-bell"></i>
+              <i class="fa fa-bell"></i>
               <span>Thông báo</span>
               <span class="badge badge-pill badge-primary">3</span>
             </a>
@@ -99,7 +92,7 @@
           </li>
           <li class="sidebar-dropdown">
             <a>
-                <i class="fa fa-graduation-cap"></i>
+              <i class="fa fa-graduation-cap"></i>
               <span>Dành cho quản lý</span>
             </a>
             <div class="sidebar-submenu">
@@ -123,7 +116,7 @@
           </li>
           <li class="sidebar-dropdown">
             <a>
-                <i class="fa fa-cogs"></i>
+              <i class="fa fa-cogs"></i>
               <span>Tùy chọn</span>
             </a>
             <div class="sidebar-submenu">
@@ -195,7 +188,40 @@
 
   <!-- page-content -->
   <main class="page-content">
+    <div class="position-fixed" style="
+      height: 30px;
+      width: 100%;">
+      <a id="show-sidebar" class="btn btn-sm">
+        <i class="fa fa-bars"></i>
+      </a>
+
+      <ul class="nav fixed-top">
+        <li class="nav-item">
+          <a class="nav-link active" href="https://github.com/Software-Engineering-Project-2018/courses-management-system">
+            <i class="fa fa-github"></i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i class="fa fa-bell"></i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i class="fa fa-comments"></i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i class="fa fa-power-off"></i></a>
+        </li>
+      </ul>
+
+    </div>
     <div class="container-fluid">
+      <div class="header-breadcrumb">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-white">
+            <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+            <!-- <li class="breadcrumb-item active" aria-current="page">Data</li> -->
+          </ol>
+        </nav>
+      </div>
       <router-outlet></router-outlet>
     </div>
   </main>

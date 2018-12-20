@@ -21,23 +21,24 @@
 .chiller-theme .sidebar-wrapper .sidebar-brand>a,
 .chiller-theme .sidebar-wrapper .sidebar-menu ul li a,
 .chiller-theme .sidebar-footer>div>a {
-  color: #bdbdbd;
+  color: #217a94;
 }
 
-.chiller-theme .sidebar-wrapper .sidebar-menu ul li:hover>a,
+.chiller-theme .sidebar-wrapper .sidebar-menu ul>li>a:hover,
 .chiller-theme .sidebar-wrapper .sidebar-menu .sidebar-dropdown.active>a,
-.chiller-theme .sidebar-wrapper .sidebar-header .user-info,
-.chiller-theme .sidebar-wrapper .sidebar-brand>a:hover,
+/* .chiller-theme .sidebar-wrapper .sidebar-header .user-info, */
+/* .chiller-theme .sidebar-wrapper .sidebar-brand>a:hover, */
 .chiller-theme .sidebar-footer>div>a:hover i {
   color: #ffffff;
+  background: #217a94;
 }
 
 .page-wrapper.chiller-theme.toggled #close-sidebar {
-  color: #bdbdbd;
+  color: #217a94;
 }
 
 .page-wrapper.chiller-theme.toggled #close-sidebar:hover {
-  color: #ffffff;
+  color: #000;
 }
 
 .chiller-theme .sidebar-wrapper ul li:hover a i,
@@ -85,7 +86,7 @@
 /*-----------------------style with background image -----------------------------------*/
 
 .sidebar-bg.chiller-theme .sidebar-wrapper::before {
-  background-color: rgba(29, 29, 29, 0.8);
+  background-color: #fff;
 }
 
 .sidebar-bg.chiller-theme .sidebar-wrapper .sidebar-header,
@@ -652,11 +653,23 @@ body {
 #show-sidebar {
   position: fixed;
   left: 0;
-  top: 10px;
+  top: 0;
   border-radius: 0 4px 4px 0px;
-  width: 35px;
+  width: 50px;
   transition-delay: .3s;
   color: #fff;
+  background-color: #217a94;
+  line-height: 30px;
+  font-size: 20px;
+}
+
+#show-sidebar:hover {
+  background-color: #fff;
+  color: #217a94;
+}
+
+#show-sidebar:hover i {
+  color: #217a94;
 }
 
 .page-wrapper.toggled #show-sidebar {
@@ -731,10 +744,12 @@ body {
 /*----------------sidebar-content----------------*/
 
 .sidebar-content {
-  max-height: calc(100% - 30px);
-  height: calc(100% - 30px);
+  /* max-height: calc(100% - 30px);
+  height: calc(100% - 30px); */
   overflow-y: auto;
   position: relative;
+  background-color: #fff;
+  border-right: 1px solid #e3e3e3;
 }
 
 .sidebar-content.desktop {
@@ -1059,7 +1074,7 @@ body {
   display: inline-block;
   width: 100%;
   padding-left: 0px;
-  padding-top: 20px;
+  /* padding-top: 20px; */
 }
 
 .page-wrapper .page-content>div {
@@ -1100,4 +1115,15 @@ body {
 
 ::ng-deep ::-webkit-scrollbar {
   display: none;
+}
+
+.nav.fixed-top {
+  left: auto;
+  border-bottom: 1px dashed #63a4cfdb;
+}
+
+.header-breadcrumb {
+  /* top: 0;
+  left: 50px;
+  position: fixed; */
 }

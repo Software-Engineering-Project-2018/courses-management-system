@@ -8,12 +8,15 @@ import { BaseComponent } from '../base/base.component';
 })
 export class MainScreenComponent extends BaseComponent implements OnInit {
 
+  isMobile = false;
   constructor(public injector: Injector) {
     super(injector);
   }
 
   ngOnInit() {
-
+    if (window.screen.width < 768) { // 768px portrait
+      this.isMobile = true;
+    }
     // Dropdown menu
     $('.sidebar-dropdown > a').click(function () {
       $('.sidebar-submenu').slideUp(200);
