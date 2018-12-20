@@ -1,0 +1,47 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Home.master.cs" Inherits="WebServer.Home" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Quản lý khóa học</title>
+    <link href="Themes/Styles.css" rel="stylesheet" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div id="menutop">
+        <div id="menu">
+            <ul>
+                <li><a href="#">Trang chủ</a></li>
+                <li><a href="#">Giới thiệu</a></li>
+                <li><a href="#">Khóa học</a></li>
+                <li><a href="#">Thông báo</a></li>
+            </ul>
+        </div>
+        <div id="maincontent">
+            <div id="rightcontent">
+                <h1>tiêu đề phải</h1>
+                <div id="ndright">nội dung phải</div>
+             </div>
+         </div>
+        <div id="content">
+              
+              <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+          
+               </asp:ContentPlaceHolder>
+        </div>
+        <div id="footer">
+            <div id="ndfooter">
+                TRƯỜNG ĐẠI HỌC KHOA HỌC TỰ NHIÊN - KHOA CÔNG NGHỆ THÔNG TIN
+                <br />
+                Địa chỉ: 227 Nguyễn Văn Cừ, P4, Q5, TP HCM
+                <br />
+                Chịu trách nhiệm nội dung: Nhóm 2 - Môn Nhập Môn Công Nghệ Phần Mềm
+            </div>
+        </div>
+     </div>
+    </form>  
+</body>
+</html>

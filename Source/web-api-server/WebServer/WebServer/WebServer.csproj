@@ -251,6 +251,20 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Home.Master.cs">
+      <DependentUpon>Home.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Home.Master.designer.cs">
+      <DependentUpon>Home.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Models\HocSinh.cs">
       <DependentUpon>SystemModel.tt</DependentUpon>
     </Compile>
@@ -282,6 +296,7 @@
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Index.aspx" />
     <Content Include="Models\SystemModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>SystemModel.edmx</DependentUpon>
@@ -321,6 +336,7 @@
     <Content Include="Models\SystemModel.edmx.diagram">
       <DependentUpon>SystemModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Themes\Styles.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -334,6 +350,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Home.Master" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
