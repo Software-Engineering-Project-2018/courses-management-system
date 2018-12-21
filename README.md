@@ -36,7 +36,7 @@ Defaut username: admin - password: admin
 [![npm version](https://badge.fury.io/js/%40angular%2Fcore.svg)](https://www.npmjs.com/@angular/core)
 
 
-# Angular
+# Angular Tutorial
 
 Angular is a development platform for building mobile and desktop web applications using Typescript/JavaScript and other languages.
 
