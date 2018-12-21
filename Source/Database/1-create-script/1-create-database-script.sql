@@ -1,6 +1,8 @@
-USE [master]
-GO
+--USE [master]
+--GO
 
-CREATE DATABASE [CoursesSystem] 
+--CREATE DATABASE [CoursesSystem] 
 
-GO
+--GO
+
+CREATE DATABASE COURSES_MANAGEMENT

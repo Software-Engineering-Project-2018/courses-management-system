@@ -1,171 +1,123 @@
-﻿USE [CoursesSystem]
+﻿USE COURSES_MANAGEMENT
+SET ANSI_NULLS ON
 
-GO
---userType: 1/2/3/4 
---admin/teacher/student/parent 
-
---Create Student TABLE
-CREATE TABLE Student
+/*CREATE TABLE SCRIPT*/
+CREATE TABLE STUDENT
 (
-	UserId bigint IDENTITY(1,1) not null, --IDENTITY(1,1): tự động phát sinh Id không cần phải insert Id khi insert data
-	IdentificationCode varchar(8), -- Mã số học sinh vd 1612647
-	UserPw nvarchar(100) not null,
-	UserName varchar(50) not null, --Tên đăng nhập	
-	UserFullName nvarchar(50) not null, --Họ tên đầy đủ
-	UserDob date not null,
-	UserGender bigint null,
-	UserAddress nvarchar(200) null,
-	UserMobile varchar(11) null,
-	UserEmail varchar(40) null,
-	UserAvatar varchar(max) null,
-	TotalTutition float null, --Tổng học phí
-	TotalinDebt float null, --Tổng nợ
-	UserType bigint not null,
-	constraint pk_student primary key (UserId),
-	constraint c_student_gender check (UserGender in (0, 1, 2)),  --khác/nam/nữ
-	constraint c_student_userType check (UserType = 3) --student type
+	ID CHAR(7) NOT NULL,
+	PARENTID CHAR(10) NULL,
+	/*Common info*/
+	PASSWORD_ CHAR(15) NOT NULL,
+	FULLNAME NVARCHAR(50) NOT NULL,
+	DOB DATE NOT NULL,
+	GENDER NVARCHAR(3) NOT NULL,
+	ADDRESS_ NVARCHAR(100) NULL,
+	MOBILE CHAR(10) NULL,
+	EMAIL CHAR(40) NULL,
+	/*Common info*/
+	CONSTRAINT PK_STUDENT PRIMARY KEY(ID),
+	CONSTRAINT C_STUDENT_GENDER CHECK(GENDER IN (N'Nam',N'Nữ'))
 )
 
---Create Parent TABLE
-CREATE TABLE Parent
+CREATE TABLE PARENT
 (
-	UserId bigint IDENTITY(1,1) not null,
-	UserPw varchar(15) not null,
-	UserName varchar(50) not null,
-	UserFullName nvarchar(50) not null,
-	UserDob date not null,
-	UserGender bigint null,
-	UserAddress nvarchar(200) null,
-	UserMobile varchar(11) null,
-	UserEmail varchar(40) null,
-	UserAvatar varchar(max) null,
-	StudentId bigint not null,	--foreign key
-	UserType bigint not null,
-	constraint pk_parent primary key (UserId),
-	constraint c_parent_gender check (UserGender in (0, 1, 2)),
-	constraint c_parent_userType check (UserType = 4)  --parent  type
+	ID CHAR(10) NOT NULL,
+	CHILDID CHAR(7) NOT NULL,
+	/*Common info*/
+	PASSWORD_ CHAR(15) NOT NULL,
+	FULLNAME NVARCHAR(50) NOT NULL,
+	DOB DATE NULL,
+	GENDER NVARCHAR(3) NOT NULL,
+	ADDRESS_ NVARCHAR(100) NULL,
+	MOBILE CHAR(10) NULL,
+	EMAIL CHAR(40) NULL,
+	/*Common info*/
+	CONSTRAINT PK_PARENT PRIMARY KEY(ID),
+	CONSTRAINT C_PARENT_GENDER CHECK(GENDER IN (N'Nam',N'Nữ'))
 )
 
---Create Teacher TABLE
-CREATE TABLE Teacher
+CREATE TABLE TEACHER
 (
-	UserId bigint IDENTITY(1,1) not null,
-	IdentificationCode varchar(8), -- Mã số giáo viên
-	UserPw varchar(15) not null,
-	UserName varchar(50) not null,
-	UserFullName nvarchar(50) not null,
-	UserDob date null,
-	UserGender bigint null,
-	UserAddress nvarchar(200) null,
-	UserMobile varchar(11) null,
-	UserEmail varchar(40) null,
-	UserAvatar varchar(max) null,
-	UserType bigint not null,
-	constraint pk_teacher primary key (UserId),
-	constraint c_teacher_gender check (UserGender in (0, 1, 2)),
-	constraint c_teacher_userType check (UserType = 2)  --teacher type
+	ID CHAR(7) NOT NULL,
+	ISMANAGER BIT NULL,
+	/*Common info*/
+	PASSWORD_ CHAR(15) NOT NULL,
+	FULLNAME NVARCHAR(50) NOT NULL,
+	DOB DATE NULL,
+	GENDER NVARCHAR(3) NOT NULL,
+	ADDRESS_ NVARCHAR(100) NULL,
+	MOBILE CHAR(10) NULL,
+	EMAIL CHAR(40) NULL,
+	/*Common info*/
+	CONSTRAINT PK_TEACHER PRIMARY KEY(ID),
+	CONSTRAINT C_TEACHER_GENDER CHECK(GENDER IN (N'Nam', N'Nữ'))
 )
 
---Create Manager TABLE
-CREATE TABLE Manager
+CREATE TABLE COURSE
 (
-	UserId bigint IDENTITY(1,1) not null,
-	UserPw varchar(15) not null,
-	UserName varchar(50) not null,
-	UserFullName nvarchar(50) not null,
-	UserDob date null,
-	UserGender bigint null,
-	UserAddress nvarchar(200) null,
-	UserMobile varchar(11) null,
-	UserEmail varchar(40) null,
-	UserAvatar varchar(max) null,
-	UserType bigint not null,
-	constraint pk_manager primary key (UserId),
-	constraint c_manager_gender check (UserGender in (0, 1, 2)),
-	constraint c_manager_userType check (UserType = 1)  --admin type
+	ID CHAR(7) NOT NULL,
+	MANAGERID CHAR(7) NOT NULL,
+	NUMBEROFCLASSES INT NOT NULL,
+	COURSENAME NVARCHAR(50) NOT NULL,
+	DATE_START DATE NOT NULL,
+	DATE_END DATE NOT NULL,
+	CONSTRAINT PK_COURSE PRIMARY KEY(ID)
 )
 
---Create Course TABLE
-CREATE TABLE Course
+CREATE TABLE CLASS
 (
-	CourseId bigint IDENTITY(1,1) not null,
-	CourseName nvarchar(50) not null,
-	DateStart date not null,
-	DateEnd date not null,
-	Tutition float not null, -- học phí
-	constraint pk_course primary key (CourseId)
+	ID CHAR(15) NOT NULL,
+	COURSEID CHAR(7) NOT NULL,
+	CLASSNAME NVARCHAR(50) NOT NULL,
+	CONSTRAINT PK_CLASS PRIMARY KEY(ID,COURSEID)
 )
 
---Quản lý khóa học của học sinh, 1 học sinh có thể tham gia nhiều khóa học
---Create CourseDetail TABLE
-CREATE TABLE CourseStudentDetail
+CREATE TABLE TASK
 (
-	CourseStudentDetailId bigint IDENTITY(1,1) not null,
-	CourseId bigint not null,	--foreign key
-	StudentId bigint not null,	--foreign key
-	FinalScore float null,
-	constraint pk_course_student_detail primary key (CourseStudentDetailId)
+	ID CHAR(3) NOT NULL,
+	COURSEID CHAR(7) NOT NULL,
+	CLASSID CHAR(15) NOT NULL,
+	TASKNAME NVARCHAR(50) NOT NULL,
+	DATE_ASSIGNED SMALLDATETIME NOT NULL,
+	DEADLINE SMALLDATETIME NOT NULL,
+	CONTENT NVARCHAR(256) NOT NULL,
+	CONSTRAINT PK_TASK PRIMARY KEY(ID, COURSEID, CLASSID)
 )
 
---Quản lý khóa học của giáo viên, 1 giáo viên có thể tham gia nhiều khóa học, 1 khóa ọc có thể gồm nhiều giáo viên
---Create CourseDetail TABLE
-CREATE TABLE CourseTeacherDetail
+CREATE TABLE LECTURE
 (
-	CourseTeacherDetailId bigint IDENTITY(1,1) not null,
-	CourseId bigint not null,	--foreign key
-	TeacherId bigint not null,	--foreign key
-	constraint pk_course_teacher_detail primary key (CourseTeacherDetailId)
+	ID CHAR(3) NOT NULL,
+	COURSEID CHAR(7) NOT NULL,
+	CLASSID CHAR(15) NOT NULL,
+	LECTURENAME NVARCHAR(50) NOT NULL,
+	DATEUPLOADED DATE NOT NULL,
+	CONTENT NVARCHAR(256) NOT NULL
+	CONSTRAINT PK_LECTURE PRIMARY KEY(ID, COURSEID, CLASSID)
 )
 
---Quản lý danh sách bài tập cho từng khóa học
---Create Task TABLE
-CREATE TABLE Task
+CREATE TABLE TEACHING_ASSIGNMENT
 (
-	TaskId bigint IDENTITY(1,1) not null,
-	TaskName nvarchar(50) not null,
-	CourseId bigint not null,	--foreign key
-	TaskDescription nvarchar(300) null,
-	TaskContent nvarchar(max) null,
-	TaskDateStart datetime not null,
-	TaskDeadline datetime not null,
-	TaskDateSubmission datetime null,
-	constraint pk_task primary key (TaskId)
+	TEACHERID CHAR(7) NOT NULL,
+	COURSEID CHAR(7) NOT NULL,
+	CLASSID CHAR(15) NOT NULL,
+	CONSTRAINT PK_TEACHING_ASSIGNMENT PRIMARY KEY(TEACHERID, COURSEID, CLASSID)
 )
 
---Quản lý bài tập của học sinh, 1 học sinh hay 1 khóa học có thể gồm nhiều bài tập
---Create TaskDetail TABLE
-CREATE TABLE TaskDetail
+CREATE TABLE CLASS_ENROLLMENT
 (
-	TaskDetailId bigint IDENTITY(1,1) not null,
-	StudentId bigint not null,	--foreign key
-	TaskId bigint not null,	--foreign key
-	TaskFileUpload varchar(max) null,
-	TaskSubmissionState bit not null,
-	TaskScore float null,
-	constraint pk_task_detail primary key (TaskDetailId)
+	STUDENTID CHAR(7) NOT NULL,
+	COURSEID CHAR(7) NOT NULL,
+	CLASSID CHAR(15) NOT NULL,
+	CONSTRAINT PK_CLASS_ENROLLMENT PRIMARY KEY (STUDENTID, COURSEID, CLASSID)
 )
 
---Quản lý tài liệu của giáo viên, 1 khóa học hay 1 giáo viên có thể quản lý nhiều tài tiệu
---Create TaskDetail TABLE
-CREATE TABLE DocumentDetail
+CREATE TABLE TASK_SUBMISSION
 (
-	DocumentDetailId bigint IDENTITY(1,1) not null,
-	CourseId bigint not null,	--foreign key
-	TeacherId bigint not null,	--foreign key
-	DocumentDetailFileUpload varchar(max) null,
-	constraint pk_document_detail primary key (DocumentDetailId)
-)
-
---Create Notification TABLE
-CREATE TABLE Notification
-(
-	NotificationId bigint IDENTITY(1,1) not null,
-	NotificationName nvarchar(50) not null,
-	NotificationDateCreate datetime not null,
-	NotificationCreatorName datetime not null,
-	NotificationContent nvarchar(max) null,
-	NotificationType bigint not null,
-	CourseId bigint null,	--foreign key. NotificationType là 2 thì lấy dữ liệu từ CourseId, NotificationType là 0 thì không lấy
-	constraint pk_notification primary key (NotificationId),
-	constraint c_notification_type check (NotificationType in (1, 2)) --thông báo chung/thông báo từ khóa học đã đăng ký
+	STUDENTID CHAR(7) NOT NULL,
+	TASKID CHAR(3) NOT NULL,
+	COURSEID CHAR(7) NOT NULL,
+	CLASSID CHAR(15) NOT NULL,
+	DATESUBMITTED SMALLDATETIME NOT NULL,
+	CONTENT NVARCHAR(256) NOT NULL,
+	CONSTRAINT PK_TASK_SUBMISSION PRIMARY KEY(STUDENTID, TASKID, COURSEID, CLASSID)
 )
