@@ -18,7 +18,7 @@ CREATE TABLE Student
 	UserMobile varchar(11) null,
 	UserEmail varchar(40) null,
 	UserAvatar varchar(max) null,
-	TotalTuTition float null, --Tổng học phí
+	TotalTutition float null, --Tổng học phí
 	TotalinDebt float null, --Tổng nợ
 	UserType bigint not null,
 	constraint pk_student primary key (UserId),
