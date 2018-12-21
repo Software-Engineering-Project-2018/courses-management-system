@@ -28,12 +28,12 @@ namespace WebServer.Controllers
             return Ok(studentReposistory.UpdateStudent(student));
         }
 
-        //API Lấy tất cả học sinh
+        //API Lấy tất cả học sinh(tìm kiếm học sinh theo tên)
         [Route("rest/student/get-all")]
         [HttpGet]
-        public IHttpActionResult GetAllStudent()
+        public IHttpActionResult GetAllStudent(string searchKeyword)
         {
-            return Ok(studentReposistory.GetAllStudent());
+            return Ok(studentReposistory.GetAllStudent(searchKeyword));
         }
 
         //API Lấy thông tin 1 học sinh

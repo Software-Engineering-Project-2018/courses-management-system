@@ -219,20 +219,21 @@ namespace WebServer.Repository
         }
 
 
-        public List<Student> GetAllStudent()
+        public List<Student> GetAllStudent(string searchKeyword)
         {
             //Giá trị trả về của hàm này: List<HocSinh>
             List<Student> queryResult = new List<Student>();
 
             //Cấu lệnh truy vấn ở dạng string
-            string queryString = "SELECT * FROM Student";
+            string queryString = "SELECT * FROM Student WHERE UserFullName like '%' + @searchKeyword + '%' OR UserName like '%' + @searchKeyword + '%'";
 
             //Mở kết nối đến database
             using (SqlConnection connection =
                 new SqlConnection(this.ConnectionString))
             {
-                // Khởi tạo command không có tham số nào truyền vào
+                // Khởi tạo command có tham số nào truyền vào là từ khóa tìm kiếm
                 SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("@searchKeyword", searchKeyword);
 
                 //Mở kết nối và thực hiện query vào database
                 connection.Open();

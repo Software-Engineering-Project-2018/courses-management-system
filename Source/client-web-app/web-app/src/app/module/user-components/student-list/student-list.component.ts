@@ -10,9 +10,10 @@ import { StudentService } from 'src/app/services/data-services/student.service';
 })
 export class StudentListComponent implements OnInit {
 
+  searchKeyword = '';
   public studentSelected: StudentObject[];
   constructor(private studentService: StudentService) {
-    this.studentService.getAllStudent().subscribe(
+    this.studentService.getAllStudent(this.searchKeyword).subscribe(
       response => {
         this.studentSelected = response;
       });

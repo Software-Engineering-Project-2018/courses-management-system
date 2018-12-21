@@ -11,9 +11,13 @@ export class StudentService extends BaseService {
         super(injector);
     }
 
-    getAllStudent(): Observable<StudentObject[]> {
+    getAllStudent(searchKeyword): Observable<StudentObject[]> {
+        const params = new HttpParams()
+            .set('searchKeyword', searchKeyword.toString());
+
         const httpOptions = {
-            headers: this.httpHeader
+            headers: this.httpHeader,
+            params: params
         };
         return this.http.get<StudentObject[]>(this.prefixRestUrl + '/rest/student/get-all', httpOptions).pipe();
     }
