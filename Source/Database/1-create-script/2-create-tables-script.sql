@@ -17,8 +17,8 @@ CREATE TABLE Student
 	UserAddress nvarchar(200) null,
 	UserMobile varchar(11) null,
 	UserEmail varchar(40) null,
-	ToTalTuTition float null, --Tổng học phí
-	ToTalinDebt float null, --Tổng nợ
+	TotalTuTition float null, --Tổng học phí
+	TotalinDebt float null, --Tổng nợ
 	UserType bigint not null,
 	constraint pk_student primary key (UserId),
 	constraint c_student_gender check (UserGender in (0, 1, 2)),  --khác/nam/nữ
