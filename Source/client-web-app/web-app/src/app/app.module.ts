@@ -37,6 +37,7 @@ import { UserInfoComponent } from './module/user-components/user-info/user-info.
 import { EnrollCourseComponent } from './module/user-components/enroll-course/enroll-course.component';
 import { AuthInterceptor } from './services/app-http-interceptor';
 import { NotificationInfoComponent } from './module/user-components/notification-info/notification-info.component';
+import { EventEmiterService } from './services/event.emmiter.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -86,7 +87,8 @@ import { NotificationInfoComponent } from './module/user-components/notification
       provide: HTTP_INTERCEPTORS, // import { HTTP_INTERCEPTORS } from '@angular/common/http';
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
+    EventEmiterService
   ],
   bootstrap: [AppComponent]
 })

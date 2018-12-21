@@ -37,13 +37,14 @@ export class LoginComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
+    // if (this.authenticationService.isLoggedIn()) {
+    //   this.router.navigateByUrl('/dashboard');
+    // }
   }
 
   // implement login here
   loginOnClick(): void {
-    if (this.authenticationService.isLoggedIn()) {
-      this.router.navigateByUrl('/register');
-    }
+    this.startLoadingUi();
     this.authenticationService
       .login(this.username, this.password)
       .subscribe(
@@ -54,8 +55,10 @@ export class LoginComponent extends BaseComponent implements OnInit {
             user => {
               // store user
               this.localStorageService.setUserInfo(user, response.expires_in);
+              // this.stopLoadingUi();
             }
           );
+          this.stopLoadingUi();
         },
         error => {
           if (error.status === 0) {
@@ -63,10 +66,9 @@ export class LoginComponent extends BaseComponent implements OnInit {
           } else {
             alert('Đăng nhập thất bại, tên đăng nhập hoặc mật khẩu không đúng!');
           }
-          // console.error(error);
+          this.stopLoadingUi();
         },
         () => {
-          // completeCallback
         }
       );
   }

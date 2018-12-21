@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { EventEmiterService } from './services/event.emmiter.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'web-app';
+  isLoading = false;
+
+  constructor(emitService: EventEmiterService) {
+    emitService.changeEmitted$.subscribe(
+      isLoading => {
+        this.isLoading = isLoading;
+      });
+  }
 }

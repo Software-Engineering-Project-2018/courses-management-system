@@ -22,6 +22,9 @@ export class ForgotPasswordComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.authenticationService.isLoggedIn()) {
+      this.router.navigateByUrl('/dashboard');
+    }
   }
 
   forgotPasswordOnClick() {

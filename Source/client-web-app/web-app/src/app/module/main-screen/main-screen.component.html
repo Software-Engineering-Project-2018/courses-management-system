@@ -188,9 +188,11 @@
 
   <!-- page-content -->
   <main class="page-content">
-    <div class="position-fixed" style="
+    <div class="position-fixed" [ngClass]="{'bg-overlay': isLoading}" style="
       height: 30px;
-      width: 100%;">
+      width: 100%;
+      z-index: 2;
+      margin-top: 40px;">
       <a id="show-sidebar" class="btn btn-sm">
         <i class="fa fa-bars"></i>
       </a>
@@ -201,13 +203,13 @@
             <i class="fa fa-github"></i></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fa fa-bell"></i></a>
+          <a class="nav-link" [routerLink]="['/dashboard/general-notification']" routerLinkActive="router-link-active"><i class="fa fa-bell"></i></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fa fa-comments"></i></a>
+          <a class="nav-link"><i class="fa fa-comments"></i></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fa fa-power-off"></i></a>
+          <a class="nav-link" (click)="logOutOnClick()"><i class="fa fa-power-off"></i></a>
         </li>
       </ul>
 

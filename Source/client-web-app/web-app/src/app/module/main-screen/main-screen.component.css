@@ -661,6 +661,15 @@ body {
   background-color: #217a94;
   line-height: 30px;
   font-size: 20px;
+  z-index: 999999;
+}
+
+.bg-overlay ul.nav>li>a {
+  color: #fff;
+}
+
+.bg-overlay ul.nav>li>a:hover {
+  color: #ccc;
 }
 
 #show-sidebar:hover {
