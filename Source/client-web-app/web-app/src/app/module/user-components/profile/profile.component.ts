@@ -1,25 +1,20 @@
 import { Component, OnInit, Injector } from '@angular/core';
-import { HocSinhService } from 'src/app/services/data-services/hoc-sinh.service';
+import { StudentService } from 'src/app/services/data-services/student.service';
 import { CropperSettings } from 'ng2-img-cropper';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { BaseComponent } from '../../base/base.component';
+import { UserObject } from 'src/app/object/user-object';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
-  providers: [HocSinhService]
+  providers: [StudentService]
 })
 export class ProfileComponent extends BaseComponent implements OnInit {
 
   // Form data
-  name = '';
-  id = '';
-  gender = 0;
-  birthday = new Date();
-  phone = '';
-  address = '';
-  email = '';
+  public userInfo: any = new UserObject();
 
   //
   infoForm: FormGroup;
@@ -64,12 +59,12 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   }
 
   resetInfoFormOnClick() {
-    this.name = '';
-    this.id = '';
-    this.gender = 0;
-    this.birthday = new Date();
-    this.phone = '';
-    this.address = '';
-    this.email = '';
+    this.userInfo.UserFullName = '';
+    this.userInfo.IdentificationCode = '';
+    this.userInfo.UserGender = 0;
+    this.userInfo.UserDob = new Date();
+    this.userInfo.UserMobile = '';
+    this.userInfo.UserAddress = '';
+    this.userInfo.UserEmail = '';
   }
 }

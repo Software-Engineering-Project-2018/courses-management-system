@@ -1,31 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { HocSinhObject } from 'src/app/object/hoc-sinh-object';
-import { HocSinhService } from 'src/app/services/data-services/hoc-sinh.service';
+import { StudentObject } from 'src/app/object/student-object';
+import { StudentService } from 'src/app/services/data-services/student.service';
 
 @Component({
   selector: 'app-student-list',
   templateUrl: './student-list.component.html',
   styleUrls: ['./student-list.component.css'],
-  providers: [HocSinhService]
+  providers: [StudentService]
 })
 export class StudentListComponent implements OnInit {
 
-  public hocSinhSelected: HocSinhObject[];
-  constructor(private hocSinhService: HocSinhService) {
-    this.hocSinhService.getAllHocSinh().subscribe(
+  public studentSelected: StudentObject[];
+  constructor(private studentService: StudentService) {
+    this.studentService.getAllStudent().subscribe(
       response => {
-        this.hocSinhSelected = response;
+        this.studentSelected = response;
       });
   }
   ngOnInit() {
   }
 
-  deleteHocSinh(hocSinhId) {
-    this.hocSinhService.deleteHocSinh(hocSinhId).subscribe(
+  deleteStudent(studentId) {
+    this.studentService.deleteOneStudent(studentId).subscribe(
       response => {
         if (response > 0) {
           alert('Xóa thành công!');
-          this.hocSinhSelected = this.hocSinhSelected.filter(item => item.HocSinhId !== hocSinhId);
+          this.studentSelected = this.studentSelected.filter(item => item.UserId !== studentId);
         } else {
           alert('Lỗi!');
         }

@@ -25,6 +25,16 @@ namespace WebServer.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<HocSinh> HocSinhs { get; set; }
+        public virtual DbSet<Course> Courses { get; set; }
+        public virtual DbSet<CourseStudentDetail> CourseStudentDetails { get; set; }
+        public virtual DbSet<CourseTeacherDetail> CourseTeacherDetails { get; set; }
+        public virtual DbSet<DocumentDetail> DocumentDetails { get; set; }
+        public virtual DbSet<Manager> Managers { get; set; }
+        public virtual DbSet<Notification> Notifications { get; set; }
+        public virtual DbSet<Parent> Parents { get; set; }
+        public virtual DbSet<Student> Students { get; set; }
+        public virtual DbSet<Task> Tasks { get; set; }
+        public virtual DbSet<TaskDetail> TaskDetails { get; set; }
+        public virtual DbSet<Teacher> Teachers { get; set; }
     }
 }

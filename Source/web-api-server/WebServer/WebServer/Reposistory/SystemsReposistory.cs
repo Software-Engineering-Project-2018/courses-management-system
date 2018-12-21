@@ -8,8 +8,8 @@ namespace WebServer.Repository.sp
 {
     public class SystemsReposistory
     {
-        public bool Register(long userType, string userName, string password,
-               string fullName, long gender, DateTime birthDay, string phone, string email, string address)
+        public bool Register(long userType, string identificationCode, string userName, string password,
+               string fullName, long gender, DateTime birthDay, string phone, string email, string address, string avatar)
         {
             switch (userType)
             {
@@ -19,17 +19,18 @@ namespace WebServer.Repository.sp
                     break;
                 case UserBaseDto.TypeStudent: //HocSinh
                     {
-                        HocSinh hocSinhDto = new HocSinh();
-                        hocSinhDto.TenDangNhap = userName;
-                        hocSinhDto.MatKhau = password;
-                        hocSinhDto.TenHocSinh = fullName;
-                        //hocSinhDto.GioiTinh = gender;
-                        hocSinhDto.NgaySinh = birthDay;
-                        hocSinhDto.SoDienThoai = phone;
-                        hocSinhDto.Email = email;
-                        hocSinhDto.DiaChi = address;
-                        hocSinhDto = new HocSinhReposistory().InsertHocSinh(hocSinhDto);
-                        if (hocSinhDto == null)
+                        Student studentDto = new Student();
+                        studentDto.UserName = userName;
+                        studentDto.UserPw = password;
+                        studentDto.UserFullName = fullName;
+                        studentDto.UserGender = gender;
+                        studentDto.UserDob = birthDay;
+                        studentDto.UserMobile = phone;
+                        studentDto.UserEmail = email;
+                        studentDto.UserAddress = address;
+                        studentDto.UserAvatar = avatar;
+                        studentDto = new StudentReposistory().InsertStudent(studentDto);
+                        if (studentDto == null)
                         {
                             return false;
                         }
@@ -45,10 +46,10 @@ namespace WebServer.Repository.sp
 
         public dynamic Login(string userName, string password)
         {
-            HocSinh hocSinh = new HocSinhReposistory().LoginHocSinh(userName, password);
-            if (hocSinh != null)
+            Student student = new StudentReposistory().LoginStudent(userName, password);
+            if (student != null)
             {
-                return hocSinh;
+                return student;
             }
             //GiaoVien giaoVien = new GiaoVienReposistory().LoginGiaoVien(userName, password);
             //if (giaoVien != null)
@@ -78,12 +79,12 @@ namespace WebServer.Repository.sp
                     break;
                 case UserBaseDto.TypeStudent: //3: HocSinh
                     {
-                        HocSinh hocSinhDto = new HocSinhReposistory().LoginHocSinh(userName, oldPassword);
-                        if (hocSinhDto == null)
+                        Student studentDto = new StudentReposistory().LoginStudent(userName, oldPassword);
+                        if (studentDto == null)
                         {
                             return false;
                         }
-                        new HocSinhReposistory().ChangePasswordHocSinh(userName, oldPassword, newPassword);
+                        new StudentReposistory().ChangePasswordStudent(userName, oldPassword, newPassword);
                     }
                     break;
                 case UserBaseDto.TypeParent: //4: Phu huynh
@@ -104,8 +105,8 @@ namespace WebServer.Repository.sp
                     break;
                 case UserBaseDto.TypeStudent: //HocSinh
                     {
-                        HocSinh hocSinhDto = new HocSinhReposistory().GetOneHocSinhById(userId);
-                        return hocSinhDto;
+                        Student studentDto = new StudentReposistory().GetOneStudentById(userId);
+                        return studentDto;
                     }
                 case UserBaseDto.TypeParent: //Phu huynh
                     break;

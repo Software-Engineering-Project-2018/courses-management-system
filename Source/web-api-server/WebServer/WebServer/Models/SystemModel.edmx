@@ -5,44 +5,736 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="CoursesSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="HocSinh">
+        <EntityType Name="Course">
           <Key>
-            <PropertyRef Name="HocSinhId" />
+            <PropertyRef Name="CourseId" />
           </Key>
-          <Property Name="HocSinhId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TenHocSinh" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="NgaySinh" Type="datetime" />
-          <Property Name="SoDienThoai" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="DiaChi" Type="nvarchar" MaxLength="300" Nullable="false" />
-          <Property Name="Email" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="MatKhau" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="TenDangNhap" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="Avatar" Type="nvarchar(max)" />
+          <Property Name="CourseId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateStart" Type="date" Nullable="false" />
+          <Property Name="DateEnd" Type="date" Nullable="false" />
+          <Property Name="Tutition" Type="float" Nullable="false" />
         </EntityType>
+        <EntityType Name="CourseStudentDetail">
+          <Key>
+            <PropertyRef Name="CourseStudentDetailId" />
+          </Key>
+          <Property Name="CourseStudentDetailId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseId" Type="bigint" Nullable="false" />
+          <Property Name="StudentId" Type="bigint" Nullable="false" />
+          <Property Name="FinalScore" Type="float" />
+        </EntityType>
+        <EntityType Name="CourseTeacherDetail">
+          <Key>
+            <PropertyRef Name="CourseTeacherDetailId" />
+          </Key>
+          <Property Name="CourseTeacherDetailId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseId" Type="bigint" Nullable="false" />
+          <Property Name="TeacherId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DocumentDetail">
+          <Key>
+            <PropertyRef Name="DocumentDetailId" />
+          </Key>
+          <Property Name="DocumentDetailId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseId" Type="bigint" Nullable="false" />
+          <Property Name="TeacherId" Type="bigint" Nullable="false" />
+          <Property Name="DocumentDetailFileUpload" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Manager">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserPw" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserFullName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserDob" Type="date" />
+          <Property Name="UserGender" Type="bigint" />
+          <Property Name="UserAddress" Type="nvarchar" MaxLength="200" />
+          <Property Name="UserMobile" Type="varchar" MaxLength="11" />
+          <Property Name="UserEmail" Type="varchar" MaxLength="40" />
+          <Property Name="UserType" Type="bigint" Nullable="false" />
+          <Property Name="UserAvatar" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Notification">
+          <Key>
+            <PropertyRef Name="NotificationId" />
+          </Key>
+          <Property Name="NotificationId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NotificationName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NotificationDateCreate" Type="datetime" Nullable="false" />
+          <Property Name="NotificationCreatorName" Type="datetime" Nullable="false" />
+          <Property Name="NotificationContent" Type="nvarchar(max)" />
+          <Property Name="NotificationType" Type="bigint" Nullable="false" />
+          <Property Name="CourseId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="Parent">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserPw" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserFullName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserDob" Type="date" Nullable="false" />
+          <Property Name="UserGender" Type="bigint" />
+          <Property Name="UserAddress" Type="nvarchar" MaxLength="200" />
+          <Property Name="UserMobile" Type="varchar" MaxLength="11" />
+          <Property Name="UserEmail" Type="varchar" MaxLength="40" />
+          <Property Name="StudentId" Type="bigint" Nullable="false" />
+          <Property Name="UserType" Type="bigint" Nullable="false" />
+          <Property Name="UserAvatar" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdentificationCode" Type="varchar" MaxLength="8" />
+          <Property Name="UserPw" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserFullName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserDob" Type="date" Nullable="false" />
+          <Property Name="UserGender" Type="bigint" />
+          <Property Name="UserAddress" Type="nvarchar" MaxLength="200" />
+          <Property Name="UserMobile" Type="varchar" MaxLength="11" />
+          <Property Name="UserEmail" Type="varchar" MaxLength="40" />
+          <Property Name="TotalTuTition" Type="float" />
+          <Property Name="TotalinDebt" Type="float" />
+          <Property Name="UserType" Type="bigint" Nullable="false" />
+          <Property Name="UserAvatar" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="TaskId" />
+          </Key>
+          <Property Name="TaskId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TaskName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CourseId" Type="bigint" Nullable="false" />
+          <Property Name="TaskDescription" Type="nvarchar" MaxLength="300" />
+          <Property Name="TaskContent" Type="nvarchar(max)" />
+          <Property Name="TaskDateStart" Type="datetime" Nullable="false" />
+          <Property Name="TaskDeadline" Type="datetime" Nullable="false" />
+          <Property Name="TaskDateSubmission" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TaskDetail">
+          <Key>
+            <PropertyRef Name="TaskDetailId" />
+          </Key>
+          <Property Name="TaskDetailId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentId" Type="bigint" Nullable="false" />
+          <Property Name="TaskId" Type="bigint" Nullable="false" />
+          <Property Name="TaskFileUpload" Type="varchar(max)" />
+          <Property Name="TaskSubmissionState" Type="bit" Nullable="false" />
+          <Property Name="TaskScore" Type="float" />
+        </EntityType>
+        <EntityType Name="Teacher">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdentificationCode" Type="varchar" MaxLength="8" />
+          <Property Name="UserPw" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserFullName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserDob" Type="date" />
+          <Property Name="UserGender" Type="bigint" />
+          <Property Name="UserAddress" Type="nvarchar" MaxLength="200" />
+          <Property Name="UserMobile" Type="varchar" MaxLength="11" />
+          <Property Name="UserEmail" Type="varchar" MaxLength="40" />
+          <Property Name="UserType" Type="bigint" Nullable="false" />
+          <Property Name="UserAvatar" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_CourseStudentDetail_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CourseStudentDetail" Type="Self.CourseStudentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="CourseStudentDetail">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseStudentDetail_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CourseStudentDetail" Type="Self.CourseStudentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="CourseStudentDetail">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseTeacherDetail_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CourseTeacherDetail" Type="Self.CourseTeacherDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="CourseTeacherDetail">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseTeacherDetail_Teacher">
+          <End Role="Teacher" Type="Self.Teacher" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CourseTeacherDetail" Type="Self.CourseTeacherDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teacher">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="CourseTeacherDetail">
+              <PropertyRef Name="TeacherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DocumentDetail_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DocumentDetail" Type="Self.DocumentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="DocumentDetail">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DocumentDetail_Teacher">
+          <End Role="Teacher" Type="Self.Teacher" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DocumentDetail" Type="Self.DocumentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teacher">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="DocumentDetail">
+              <PropertyRef Name="TeacherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notification_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Parent_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Parent" Type="Self.Parent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Parent">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Task" Type="Self.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaskDetail_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TaskDetail" Type="Self.TaskDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="TaskDetail">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaskDetail_Task">
+          <End Role="Task" Type="Self.Task" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TaskDetail" Type="Self.TaskDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Task">
+              <PropertyRef Name="TaskId" />
+            </Principal>
+            <Dependent Role="TaskDetail">
+              <PropertyRef Name="TaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="CoursesSystemModelStoreContainer">
-          <EntitySet Name="HocSinh" EntityType="Self.HocSinh" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CourseStudentDetail" EntityType="Self.CourseStudentDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CourseTeacherDetail" EntityType="Self.CourseTeacherDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DocumentDetail" EntityType="Self.DocumentDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Manager" EntityType="Self.Manager" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notification" EntityType="Self.Notification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Parent" EntityType="Self.Parent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Task" EntityType="Self.Task" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaskDetail" EntityType="Self.TaskDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teacher" EntityType="Self.Teacher" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CourseStudentDetail_Course" Association="Self.FK_CourseStudentDetail_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="CourseStudentDetail" EntitySet="CourseStudentDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseStudentDetail_Student" Association="Self.FK_CourseStudentDetail_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="CourseStudentDetail" EntitySet="CourseStudentDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseTeacherDetail_Course" Association="Self.FK_CourseTeacherDetail_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="CourseTeacherDetail" EntitySet="CourseTeacherDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseTeacherDetail_Teacher" Association="Self.FK_CourseTeacherDetail_Teacher">
+            <End Role="Teacher" EntitySet="Teacher" />
+            <End Role="CourseTeacherDetail" EntitySet="CourseTeacherDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DocumentDetail_Course" Association="Self.FK_DocumentDetail_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="DocumentDetail" EntitySet="DocumentDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DocumentDetail_Teacher" Association="Self.FK_DocumentDetail_Teacher">
+            <End Role="Teacher" EntitySet="Teacher" />
+            <End Role="DocumentDetail" EntitySet="DocumentDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notification_Course" Association="Self.FK_Notification_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Notification" EntitySet="Notification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Parent_Student" Association="Self.FK_Parent_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="Parent" EntitySet="Parent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_Course" Association="Self.FK_Task_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Task" EntitySet="Task" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaskDetail_Student" Association="Self.FK_TaskDetail_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="TaskDetail" EntitySet="TaskDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaskDetail_Task" Association="Self.FK_TaskDetail_Task">
+            <End Role="Task" EntitySet="Task" />
+            <End Role="TaskDetail" EntitySet="TaskDetail" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CoursesSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="HocSinh">
+        <EntityType Name="Course">
           <Key>
-            <PropertyRef Name="HocSinhId" />
+            <PropertyRef Name="CourseId" />
           </Key>
-          <Property Name="HocSinhId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenHocSinh" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="NgaySinh" Type="DateTime" Precision="3" />
-          <Property Name="SoDienThoai" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DiaChi" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MatKhau" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TenDangNhap" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Avatar" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CourseId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateStart" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DateEnd" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Tutition" Type="Double" Nullable="false" />
+          <NavigationProperty Name="CourseStudentDetails" Relationship="Self.FK_CourseStudentDetail_Course" FromRole="Course" ToRole="CourseStudentDetail" />
+          <NavigationProperty Name="CourseTeacherDetails" Relationship="Self.FK_CourseTeacherDetail_Course" FromRole="Course" ToRole="CourseTeacherDetail" />
+          <NavigationProperty Name="DocumentDetails" Relationship="Self.FK_DocumentDetail_Course" FromRole="Course" ToRole="DocumentDetail" />
+          <NavigationProperty Name="Notifications" Relationship="Self.FK_Notification_Course" FromRole="Course" ToRole="Notification" />
+          <NavigationProperty Name="Tasks" Relationship="Self.FK_Task_Course" FromRole="Course" ToRole="Task" />
         </EntityType>
+        <EntityType Name="CourseStudentDetail">
+          <Key>
+            <PropertyRef Name="CourseStudentDetailId" />
+          </Key>
+          <Property Name="CourseStudentDetailId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseId" Type="Int64" Nullable="false" />
+          <Property Name="StudentId" Type="Int64" Nullable="false" />
+          <Property Name="FinalScore" Type="Double" />
+          <NavigationProperty Name="Course" Relationship="Self.FK_CourseStudentDetail_Course" FromRole="CourseStudentDetail" ToRole="Course" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_CourseStudentDetail_Student" FromRole="CourseStudentDetail" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="CourseTeacherDetail">
+          <Key>
+            <PropertyRef Name="CourseTeacherDetailId" />
+          </Key>
+          <Property Name="CourseTeacherDetailId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseId" Type="Int64" Nullable="false" />
+          <Property Name="TeacherId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Course" Relationship="Self.FK_CourseTeacherDetail_Course" FromRole="CourseTeacherDetail" ToRole="Course" />
+          <NavigationProperty Name="Teacher" Relationship="Self.FK_CourseTeacherDetail_Teacher" FromRole="CourseTeacherDetail" ToRole="Teacher" />
+        </EntityType>
+        <EntityType Name="DocumentDetail">
+          <Key>
+            <PropertyRef Name="DocumentDetailId" />
+          </Key>
+          <Property Name="DocumentDetailId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseId" Type="Int64" Nullable="false" />
+          <Property Name="TeacherId" Type="Int64" Nullable="false" />
+          <Property Name="DocumentDetailFileUpload" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Course" Relationship="Self.FK_DocumentDetail_Course" FromRole="DocumentDetail" ToRole="Course" />
+          <NavigationProperty Name="Teacher" Relationship="Self.FK_DocumentDetail_Teacher" FromRole="DocumentDetail" ToRole="Teacher" />
+        </EntityType>
+        <EntityType Name="Manager">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserPw" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserFullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserDob" Type="DateTime" Precision="0" />
+          <Property Name="UserGender" Type="Int64" />
+          <Property Name="UserAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UserMobile" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="UserEmail" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="UserType" Type="Int64" Nullable="false" />
+          <Property Name="UserAvatar" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Notification">
+          <Key>
+            <PropertyRef Name="NotificationId" />
+          </Key>
+          <Property Name="NotificationId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NotificationName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NotificationDateCreate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="NotificationCreatorName" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="NotificationContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NotificationType" Type="Int64" Nullable="false" />
+          <Property Name="CourseId" Type="Int64" />
+          <NavigationProperty Name="Course" Relationship="Self.FK_Notification_Course" FromRole="Notification" ToRole="Course" />
+        </EntityType>
+        <EntityType Name="Parent">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserPw" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserFullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserDob" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="UserGender" Type="Int64" />
+          <Property Name="UserAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UserMobile" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="UserEmail" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="StudentId" Type="Int64" Nullable="false" />
+          <Property Name="UserType" Type="Int64" Nullable="false" />
+          <Property Name="UserAvatar" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_Parent_Student" FromRole="Parent" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdentificationCode" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="UserPw" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserFullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserDob" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="UserGender" Type="Int64" />
+          <Property Name="UserAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UserMobile" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="UserEmail" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="TotalTuTition" Type="Double" />
+          <Property Name="TotalinDebt" Type="Double" />
+          <Property Name="UserType" Type="Int64" Nullable="false" />
+          <Property Name="UserAvatar" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CourseStudentDetails" Relationship="Self.FK_CourseStudentDetail_Student" FromRole="Student" ToRole="CourseStudentDetail" />
+          <NavigationProperty Name="Parents" Relationship="Self.FK_Parent_Student" FromRole="Student" ToRole="Parent" />
+          <NavigationProperty Name="TaskDetails" Relationship="Self.FK_TaskDetail_Student" FromRole="Student" ToRole="TaskDetail" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="TaskId" />
+          </Key>
+          <Property Name="TaskId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TaskName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CourseId" Type="Int64" Nullable="false" />
+          <Property Name="TaskDescription" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="TaskContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TaskDateStart" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TaskDeadline" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TaskDateSubmission" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Course" Relationship="Self.FK_Task_Course" FromRole="Task" ToRole="Course" />
+          <NavigationProperty Name="TaskDetails" Relationship="Self.FK_TaskDetail_Task" FromRole="Task" ToRole="TaskDetail" />
+        </EntityType>
+        <EntityType Name="TaskDetail">
+          <Key>
+            <PropertyRef Name="TaskDetailId" />
+          </Key>
+          <Property Name="TaskDetailId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentId" Type="Int64" Nullable="false" />
+          <Property Name="TaskId" Type="Int64" Nullable="false" />
+          <Property Name="TaskFileUpload" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TaskSubmissionState" Type="Boolean" Nullable="false" />
+          <Property Name="TaskScore" Type="Double" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_TaskDetail_Student" FromRole="TaskDetail" ToRole="Student" />
+          <NavigationProperty Name="Task" Relationship="Self.FK_TaskDetail_Task" FromRole="TaskDetail" ToRole="Task" />
+        </EntityType>
+        <EntityType Name="Teacher">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdentificationCode" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="UserPw" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserFullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserDob" Type="DateTime" Precision="0" />
+          <Property Name="UserGender" Type="Int64" />
+          <Property Name="UserAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UserMobile" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="UserEmail" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="UserType" Type="Int64" Nullable="false" />
+          <Property Name="UserAvatar" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CourseTeacherDetails" Relationship="Self.FK_CourseTeacherDetail_Teacher" FromRole="Teacher" ToRole="CourseTeacherDetail" />
+          <NavigationProperty Name="DocumentDetails" Relationship="Self.FK_DocumentDetail_Teacher" FromRole="Teacher" ToRole="DocumentDetail" />
+        </EntityType>
+        <Association Name="FK_CourseStudentDetail_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CourseStudentDetail" Type="Self.CourseStudentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="CourseStudentDetail">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseTeacherDetail_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CourseTeacherDetail" Type="Self.CourseTeacherDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="CourseTeacherDetail">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DocumentDetail_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DocumentDetail" Type="Self.DocumentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="DocumentDetail">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notification_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Task" Type="Self.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseStudentDetail_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CourseStudentDetail" Type="Self.CourseStudentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="CourseStudentDetail">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseTeacherDetail_Teacher">
+          <End Role="Teacher" Type="Self.Teacher" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CourseTeacherDetail" Type="Self.CourseTeacherDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teacher">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="CourseTeacherDetail">
+              <PropertyRef Name="TeacherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DocumentDetail_Teacher">
+          <End Role="Teacher" Type="Self.Teacher" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DocumentDetail" Type="Self.DocumentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teacher">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="DocumentDetail">
+              <PropertyRef Name="TeacherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Parent_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Parent" Type="Self.Parent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Parent">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaskDetail_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TaskDetail" Type="Self.TaskDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="TaskDetail">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaskDetail_Task">
+          <End Role="Task" Type="Self.Task" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TaskDetail" Type="Self.TaskDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Task">
+              <PropertyRef Name="TaskId" />
+            </Principal>
+            <Dependent Role="TaskDetail">
+              <PropertyRef Name="TaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="CoursesSystemEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="HocSinhs" EntityType="Self.HocSinh" />
+          <EntitySet Name="Courses" EntityType="Self.Course" />
+          <EntitySet Name="CourseStudentDetails" EntityType="Self.CourseStudentDetail" />
+          <EntitySet Name="CourseTeacherDetails" EntityType="Self.CourseTeacherDetail" />
+          <EntitySet Name="DocumentDetails" EntityType="Self.DocumentDetail" />
+          <EntitySet Name="Managers" EntityType="Self.Manager" />
+          <EntitySet Name="Notifications" EntityType="Self.Notification" />
+          <EntitySet Name="Parents" EntityType="Self.Parent" />
+          <EntitySet Name="Students" EntityType="Self.Student" />
+          <EntitySet Name="Tasks" EntityType="Self.Task" />
+          <EntitySet Name="TaskDetails" EntityType="Self.TaskDetail" />
+          <EntitySet Name="Teachers" EntityType="Self.Teacher" />
+          <AssociationSet Name="FK_CourseStudentDetail_Course" Association="Self.FK_CourseStudentDetail_Course">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="CourseStudentDetail" EntitySet="CourseStudentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseTeacherDetail_Course" Association="Self.FK_CourseTeacherDetail_Course">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="CourseTeacherDetail" EntitySet="CourseTeacherDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DocumentDetail_Course" Association="Self.FK_DocumentDetail_Course">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="DocumentDetail" EntitySet="DocumentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notification_Course" Association="Self.FK_Notification_Course">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Notification" EntitySet="Notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_Course" Association="Self.FK_Task_Course">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Task" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseStudentDetail_Student" Association="Self.FK_CourseStudentDetail_Student">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="CourseStudentDetail" EntitySet="CourseStudentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseTeacherDetail_Teacher" Association="Self.FK_CourseTeacherDetail_Teacher">
+            <End Role="Teacher" EntitySet="Teachers" />
+            <End Role="CourseTeacherDetail" EntitySet="CourseTeacherDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DocumentDetail_Teacher" Association="Self.FK_DocumentDetail_Teacher">
+            <End Role="Teacher" EntitySet="Teachers" />
+            <End Role="DocumentDetail" EntitySet="DocumentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Parent_Student" Association="Self.FK_Parent_Student">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="Parent" EntitySet="Parents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaskDetail_Student" Association="Self.FK_TaskDetail_Student">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="TaskDetail" EntitySet="TaskDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaskDetail_Task" Association="Self.FK_TaskDetail_Task">
+            <End Role="Task" EntitySet="Tasks" />
+            <End Role="TaskDetail" EntitySet="TaskDetails" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -50,18 +742,155 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="CoursesSystemModelStoreContainer" CdmEntityContainer="CoursesSystemEntities">
-          <EntitySetMapping Name="HocSinhs">
-            <EntityTypeMapping TypeName="CoursesSystemModel.HocSinh">
-              <MappingFragment StoreEntitySet="HocSinh">
-                <ScalarProperty Name="HocSinhId" ColumnName="HocSinhId" />
-                <ScalarProperty Name="TenHocSinh" ColumnName="TenHocSinh" />
-                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
-                <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
-                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
-                <ScalarProperty Name="TenDangNhap" ColumnName="TenDangNhap" />
-                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="CoursesSystemModel.Course">
+              <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="DateStart" ColumnName="DateStart" />
+                <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
+                <ScalarProperty Name="Tutition" ColumnName="Tutition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CourseStudentDetails">
+            <EntityTypeMapping TypeName="CoursesSystemModel.CourseStudentDetail">
+              <MappingFragment StoreEntitySet="CourseStudentDetail">
+                <ScalarProperty Name="CourseStudentDetailId" ColumnName="CourseStudentDetailId" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="FinalScore" ColumnName="FinalScore" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CourseTeacherDetails">
+            <EntityTypeMapping TypeName="CoursesSystemModel.CourseTeacherDetail">
+              <MappingFragment StoreEntitySet="CourseTeacherDetail">
+                <ScalarProperty Name="CourseTeacherDetailId" ColumnName="CourseTeacherDetailId" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="TeacherId" ColumnName="TeacherId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DocumentDetails">
+            <EntityTypeMapping TypeName="CoursesSystemModel.DocumentDetail">
+              <MappingFragment StoreEntitySet="DocumentDetail">
+                <ScalarProperty Name="DocumentDetailId" ColumnName="DocumentDetailId" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="TeacherId" ColumnName="TeacherId" />
+                <ScalarProperty Name="DocumentDetailFileUpload" ColumnName="DocumentDetailFileUpload" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Managers">
+            <EntityTypeMapping TypeName="CoursesSystemModel.Manager">
+              <MappingFragment StoreEntitySet="Manager">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserPw" ColumnName="UserPw" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserFullName" ColumnName="UserFullName" />
+                <ScalarProperty Name="UserDob" ColumnName="UserDob" />
+                <ScalarProperty Name="UserGender" ColumnName="UserGender" />
+                <ScalarProperty Name="UserAddress" ColumnName="UserAddress" />
+                <ScalarProperty Name="UserMobile" ColumnName="UserMobile" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="UserAvatar" ColumnName="UserAvatar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notifications">
+            <EntityTypeMapping TypeName="CoursesSystemModel.Notification">
+              <MappingFragment StoreEntitySet="Notification">
+                <ScalarProperty Name="NotificationId" ColumnName="NotificationId" />
+                <ScalarProperty Name="NotificationName" ColumnName="NotificationName" />
+                <ScalarProperty Name="NotificationDateCreate" ColumnName="NotificationDateCreate" />
+                <ScalarProperty Name="NotificationCreatorName" ColumnName="NotificationCreatorName" />
+                <ScalarProperty Name="NotificationContent" ColumnName="NotificationContent" />
+                <ScalarProperty Name="NotificationType" ColumnName="NotificationType" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parents">
+            <EntityTypeMapping TypeName="CoursesSystemModel.Parent">
+              <MappingFragment StoreEntitySet="Parent">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserPw" ColumnName="UserPw" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserFullName" ColumnName="UserFullName" />
+                <ScalarProperty Name="UserDob" ColumnName="UserDob" />
+                <ScalarProperty Name="UserGender" ColumnName="UserGender" />
+                <ScalarProperty Name="UserAddress" ColumnName="UserAddress" />
+                <ScalarProperty Name="UserMobile" ColumnName="UserMobile" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="UserAvatar" ColumnName="UserAvatar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="CoursesSystemModel.Student">
+              <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="IdentificationCode" ColumnName="IdentificationCode" />
+                <ScalarProperty Name="UserPw" ColumnName="UserPw" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserFullName" ColumnName="UserFullName" />
+                <ScalarProperty Name="UserDob" ColumnName="UserDob" />
+                <ScalarProperty Name="UserGender" ColumnName="UserGender" />
+                <ScalarProperty Name="UserAddress" ColumnName="UserAddress" />
+                <ScalarProperty Name="UserMobile" ColumnName="UserMobile" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="TotalTuTition" ColumnName="TotalTuTition" />
+                <ScalarProperty Name="TotalinDebt" ColumnName="TotalinDebt" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="UserAvatar" ColumnName="UserAvatar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tasks">
+            <EntityTypeMapping TypeName="CoursesSystemModel.Task">
+              <MappingFragment StoreEntitySet="Task">
+                <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+                <ScalarProperty Name="TaskName" ColumnName="TaskName" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="TaskDescription" ColumnName="TaskDescription" />
+                <ScalarProperty Name="TaskContent" ColumnName="TaskContent" />
+                <ScalarProperty Name="TaskDateStart" ColumnName="TaskDateStart" />
+                <ScalarProperty Name="TaskDeadline" ColumnName="TaskDeadline" />
+                <ScalarProperty Name="TaskDateSubmission" ColumnName="TaskDateSubmission" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaskDetails">
+            <EntityTypeMapping TypeName="CoursesSystemModel.TaskDetail">
+              <MappingFragment StoreEntitySet="TaskDetail">
+                <ScalarProperty Name="TaskDetailId" ColumnName="TaskDetailId" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+                <ScalarProperty Name="TaskFileUpload" ColumnName="TaskFileUpload" />
+                <ScalarProperty Name="TaskSubmissionState" ColumnName="TaskSubmissionState" />
+                <ScalarProperty Name="TaskScore" ColumnName="TaskScore" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teachers">
+            <EntityTypeMapping TypeName="CoursesSystemModel.Teacher">
+              <MappingFragment StoreEntitySet="Teacher">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="IdentificationCode" ColumnName="IdentificationCode" />
+                <ScalarProperty Name="UserPw" ColumnName="UserPw" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserFullName" ColumnName="UserFullName" />
+                <ScalarProperty Name="UserDob" ColumnName="UserDob" />
+                <ScalarProperty Name="UserGender" ColumnName="UserGender" />
+                <ScalarProperty Name="UserAddress" ColumnName="UserAddress" />
+                <ScalarProperty Name="UserMobile" ColumnName="UserMobile" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="UserAvatar" ColumnName="UserAvatar" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -21,7 +21,7 @@ namespace WebServer.Repository
         }
 
         //Mật khẩu mặc định
-        public string _defaultPassword = "1234567890";
+        public string _defaultPassword = "admin";
 
     }
 }

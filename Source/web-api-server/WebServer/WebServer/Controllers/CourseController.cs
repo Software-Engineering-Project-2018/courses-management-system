@@ -6,7 +6,7 @@ using WebServer.Repository;
 namespace WebServer.Controllers
 {
     //Kế thừa từ BaseController
-    public class KhoaHocController : BaseController
+    public class CourseController : BaseController
     {
 
     }

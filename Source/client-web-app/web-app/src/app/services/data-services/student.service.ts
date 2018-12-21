@@ -1,43 +1,43 @@
-import { HocSinhObject } from '../../object/hoc-sinh-object';
+import { StudentObject } from '../../object/student-object';
 import { Injectable, Injector } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { BaseService } from 'src/app/module/base/base.service';
 
 @Injectable({ providedIn: 'root' })
-export class HocSinhService extends BaseService {
+export class StudentService extends BaseService {
     // private http: Http;
     constructor(public injector: Injector, private http: HttpClient) {
         super(injector);
     }
 
-    getAllHocSinh(): Observable<HocSinhObject[]> {
+    getAllStudent(): Observable<StudentObject[]> {
         const httpOptions = {
             headers: this.httpHeader
         };
-        return this.http.get<HocSinhObject[]>(this.prefixRestUrl + '/rest/hoc-sinh/get-all', httpOptions).pipe();
+        return this.http.get<StudentObject[]>(this.prefixRestUrl + '/rest/student/get-all', httpOptions).pipe();
     }
 
-    getOneHocSinh(hocSinhId: number): Observable<HocSinhObject> {
+    getOneStudent(hocSinhId: number): Observable<StudentObject> {
         const params = new HttpParams()
-            .set('hocSinhId', hocSinhId.toString());
+            .set('studentId', hocSinhId.toString());
 
         const httpOptions = {
             headers: this.httpHeader,
             params: params
         };
-        return this.http.get<HocSinhObject>(this.prefixRestUrl + '/rest/hoc-sinh/get', httpOptions).pipe();
+        return this.http.get<StudentObject>(this.prefixRestUrl + '/rest/student/get', httpOptions).pipe();
     }
 
-    deleteHocSinh(hocSinhId: number): Observable<any> {
+    deleteOneStudent(hocSinhId: number): Observable<any> {
         const params = new HttpParams()
-            .set('hocSinhId', hocSinhId.toString());
+            .set('studentId', hocSinhId.toString());
 
         const httpOptions = {
             headers: this.httpHeader,
             params: params
         };
-        return this.http.delete(this.prefixRestUrl + '/rest/hoc-sinh/delete', httpOptions).pipe();
+        return this.http.delete(this.prefixRestUrl + '/rest/student/delete', httpOptions).pipe();
     }
 }
 

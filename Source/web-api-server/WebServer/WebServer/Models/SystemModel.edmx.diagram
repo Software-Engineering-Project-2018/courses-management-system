@@ -4,8 +4,29 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9cd41cbb48864dfca56c88c7911e186e" Name="Diagram1">
-        <EntityTypeShape EntityType="CoursesSystemModel.HocSinh" Width="1.5" PointX="0.875" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="8dbccabf8177472ca52d2767f2c53979" Name="Diagram1">
+        <EntityTypeShape EntityType="CoursesSystemModel.Course" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoursesSystemModel.CourseStudentDetail" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoursesSystemModel.CourseTeacherDetail" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoursesSystemModel.DocumentDetail" Width="1.5" PointX="3" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoursesSystemModel.Manager" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoursesSystemModel.Notification" Width="1.5" PointX="3" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoursesSystemModel.Parent" Width="1.5" PointX="3" PointY="22.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoursesSystemModel.Student" Width="1.5" PointX="0.75" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoursesSystemModel.Task" Width="1.5" PointX="3" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoursesSystemModel.TaskDetail" Width="1.5" PointX="5.25" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoursesSystemModel.Teacher" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <AssociationConnector Association="CoursesSystemModel.FK_CourseStudentDetail_Course" ManuallyRouted="false" />
+        <AssociationConnector Association="CoursesSystemModel.FK_CourseTeacherDetail_Course" ManuallyRouted="false" />
+        <AssociationConnector Association="CoursesSystemModel.FK_DocumentDetail_Course" ManuallyRouted="false" />
+        <AssociationConnector Association="CoursesSystemModel.FK_Notification_Course" ManuallyRouted="false" />
+        <AssociationConnector Association="CoursesSystemModel.FK_Task_Course" ManuallyRouted="false" />
+        <AssociationConnector Association="CoursesSystemModel.FK_CourseStudentDetail_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="CoursesSystemModel.FK_CourseTeacherDetail_Teacher" ManuallyRouted="false" />
+        <AssociationConnector Association="CoursesSystemModel.FK_DocumentDetail_Teacher" ManuallyRouted="false" />
+        <AssociationConnector Association="CoursesSystemModel.FK_Parent_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="CoursesSystemModel.FK_TaskDetail_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="CoursesSystemModel.FK_TaskDetail_Task" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

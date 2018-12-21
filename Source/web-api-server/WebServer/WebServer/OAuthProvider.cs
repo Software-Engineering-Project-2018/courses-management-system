@@ -35,29 +35,29 @@ namespace WebServer
                 {
                     ClaimsIdentity identity = new ClaimsIdentity(context.Options.AuthenticationType);
                     long userType = Convert.ToInt32(user.UserType);
-                    switch (userType)
-                    {
-                        case 1: //Quan ly
-                            break;
-                        case 2: //GiaoVien
-                            break;
-                        case 3: //HocSinh
-                            {
+                    //switch (userType)
+                    //{
+                    //    case 1: //Quan ly
+                    //        break;
+                    //    case 2: //GiaoVien
+                    //        break;
+                    //    case 3: //HocSinh
+                    //        {
                                 identity.AddClaim(new Claim("UserType", user.UserType.ToString(CultureInfo.InvariantCulture)));
-                                identity.AddClaim(new Claim("UserId", user.HocSinhId.ToString(CultureInfo.InvariantCulture)));
+                                identity.AddClaim(new Claim("UserId", user.UserId.ToString(CultureInfo.InvariantCulture)));
                                 //identity.AddClaim(new Claim("HocSinhId", user.HocSinhId.ToString(CultureInfo.InvariantCulture)));
                                 //identity.AddClaim(new Claim("TenDangNhap", context.UserName));
                                 //identity.AddClaim(new Claim("TenHocSinh", user.TenHocSinh.ToString(CultureInfo.InvariantCulture)));
                                 //identity.AddClaim(new Claim("SoDienThoai", user.SoDienThoai.ToString(CultureInfo.InvariantCulture)));
                                 //identity.AddClaim(new Claim("DiaChi", user.DiaChi.ToString(CultureInfo.InvariantCulture)));
                                 //identity.AddClaim(new Claim("LoggedOn", DateTime.Now.ToString(CultureInfo.InvariantCulture)));
-                            }
-                            break;
-                        case 4: //Phu huynh
-                            break;
-                        default:
-                            break;
-                    }
+                    //        }
+                    //        break;
+                    //    case 4: //Phu huynh
+                    //        break;
+                    //    default:
+                    //        break;
+                    //}
                     context.Validated(identity);
                 }
                 else

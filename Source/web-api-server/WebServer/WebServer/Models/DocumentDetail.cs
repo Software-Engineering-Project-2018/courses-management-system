@@ -12,17 +12,14 @@ namespace WebServer.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class HocSinh
+    public partial class DocumentDetail
     {
-        public long HocSinhId { get; set; }
-        public string TenHocSinh { get; set; }
-        public Nullable<System.DateTime> NgaySinh { get; set; }
-        public string SoDienThoai { get; set; }
-        public string DiaChi { get; set; }
-        public string Email { get; set; }
-        public string MatKhau { get; set; }
-        public string TenDangNhap { get; set; }
-        public string Avatar { get; set; }
-        public long UserType { get; set; }
+        public long DocumentDetailId { get; set; }
+        public long CourseId { get; set; }
+        public long TeacherId { get; set; }
+        public string DocumentDetailFileUpload { get; set; }
+    
+        public virtual Course Course { get; set; }
+        public virtual Teacher Teacher { get; set; }
     }
 }

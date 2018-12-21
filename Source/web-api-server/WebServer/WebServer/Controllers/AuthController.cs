@@ -34,6 +34,11 @@ namespace WebServer.Controllers
         {
             long userType = data.userType;  //Loại người dùng Quản lý/ Học sinh/ Giáo viên/ phụ huynh
             string userName = data.userName;
+            string identificationCode = null;    //Mã học sinh/ Mã giao viên
+            if (data.identificationCodo != null)
+            {
+                identificationCode = data.identificationCode;
+            }
             string password = data.password;
             string fullName = data.fullName;
             long gender = data.gender;
@@ -41,8 +46,9 @@ namespace WebServer.Controllers
             string phone = data.phone;
             string email = data.email;
             string address = data.address;
-            return Ok(systemsReposistory.Register(userType, userName, password,
-                fullName, gender, birthDay, phone, email, address));
+            string avatar = data.avatar;
+            return Ok(systemsReposistory.Register(userType, identificationCode, userName, password,
+                fullName, gender, birthDay, phone, email, address, avatar));
         }
 
         //API Get thông tin user đăng nhập

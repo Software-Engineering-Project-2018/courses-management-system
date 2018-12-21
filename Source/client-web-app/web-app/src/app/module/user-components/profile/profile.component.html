@@ -21,7 +21,7 @@
         <form [formGroup]="infoForm" (ngSubmit)="changeInfoOnClick()">
           <div class="form-group" [ngClass]="{'has-error':!infoForm.controls['name'].valid && infoForm.controls['name'].touched}">
             <label>Họ tên đầy đủ: </label>
-            <input class="form-control" type="text" [(ngModel)]="name" placeholder="Nguyễn Văn A" [formControl]="infoForm.controls['name']"
+            <input class="form-control" type="text" [(ngModel)]="userInfo.UserFullName" placeholder="Nguyễn Văn A" [formControl]="infoForm.controls['name']"
               placement="top" ngbTooltip="Nhập họ tên của bạn.">
             <div *ngIf="infoForm.controls['name'].hasError('required') && infoForm.controls['name'].touched" class="alert text-danger">
               <i class="fa fa-exclamation-triangle"></i>Chưa\nhập họ tên.</div>
@@ -33,7 +33,7 @@
 
           <div class="form-group" [ngClass]="{'has-error':!infoForm.controls['id'].valid && infoForm.controls['id'].touched}">
             <label>Mã số: </label>
-            <input class="form-control" type="text" [(ngModel)]="id" placeholder="1612000" [formControl]="infoForm.controls['id']"
+            <input class="form-control" type="text" [(ngModel)]="userInfo.IdentificationCode" placeholder="1612000" [formControl]="infoForm.controls['id']"
               placement="top" ngbTooltip="Nhập mã số của bạn.">
             <div *ngIf="infoForm.controls['id'].hasError('required') && infoForm.controls['id'].touched" class="alert text-danger">
               <i class="fa fa-exclamation-triangle"></i>Chưa nhập mã số.</div>
@@ -46,7 +46,8 @@
           <div class="form-group" [ngClass]="{'has-error':!infoForm.controls['birthday'].valid && infoForm.controls['birthday'].touched}">
             <label>Ngày sinh: </label>
             <div class="input-group" placement="top" ngbTooltip="Chọn ngày sinh.">
-              <input class="form-control" placeholder="yyyy-mm-dd" [formControl]="infoForm.controls['birthday']" name="dp"
+              <input class="form-control" [(ngModel)]="userInfo.UserDob"
+              placeholder="yyyy-mm-dd" [formControl]="infoForm.controls['birthday']" name="dp"
                 ngbDatepicker #d="ngbDatepicker">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
@@ -92,7 +93,7 @@
 
           <div class="form-group" [ngClass]="{'has-error':!infoForm.controls['phone'].valid && infoForm.controls['phone'].touched}">
             <label>Số điện thoại: </label>
-            <input class="form-control" type="tel" [(ngModel)]="phone" placeholder="0987654321" [formControl]="infoForm.controls['phone']"
+            <input class="form-control" type="tel" [(ngModel)]="userInfo.UserMobile" placeholder="0987654321" [formControl]="infoForm.controls['phone']"
               placement="top" ngbTooltip="Nhập số điện thoại.">
             <div *ngIf="infoForm.controls['phone'].hasError('required') && infoForm.controls['phone'].touched" class="alert text-danger">
               <i class="fa fa-exclamation-triangle"></i>Chưa nhập số điện thoại.
@@ -109,9 +110,10 @@
               <i class="fa fa-exclamation-triangle"></i>Số điện thoại không hợp lệ.
             </div>
           </div>
+
           <div class="form-group" [ngClass]="{'has-error':!infoForm.controls['email'].valid && infoForm.controls['email'].touched}">
             <label>Email: </label>
-            <input class="form-control" type="email" [(ngModel)]="email" placeholder="example@example.com"
+            <input class="form-control" type="email" [(ngModel)]="userInfo.UserEmail" placeholder="example@example.com"
               [formControl]="infoForm.controls['email']" placement="top" ngbTooltip="Nhập email.">
             <div *ngIf="infoForm.controls['email'].hasError('required') && infoForm.controls['email'].touched" class="alert text-danger">
               <i class="fa fa-exclamation-triangle"></i>Chưa nhập email.
@@ -123,7 +125,7 @@
 
           <div class="form-group" [ngClass]="{'has-error':!infoForm.controls['address'].valid && infoForm.controls['address'].touched}">
             <label>Địa chỉ: </label>
-            <input class="form-control" type="text" [(ngModel)]="address" placeholder="227 Nguyễn Văn Cừ, phương 4, quận 5, TP.HCM"
+            <input class="form-control" type="text" [(ngModel)]="userInfo.UserAddress" placeholder="227 Nguyễn Văn Cừ, phương 4, quận 5, TP.HCM"
               [formControl]="infoForm.controls['address']" placement="top" ngbTooltip="Nhập địa chỉ.">
             <div *ngIf="infoForm.controls['address'].hasError('required') && infoForm.controls['address'].touched"
               class="alert text-danger">
