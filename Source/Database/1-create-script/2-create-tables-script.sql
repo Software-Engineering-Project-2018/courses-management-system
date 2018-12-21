@@ -17,6 +17,7 @@ CREATE TABLE Student
 	UserAddress nvarchar(200) null,
 	UserMobile varchar(11) null,
 	UserEmail varchar(40) null,
+	UserAvatar varchar(max) null,
 	TotalTuTition float null, --Tổng học phí
 	TotalinDebt float null, --Tổng nợ
 	UserType bigint not null,
@@ -37,6 +38,7 @@ CREATE TABLE Parent
 	UserAddress nvarchar(200) null,
 	UserMobile varchar(11) null,
 	UserEmail varchar(40) null,
+	UserAvatar varchar(max) null,
 	StudentId bigint not null,	--foreign key
 	UserType bigint not null,
 	constraint pk_parent primary key (UserId),
@@ -57,6 +59,7 @@ CREATE TABLE Teacher
 	UserAddress nvarchar(200) null,
 	UserMobile varchar(11) null,
 	UserEmail varchar(40) null,
+	UserAvatar varchar(max) null,
 	UserType bigint not null,
 	constraint pk_teacher primary key (UserId),
 	constraint c_teacher_gender check (UserGender in (0, 1, 2)),
@@ -75,6 +78,7 @@ CREATE TABLE Manager
 	UserAddress nvarchar(200) null,
 	UserMobile varchar(11) null,
 	UserEmail varchar(40) null,
+	UserAvatar varchar(max) null,
 	UserType bigint not null,
 	constraint pk_manager primary key (UserId),
 	constraint c_manager_gender check (UserGender in (0, 1, 2)),
