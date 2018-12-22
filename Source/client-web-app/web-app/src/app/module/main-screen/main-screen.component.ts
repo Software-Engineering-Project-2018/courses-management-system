@@ -89,6 +89,6 @@ export class MainScreenComponent extends BaseComponent implements OnInit {
 
   logOutOnClick() {
     this.logOut();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
   }
 }

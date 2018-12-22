@@ -3,6 +3,7 @@
 <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
   <source src="../../../assets/home-page/bg.mp4" type="video/mp4">
 </video>
+<div class="w-100 top-nav"></div>
 
 <div class="masthead">
   <div class="masthead-bg"></div>
@@ -10,14 +11,14 @@
     <div class="row h-100">
       <div class="col-12 my-auto">
         <div class="masthead-content text-white py-5 py-md-0">
-          <h1 class="mb-3">Coming Soon!</h1>
+          <h1 class="mb-3 text-center">Hệ thống quản lý khóa học thông minh</h1>
           <p class="mb-5">We're working hard to finish the development of this site. Our target launch date is
             <strong>December 2018</strong>! Sign up for updates using the form below!</p>
           <div class="input-group input-group-newsletter">
             <input type="email" class="form-control" placeholder="Enter email..." aria-label="Enter email..."
               aria-describedby="basic-addon">
             <div class="input-group-append">
-              <button class="btn btn-secondary" type="button">Notify Me!</button>
+              <button class="btn" type="button">Notify Me!</button>
             </div>
           </div>
         </div>
@@ -28,19 +29,35 @@
 
 <div class="social-icons">
   <ul class="list-unstyled text-center mb-0">
-    <li class="list-unstyled-item" data-toggle="tooltip" data-placement="left" title="Login">
-      <a routerLink="/login">
-        <i class="fa fa-user-plus"></i>
-      </a>
-    </li>
-    <li class="list-unstyled-item" data-toggle="tooltip" data-placement="left" title="Dashboard">
+    <li *ngIf="isLoginIn" class="list-unstyled-item" data-toggle="tooltip" data-placement="left" title="Bảng điều khiển">
       <a routerLink="/dashboard">
         <i class="fa fa-list-ul"></i>
+        <span>Bảng điều khiển</span>
       </a>
     </li>
-    <li class="list-unstyled-item" data-toggle="tooltip" data-placement="left" title="Mail">
+
+    <li *ngIf="!isLoginIn" class="list-unstyled-item" data-toggle="tooltip" data-placement="left" title="Đăng nhập">
+      <a routerLink="/login">
+        <i class="fa fa-sign-in"></i>
+        <span>Đăng nhập</span>
+      </a>
+    </li>
+    <li *ngIf="!isLoginIn" class="list-unstyled-item" data-toggle="tooltip" data-placement="left" title="Đăng ký">
+      <a routerLink="/register">
+        <i class="fa fa-user-plus"></i>
+        <span>Đăng ký</span>
+      </a>
+    </li>
+    <li class="list-unstyled-item" data-toggle="tooltip" data-placement="left" title="Liên hệ">
       <a routerLink="/contact">
         <i class="fa fa-envelope-o"></i>
+        <span>Liên hệ</span>
+      </a>
+    </li>
+    <li *ngIf="isLoginIn" class="list-unstyled-item" data-toggle="tooltip" data-placement="left" title="Đăng ký">
+      <a (click)="logOutOnClick()">
+        <i class="fa fa-user-plus"></i>
+        <span>Đăng xuất</span>
       </a>
     </li>
   </ul>
