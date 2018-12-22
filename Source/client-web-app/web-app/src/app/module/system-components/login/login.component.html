@@ -7,8 +7,8 @@
       <form [formGroup]="loginForm" (ngSubmit)="loginOnClick()">
         <div class="form-group mb-5" [ngClass]="{'has-error':!loginForm.controls['username'].valid 
             && loginForm.controls['username'].touched}">
-          <input class="form-control" type="text" [(ngModel)]="username" 
-          [formControl]="loginForm.controls['username']" placeholder="Tên đăng nhập">
+          <input class="form-control" type="text" [(ngModel)]="username" [formControl]="loginForm.controls['username']"
+            placeholder="Tên đăng nhập">
           <div *ngIf="loginForm.controls['username'].hasError('required') && loginForm.controls['username'].touched"
             class="alert text-danger">
             <i class="fa fa-exclamation-triangle"></i>
@@ -17,8 +17,8 @@
 
         <div class="form-group mb-5" [ngClass]="{'has-error':!loginForm.controls['password'].valid
              && loginForm.controls['password'].touched}">
-          <input class="form-control" type="password" [(ngModel)]="password"
-           [formControl]="loginForm.controls['password']" placeholder="Mật khẩu">
+          <input class="form-control" type="password" [(ngModel)]="password" [formControl]="loginForm.controls['password']"
+            placeholder="Mật khẩu">
           <div *ngIf="loginForm.controls['password'].hasError('required') && loginForm.controls['password'].touched"
             class="alert text-danger">
             <i class="fa fa-exclamation-triangle"></i>
@@ -39,7 +39,7 @@
             <i class="fa fa-exclamation-triangle"></i>
             Bạn là rổ bốt?</div>
         </div> -->
-        
+
         <div class="form-group text-center">
           <button type="submit" class="btn btn-success" [disabled]="!loginForm.valid">
             ĐĂNG NHẬP
@@ -50,6 +50,8 @@
           <p>Chưa có tài khoản?</p>
           <a class="text-link" [routerLink]="['/register']" routerLinkActive="router-link-active">ĐĂNG KÝ NGAY</a>
         </div>
+
+        <ngb-alert [type]="alertDisconnect.type">{{ alert.message }}</ngb-alert>
       </form>
     </div>
   </div>

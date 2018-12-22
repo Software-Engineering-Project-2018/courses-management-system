@@ -37,9 +37,9 @@ export class LoginComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    // if (this.authenticationService.isLoggedIn()) {
-    //   this.router.navigateByUrl('/dashboard');
-    // }
+    if (this.authenticationService.isLoggedIn()) {
+      this.router.navigateByUrl('/dashboard');
+    }
   }
 
   // implement login here
