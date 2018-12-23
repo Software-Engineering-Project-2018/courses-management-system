@@ -154,8 +154,8 @@ namespace WebServer.Repository
                     ? (object)DBNull.Value : student.UserMobile);   
                 command.Parameters.AddWithValue("@userEmail", string.IsNullOrEmpty(student.UserEmail)
                     ? (object)DBNull.Value : student.UserEmail);
-                command.Parameters.AddWithValue("@totalTuTition", student.TotalTutition.GetValueOrDefault() == 0 ? (object)DBNull.Value : student.TotalTutition);
-                command.Parameters.AddWithValue("@totalinDebt", student.TotalinDebt.GetValueOrDefault() == 0 ? (object)DBNull.Value : student.TotalinDebt);
+                command.Parameters.AddWithValue("@totalTuTition", student.TotalTutition == null? (object)DBNull.Value : student.TotalTutition);
+                command.Parameters.AddWithValue("@totalinDebt", student.TotalinDebt == null ? (object)DBNull.Value : student.TotalinDebt);
                 command.Parameters.AddWithValue("@userAvatar", string.IsNullOrEmpty(student.UserAvatar)
                     ? (object)DBNull.Value : student.UserAvatar);
                 command.Parameters.AddWithValue("@userType", student.UserType);
@@ -201,8 +201,8 @@ namespace WebServer.Repository
                     ? (object)DBNull.Value : student.UserMobile);
                 command.Parameters.AddWithValue("@userEmail", string.IsNullOrEmpty(student.UserEmail)
                     ? (object)DBNull.Value : student.UserEmail);
-                command.Parameters.AddWithValue("@totalTuTition", student.TotalTutition.GetValueOrDefault() == 0 ? (object)DBNull.Value : student.TotalTutition);
-                command.Parameters.AddWithValue("@totalinDebt", student.TotalinDebt.GetValueOrDefault() == 0 ? (object)DBNull.Value : student.TotalinDebt);
+                command.Parameters.AddWithValue("@totalTuTition", student.TotalTutition == null ? (object)DBNull.Value : student.TotalTutition);
+                command.Parameters.AddWithValue("@totalinDebt", student.TotalinDebt == null ? (object)DBNull.Value : student.TotalinDebt);
                 command.Parameters.AddWithValue("@userAvatar", string.IsNullOrEmpty(student.UserAvatar)
                     ? (object)DBNull.Value : student.UserAvatar);
 
@@ -233,7 +233,7 @@ namespace WebServer.Repository
             {
                 // Khởi tạo command có tham số nào truyền vào là từ khóa tìm kiếm
                 SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.AddWithValue("@searchKeyword", searchKeyword);
+                command.Parameters.AddWithValue("@searchKeyword", string.IsNullOrEmpty(searchKeyword) ? "" : searchKeyword);
 
                 //Mở kết nối và thực hiện query vào database
                 connection.Open();

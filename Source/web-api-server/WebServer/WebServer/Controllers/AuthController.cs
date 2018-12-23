@@ -52,14 +52,14 @@ namespace WebServer.Controllers
         }
 
         //API Get thông tin user đăng nhập
-        [Authorize]
+        //[Authorize]
         [Route("rest/systems/get-user-info")]
         [HttpGet]
         public IHttpActionResult GetUserInfo()
         {
-            ClaimsIdentity identityClaims = (ClaimsIdentity)User.Identity; 
+            ClaimsIdentity identityClaims = (ClaimsIdentity)User.Identity;
+            long userId = Int64.Parse(identityClaims.FindFirst("UserId").Value); 
             long userType = Int64.Parse(identityClaims.FindFirst("UserType").Value);
-            long userId = Int64.Parse(identityClaims.FindFirst("UserId").Value);
 
             return Ok(systemsReposistory.GetUserInfo(userType, userId));
         }
