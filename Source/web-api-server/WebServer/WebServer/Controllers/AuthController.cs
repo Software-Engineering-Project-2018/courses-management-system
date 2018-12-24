@@ -16,9 +16,9 @@ namespace WebServer.Controllers
         private SystemsReposistory systemsReposistory = new SystemsReposistory();
 
         //API Đăng nhập
-        [Authorize]
+        //[Authorize]
         [Route("rest/systems/login")]
-        [HttpGet]
+        //[HttpGet]
         public IHttpActionResult Login([FromBody] dynamic data)
         {
             string userName = data.userName;
@@ -27,7 +27,7 @@ namespace WebServer.Controllers
         }
 
         //API Đăng ký
-        [Authorize]
+        //[Authorize]
         [Route("rest/systems/register")]
         [HttpGet]
         public IHttpActionResult Register([FromBody] dynamic data)
@@ -52,9 +52,9 @@ namespace WebServer.Controllers
         }
 
         //API Get thông tin user đăng nhập
-        //[Authorize]
         [Route("rest/systems/get-user-info")]
         [HttpGet]
+        //[Authorize]
         public IHttpActionResult GetUserInfo()
         {
             ClaimsIdentity identityClaims = (ClaimsIdentity)User.Identity;

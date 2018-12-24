@@ -1,132 +1,46 @@
-<div id="notification-list-screen">
-  <div class="header-content">
-    <h4 class="title d-inline-block">{{title}}</h4>
-    <a class="float-right" (click)="onClickSearchIcon()">
-      <i class="fa fa-search pr-3"></i>
-    </a>
-    <input type="text" name="" class="float-right">
+<div class="notification-list">
+  <div class="searcher-header">
+    <div class="form-group row">
+      <label for="inputKeyword" class="col-12 col-sm-6 col-md-4 col-lg-2 col-form-label">Tìm kiếm thông báo: </label>
+      <div class="col-12 col-sm-6 col-md-8 col-lg-10">
+        <input type="text" [(ngModel)]="searchKeyword" (keyup.enter)="searchOnclick()" class="form-control" id="inputKeyword"
+          placeholder="Nhập từ khóa">
+      </div>
+    </div>
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary" (click)="searchOnclick()">Tìm kiếm</button>
+    </div>
   </div>
-  <div class="body-content mt-3">
-    <div class="item row">
-      <div class="col-10">
-        <h5 class="course-title" [routerLink]="['/dashboard/notification']" routerLinkActive="router-link-active">
-          <i class="fa fa-address-book"></i>
-          <a> Thông báo 1</a>
-        </h5>
-        <p class="teacher-name">Giáo viên: Phạm Tuấn Sơn</p>
-      </div>
-      <div class="col-2 text-right">
-        <button *ngIf="true" type="button" class="btn btn-light float-right" [routerLink]="['/dashboard/notification']"
-          routerLinkActive="router-link-active">Xem</button>
-        <span class="float-right" *ngIf="false">Đã xem</span>
-      </div>
-    </div>
-    <div class="item row">
-      <div class="col-10">
-        <h5 class="course-title" [routerLink]="['/dashboard/notification']" routerLinkActive="router-link-active">
-          <i class="fa fa-address-book"></i>
-          <a> Thông báo 2</a>
-        </h5>
-        <p class="teacher-name">Giáo viên: Phạm Tuấn Sơn</p>
-      </div>
-      <div class="col-2">
-        <button *ngIf="false" type="button" class="btn btn-light float-right" [routerLink]="['/dashboard/notification']"
-          routerLinkActive="router-link-active">Xem</button>
-        <span *ngIf="true" class="float-right">Đã xem</span>
-      </div>
-    </div>
-    <div class="item row">
-      <div class="col-10">
-        <h5 class="course-title" [routerLink]="['/dashboard/notification']" routerLinkActive="router-link-active">
-          <i class="fa fa-address-book"></i>
-          <a> Thông báo 3</a>
-        </h5>
-        <p class="teacher-name">Giáo viên: Phạm Tuấn Sơn</p>
-      </div>
-      <div class="col-2">
-        <button *ngIf="true" type="button" class="btn btn-light float-right" [routerLink]="['/dashboard/notification']"
-          routerLinkActive="router-link-active">Xem</button>
-        <span *ngIf="false" class="float-right">Đã xem</span>
-      </div>
-    </div>
-    <div class="item row">
-      <div class="col-10">
-        <h5 class="course-title" [routerLink]="['/dashboard/notification']" routerLinkActive="router-link-active">
-          <i class="fa fa-address-book"></i>
-          <a> Thông báo 4</a>
-        </h5>
-        <p class="teacher-name">Giáo viên: Phạm Tuấn Sơn</p>
-      </div>
-      <div class="col-2">
-        <button *ngIf="true" type="button" class="btn btn-light float-right" [routerLink]="['/dashboard/notification']"
-          routerLinkActive="router-link-active">Xem</button>
-        <span *ngIf="false" class="float-right">Đã xem</span>
-      </div>
-    </div>
-    <div class="item row">
-      <div class="col-10">
-        <h5 class="course-title" [routerLink]="['/dashboard/notification']" routerLinkActive="router-link-active">
-          <i class="fa fa-address-book"></i>
-          <a> Thông báo 5</a>
-        </h5>
-        <p class="teacher-name">Giáo viên: Phạm Tuấn Sơn</p>
-      </div>
-      <div class="col-2">
-        <button type="button" class="btn btn-light float-right" [routerLink]="['/dashboard/notification']"
-          routerLinkActive="router-link-active">Xem</button>
-      </div>
-    </div>
-    <div class="item row">
-      <div class="col-10">
-        <h5 class="course-title" [routerLink]="['/dashboard/notification']" routerLinkActive="router-link-active">
-          <i class="fa fa-address-book"></i>
-          <a> Thông báo 6</a>
-        </h5>
-        <p class="teacher-name">Giáo viên: Phạm Tuấn Sơn</p>
-      </div>
-      <div class="col-2">
-        <button type="button" class="btn btn-light float-right" [routerLink]="['/dashboard/notification']"
-          routerLinkActive="router-link-active">Xem</button>
-      </div>
-    </div>
-    <div class="item row">
-      <div class="col-10">
-        <h5 class="course-title" [routerLink]="['/dashboard/notification']" routerLinkActive="router-link-active">
-          <i class="fa fa-address-book"></i>
-          <a> Thông báo 7</a>
-        </h5>
-        <p class="teacher-name">Giáo viên: Phạm Tuấn Sơn</p>
-      </div>
-      <div class="col-2">
-        <button type="button" class="btn btn-light float-right" [routerLink]="['/dashboard/notification']"
-          routerLinkActive="router-link-active">Xem</button>
-      </div>
-    </div>
-    <div class="item row">
-      <div class="col-10">
-        <h5 class="course-title" [routerLink]="['/dashboard/notification']" routerLinkActive="router-link-active">
-          <i class="fa fa-address-book"></i>
-          <a> Thông báo 7</a>
-        </h5>
-        <p class="teacher-name">Giáo viên: Phạm Tuấn Sơn</p>
-      </div>
-      <div class="col-2">
-        <button type="button" class="btn btn-light float-right" [routerLink]="['/dashboard/notification']"
-          routerLinkActive="router-link-active">Xem</button>
-      </div>
-    </div>
-    <div class="item row">
-      <div class="col-10">
-        <h5 class="course-title" [routerLink]="['/dashboard/notification']" routerLinkActive="router-link-active">
-          <i class="fa fa-address-book"></i>
-          <a> Thông báo 8</a>
-        </h5>
-        <p class="teacher-name">Giáo viên: Phạm Tuấn Sơn</p>
-      </div>
-      <div class="col-2">
-        <button type="button" class="btn btn-light float-right" [routerLink]="['/dashboard/notification']"
-          routerLinkActive="router-link-active">Xem</button>
-      </div>
+
+  <div class="dot-line"></div>
+
+  <div class="list-content">
+    <h2 class="default-color p-2">{{title}}</h2>
+    <table class="table">
+      <thead class="default-color text-center">
+        <tr>
+          <th scope="col">STT</th>
+          <th scope="col">Tên thông báo</th>
+          <th class="tex-center" scope="col">Ngày tạo</th>
+          <th class="tex-center" scope="col">Người tạo</th>
+          <th class="tex-center" scope="col">Nội dung</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of notificationList; let i = index;">
+          <th scope="row">{{i + 1}}</th>
+          <td (click)="notificationInfoOnClick(item.UserId)">{{item.NotificationName}}</td>
+          <td class="text-center">{{item.NotificationDateCreate|date:'dd/MM/yyyy HH:mm:ss'}}</td>
+          <td class="text-center">{{item.NotificationCreatorName}}</td>
+          <td class="text-center">{{item.NotificationContent}}</td>
+          <td class="text-center">
+            <span class="text-link">Xem</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="!notificationList || notificationList.length == 0" class="text-center p-3">
+      Không có dữ liệu!
     </div>
   </div>
 </div>

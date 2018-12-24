@@ -1,23 +1,19 @@
-#notification-screen .header-content {
-  border-bottom: 1px solid #ccc;
+.notification-list {
+  border: 1px dashed #63a4cfdb;
+  padding: 10px;
+  border-radius: 10px;
 }
 
-#notification-screen .header-content input {
-  outline: none;
-  border: none;
-  border-bottom: 1px solid #ccc;
+.dot-line {
+  background: url('../../../../assets/img/dot.png') left top repeat-x;
+  height: 30px;
 }
 
-#notification-screen .body-content .item {
-  border-bottom: 1px dashed #ccc;
-  margin: 6px;
+.list-group-item {
+  border: 1px dashed #63a4cfdb;
 }
 
-#notification-screen .body-content .item .col-2 {
-  margin-top: 14px;
-  white-space: nowrap;
-}
-
-#notification-screen .body-content .item .col-2 span {
-  float: right;
+td:not(.text-center) {
+  color: #943b21;
+  cursor: pointer;
 }

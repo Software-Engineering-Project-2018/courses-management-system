@@ -1,29 +1,19 @@
-#courses-screen .header-content {
-  border-bottom: 1px solid #ccc;
+.course-list {
+  border: 1px dashed #63a4cfdb;
+  padding: 10px;
+  border-radius: 10px;
 }
 
-#courses-screen .header-content input {
-  outline: none;
-  border: none;
-  border-bottom: 1px solid #ccc;
+.dot-line {
+  background: url('../../../../assets/img/dot.png') left top repeat-x;
+  height: 30px;
 }
 
-@media (max-width: 480px) {
-  #courses-screen .header-content input {
-    width: 50px;
-  }
+.list-group-item {
+  border: 1px dashed #63a4cfdb;
 }
 
-#courses-screen .body-content .item {
-  border-bottom: 1px dashed #ccc;
-  margin: 6px;
-}
-
-#courses-screen .body-content .item .col-2 {
-  margin-top: 14px;
-  white-space: nowrap;
-}
-
-#courses-screen .body-content .item .col-2 span {
-  float: right;
+td:not(.text-center) {
+  color: #943b21;
+  cursor: pointer;
 }

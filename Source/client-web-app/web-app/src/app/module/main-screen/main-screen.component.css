@@ -1086,9 +1086,11 @@ body {
   /* padding-top: 20px; */
 }
 
-.page-wrapper .page-content>div {
-  padding: 20px 40px;
-}
+/* @media (min-width: 768px) {
+  .page-wrapper .page-content>div {
+    padding: 20px 40px;
+  }
+} */
 
 @media (max-width: 480px) {
   .page-wrapper .page-content {

@@ -1,8 +1,5 @@
-<div id="scoreboard-list-screen">
-  <div class="header-content">
-    <h4 class="title d-inline-block">Bảng điểm</h4>
-  </div>
-  <div class="body-content mt-3">
+<div class="scoreboard-list">
+  <div class="row-header">
     <div class="input-group mb-3">
       <div class="input-group-prepend">
         <label class="input-group-text" for="inputGroupSelect01">Năm hoc</label>
@@ -26,40 +23,32 @@
         <option value="3">Học kỳ 3</option>
       </select>
     </div>
+  </div>
 
+  <div class="dot-line"></div>
+
+  <div class="list-content">
+    <h2 class="default-color p-2">Danh sách bảng điểm</h2>
     <table class="table">
-      <thead>
+      <thead class="default-color text-center">
         <tr>
           <th scope="col">STT</th>
-          <th scope="col">Mã môn học</th>
-          <th scope="col">tên môn học</th>
+          <th scope="col">Tên môn học</th>
           <th scope="col">Điểm số</th>
           <th scope="col">Ghi chú</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-          <td>@mdo</td>
+        <tr *ngFor="let item of courseStudentList; let i = index;">
+          <th scope="row">{{i + 1}}</th>
+          <td>{{item.Course.CourseName}}</td>
+          <td>{{item.FinalScore}}</td>
+          <td class="text-center">Ghi chú</td>
         </tr>
       </tbody>
     </table>
+    <div *ngIf="!courseStudentList || courseStudentList.length == 0" class="text-center p-3">
+      Không có dữ liệu!
+    </div>
   </div>
 </div>

@@ -1,18 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
+import { CourseStudentObject } from 'src/app/object/course-student-detail-object';
+import { BaseComponent } from '../../base/base.component';
 
 @Component({
   selector: 'app-scoreboard',
   templateUrl: './scoreboard.component.html',
   styleUrls: ['./scoreboard.component.css']
 })
-export class ScoreboardComponent implements OnInit {
+export class ScoreboardComponent extends BaseComponent implements OnInit {
 
-  constructor() { }
-
+  searchKeyword = '';
+  public courseStudentList: CourseStudentObject[];
+  constructor(injector: Injector) {
+    super(injector);
+    this.getData();
+  }
   ngOnInit() {
   }
 
-  onClickSearchIcon() {
+  getData() {
+    this.startLoadingUi();
+    // this.studentService.getAllStudent(this.searchKeyword).subscribe(
+    //   response => {
+    //     this.studentList = response;
+    this.stopLoadingUi();
+    // });
   }
-
 }

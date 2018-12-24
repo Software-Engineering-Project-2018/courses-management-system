@@ -28,7 +28,10 @@ export class AuthService extends BaseService {
             headers: this.httpHeader
             // params: params
         };
-        return this.http.get<any>(this.prefixRestUrl + '/rest/systems/get-user-info', httpOptions).pipe();
+        return this.http.get<any>(this.prefixRestUrl + '/rest/systems/get-user-info', { headers: {
+            'Content-Type': 'application/json', 'No-Auth': 'True',
+            'Access-Control-Allow-Origin': '*'
+        } }).pipe();
     }
 
     // Kiểm tra đã đăng nhập chưa, dựa vào expire date

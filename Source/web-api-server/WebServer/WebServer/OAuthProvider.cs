@@ -14,13 +14,13 @@ namespace WebServer
 {
     public class OAuthProvider : OAuthAuthorizationServerProvider
     {
-        public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
+        public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
-            if (context.ClientId == null)
-            {
+            //if (context.ClientId == null)
+            //{
                 context.Validated();
-            }
-            return Task.FromResult<object>(null);
+            //}
+            //return Task.FromResult<object>(null);
         }
 
         public override Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
@@ -34,30 +34,15 @@ namespace WebServer
                 if (user != null)
                 {
                     ClaimsIdentity identity = new ClaimsIdentity(context.Options.AuthenticationType);
-                    long userType = Convert.ToInt32(user.UserType);
-                    //switch (userType)
-                    //{
-                    //    case 1: //Quan ly
-                    //        break;
-                    //    case 2: //GiaoVien
-                    //        break;
-                    //    case 3: //HocSinh
-                    //        {
-                                identity.AddClaim(new Claim("UserType", user.UserType.ToString(CultureInfo.InvariantCulture)));
-                                identity.AddClaim(new Claim("UserId", user.UserId.ToString(CultureInfo.InvariantCulture)));
-                                //identity.AddClaim(new Claim("HocSinhId", user.HocSinhId.ToString(CultureInfo.InvariantCulture)));
-                                //identity.AddClaim(new Claim("TenDangNhap", context.UserName));
-                                //identity.AddClaim(new Claim("TenHocSinh", user.TenHocSinh.ToString(CultureInfo.InvariantCulture)));
-                                //identity.AddClaim(new Claim("SoDienThoai", user.SoDienThoai.ToString(CultureInfo.InvariantCulture)));
-                                //identity.AddClaim(new Claim("DiaChi", user.DiaChi.ToString(CultureInfo.InvariantCulture)));
-                                //identity.AddClaim(new Claim("LoggedOn", DateTime.Now.ToString(CultureInfo.InvariantCulture)));
-                    //        }
-                    //        break;
-                    //    case 4: //Phu huynh
-                    //        break;
-                    //    default:
-                    //        break;
-                    //}
+                    identity.AddClaim(new Claim("UserType", user.UserType.ToString(CultureInfo.InvariantCulture)));
+                    identity.AddClaim(new Claim("UserId", user.UserId.ToString(CultureInfo.InvariantCulture)));
+                    //identity.AddClaim(new Claim("HocSinhId", user.HocSinhId.ToString(CultureInfo.InvariantCulture)));
+                    //identity.AddClaim(new Claim("TenDangNhap", context.UserName));
+                    //identity.AddClaim(new Claim("TenHocSinh", user.TenHocSinh.ToString(CultureInfo.InvariantCulture)));
+                    //identity.AddClaim(new Claim("SoDienThoai", user.SoDienThoai.ToString(CultureInfo.InvariantCulture)));
+                    //identity.AddClaim(new Claim("DiaChi", user.DiaChi.ToString(CultureInfo.InvariantCulture)));
+                    //identity.AddClaim(new Claim("LoggedOn", DateTime.Now.ToString(CultureInfo.InvariantCulture)));
+     
                     context.Validated(identity);
                 }
                 else

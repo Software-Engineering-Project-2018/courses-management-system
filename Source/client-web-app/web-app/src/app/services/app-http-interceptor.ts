@@ -20,7 +20,11 @@ export class AuthInterceptor implements HttpInterceptor {
             }
 
             const cloned = req.clone({
-                headers: req.headers.set('Authorization', 'Bearer ' + token)
+                headers: req.headers.set('Authorization', 'Basic  ' + token)
+                .set('Content-Type', 'application/json; charset=utf-8')
+                .set('Accept', 'application/json' )
+                .set('Access-Control-Allow-Origin', '*')
+                .set('Access-Control-Allow-Methods', 'POST,GET,PUT,DELETE')
             });
             return next.handle(cloned);
         } else {

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import { StudentObject } from 'src/app/object/student-object';
 import { StudentService } from 'src/app/services/data-services/student.service';
+import { BaseComponent } from '../../base/base.component';
 
 @Component({
   selector: 'app-student-list',
@@ -8,30 +9,34 @@ import { StudentService } from 'src/app/services/data-services/student.service';
   styleUrls: ['./student-list.component.css'],
   providers: [StudentService]
 })
-export class StudentListComponent implements OnInit {
+export class StudentListComponent extends BaseComponent implements OnInit {
 
   searchKeyword = '';
-  public studentSelected: StudentObject[];
-  constructor(private studentService: StudentService) {
-    this.studentService.getAllStudent(this.searchKeyword).subscribe(
-      response => {
-        this.studentSelected = response;
-      });
+  public studentList: StudentObject[];
+  constructor(injector: Injector,
+    private studentService: StudentService) {
+    super(injector);
+    this.getData();
   }
   ngOnInit() {
   }
 
-  deleteStudent(studentId) {
-    this.studentService.deleteOneStudent(studentId).subscribe(
+  getData() {
+    this.startLoadingUi();
+    this.studentService.getAllStudent(this.searchKeyword).subscribe(
       response => {
-        if (response > 0) {
-          alert('Xóa thành công!');
-          this.studentSelected = this.studentSelected.filter(item => item.UserId !== studentId);
-        } else {
-          alert('Lỗi!');
-        }
-      }
-    );
+        this.studentList = response;
+        this.stopLoadingUi();
+      });
   }
 
+  searchOnclick() {
+    this.getData();
+  }
+  userInfoOnClick(studentId) {
+    this.router.navigate(['/dashboard/user-info']);
+  }
+  listCourseOnClick(studentId) {
+    this.router.navigate(['/dashboard/courses']);
+  }
 }

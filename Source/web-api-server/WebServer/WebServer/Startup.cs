@@ -11,10 +11,6 @@ namespace WebServer
 {
     public partial class Startup
     {
-        public void ConfigureServices(IServiceCollection services)
-        {
-            //services.AddCors();
-        }
         public void Configuration(IAppBuilder app)
         {
             // Domain security
@@ -27,9 +23,8 @@ namespace WebServer
             OAuthAuthorizationServerOptions options = new OAuthAuthorizationServerOptions
             {
                 AllowInsecureHttp = true,
-                TokenEndpointPath = new PathString("/token"),
                 Provider = new OAuthProvider(),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(2)
+                TokenEndpointPath = new PathString("/token")
             };
 
 #if !DEBUG

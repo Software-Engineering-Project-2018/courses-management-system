@@ -1,46 +1,45 @@
-<div id="scoreboard-list-screen">
-  <div class="header-content">
-    <h4 class="title d-inline-block">Quản lý thu chi</h4>
+<div class="income-list">
+  <div class="searcher-header">
+    <div class="form-group row">
+      <label for="inputKeyword" class="col-12 col-sm-6 col-md-4 col-lg-2 col-form-label">Tìm kiếm học sinh: </label>
+      <div class="col-12 col-sm-6 col-md-8 col-lg-10">
+        <input type="text" [(ngModel)]="searchKeyword" (keyup.enter)="searchOnclick()" class="form-control" id="inputKeyword"
+          placeholder="Nhập mã số | tên học sinh">
+      </div>
+    </div>
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary" (click)="searchOnclick()">Tìm kiếm</button>
+    </div>
   </div>
-  <div class="body-content mt-3">
-    <h5>Quản lý học phí</h5>
+
+  <div class="dot-line"></div>
+
+  <div class="list-content">
+    <h2 class="default-color p-2">Danh sách học phí</h2>
     <table class="table">
-      <thead>
+      <thead class="default-color text-center">
         <tr>
           <th scope="col">STT</th>
-          <th scope="col">Mã học sinh</th>
-          <th scope="col">Tên học sinh</th>
-          <th scope="col">Học phí</th>
-          <th scope="col">Năm học/Học kỳ</th>
-          <th scope="col">Còn nợ</th>
+          <th scope="col">Mã số</th>
+          <th scope="col">Họ tên</th>
+          <th class="tex-center" scope="col">Nợ học phí</th>
+          <th class="tex-center" scope="col">Chi tiết</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>@mdo</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-          <td>@mdo</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-          <td>@mdo</td>
-          <td>@mdo</td>
+        <tr *ngFor="let item of studentList; let i = index;">
+          <th scope="row">{{i + 1}}</th>
+          <td (click)="userInfoOnClick(item.UserId)">{{item.IdentificationCode}}</td>
+          <td (click)="userInfoOnClick(item.UserId)">{{item.UserFullName}}</td>
+          <td class="text-center">{{item.TotalinDebt ? item.TotalinDebt : 0|number:'0.0-0'}}</td>
+          <td class="text-center">
+            <span class="text-link" (click)="listCourseOnClick(item.UserId)">Xem</span>
+          </td>
         </tr>
       </tbody>
     </table>
+    <div *ngIf="!studentList || studentList.length == 0" class="text-center p-3">
+      Không có dữ liệu!
+    </div>
   </div>
 </div>
