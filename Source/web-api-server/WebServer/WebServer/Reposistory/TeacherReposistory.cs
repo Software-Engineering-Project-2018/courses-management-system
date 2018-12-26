@@ -5,15 +5,15 @@ using WebServer.Models;
 
 namespace WebServer.Repository
 {
-    public class StudentReposistory : BaseReposistory
+    public class TeacherReposistory : BaseReposistory
     {
-        public Student LoginStudent(string userName, string password)
+        public Teacher LoginTeacher(string userName, string password)
         {
             //Giá trị trả về của hàm này
-            Student queryResult = null;
+            Teacher queryResult = null;
 
             //Câu lệnh truy vấn ở dạng string
-            string queryString = "SELECT * FROM Student WHERE (UserName = @userName OR UserEmail = @userName) AND UserPw = @password";
+            string queryString = "SELECT * FROM Teacher WHERE (UserName = @userName OR UserEmail = @userName) AND UserPw = @password";
 
             //Mở kết nối đến database
             using (SqlConnection connection =
@@ -31,64 +31,56 @@ namespace WebServer.Repository
                 //Đọc dữ liệu trả về từ truy vấn ở trên
                 while (reader.Read())
                 {
-                    Student studentDto = new Student();
+                    Teacher teacherDto = new Teacher();
                     //Lấy từng cột đọc được lưu vào queryResult
                     if (reader["UserId"] != DBNull.Value)
                     {
-                        studentDto.UserId = (long)reader["UserId"];
+                        teacherDto.UserId = (long)reader["UserId"];
                     }
                     if (reader["IdentificationCode"] != DBNull.Value)
                     {
-                        studentDto.IdentificationCode = (string)reader["IdentificationCode"];
+                        teacherDto.IdentificationCode = (string)reader["IdentificationCode"];
                     }
                     if (reader["UserName"] != DBNull.Value)
                     {
-                        studentDto.UserName = (string)reader["UserName"];
+                        teacherDto.UserName = (string)reader["UserName"];
                     }
                     if (reader["UserFullName"] != DBNull.Value)
                     {
-                        studentDto.UserFullName = (string)reader["UserFullName"];
+                        teacherDto.UserFullName = (string)reader["UserFullName"];
                     }
                     if (reader["UserDob"] != DBNull.Value)
                     {
-                        studentDto.UserDob = (DateTime)reader["UserDob"];
+                        teacherDto.UserDob = (DateTime)reader["UserDob"];
                     }
                     if (reader["UserGender"] != DBNull.Value)
                     {
-                        studentDto.UserGender = (long)reader["UserGender"];
+                        teacherDto.UserGender = (long)reader["UserGender"];
                     }
                     if (reader["UserAddress"] != DBNull.Value)
                     {
-                        studentDto.UserAddress = (string)reader["UserAddress"];
+                        teacherDto.UserAddress = (string)reader["UserAddress"];
                     }
                     if (reader["UserMobile"] != DBNull.Value)
                     {
-                        studentDto.UserMobile = (string)reader["UserMobile"];
+                        teacherDto.UserMobile = (string)reader["UserMobile"];
                     }
                     if (reader["UserEmail"] != DBNull.Value)
                     {
-                        studentDto.UserEmail = (string)reader["UserEmail"];
-                    }
-                    if (reader["TotalTutition"] != DBNull.Value)
-                    {
-                        studentDto.TotalTutition = (double)reader["TotalTutition"];
-                    }
-                    if (reader["TotalinDebt"] != DBNull.Value)
-                    {
-                        studentDto.TotalinDebt = (double)reader["TotalinDebt"];
+                        teacherDto.UserEmail = (string)reader["UserEmail"];
                     }
                     if (reader["UserAvatar"] != DBNull.Value)
                     {
-                        studentDto.UserAvatar = (string)reader["UserAvatar"];
+                        teacherDto.UserAvatar = (string)reader["UserAvatar"];
                     }
                     if (reader["UserType"] != DBNull.Value)
                     {
-                        studentDto.UserType = (long)reader["UserType"];
+                        teacherDto.UserType = (long)reader["UserType"];
                     }
 
-                    if(studentDto.UserId != 0)
+                    if (teacherDto.UserId != 0)
                     {
-                        queryResult = studentDto;
+                        queryResult = teacherDto;
                     }
                 }
                 //Đóng kết nối
@@ -98,15 +90,17 @@ namespace WebServer.Repository
             //Trả về kết quả
             return queryResult;
         }
-        public void ChangePasswordStudent(string userName, string oldPassword, string newPassword)
+
+        //Thay đổi password của giáo viên.
+        public void ChangePasswordTeacher(string userName, string oldPassword, string newPassword)
         {
-            string queryString = "UPDATE Student SET UserPw = @newPassword"
+            string queryString = "UPDATE Teacher SET UserPw = @newPassword"
                                + " WHERE (UserName = @userName OR UserEmail = @userName) AND UserPw = @oldPassword";
             //Mở kết nối đến database
             using (SqlConnection connection =
                 new SqlConnection(this.ConnectionString))
             {
-                // Khởi tạo command với các tham số truyền vào là các trường trong đối tượng HocSinh
+                // Khởi tạo command với các tham số truyền vào là các trường trong đối tượng Teacher
                 SqlCommand command = new SqlCommand(queryString, connection);
                 command.Parameters.AddWithValue("@newPassword", newPassword);
                 command.Parameters.AddWithValue("@userName", userName);
@@ -121,44 +115,41 @@ namespace WebServer.Repository
             }
         }
 
-        public Student InsertStudent(Student student)
+        //Thêm mới 1 giáo viên.
+        public Teacher InsertTeacher(Teacher teacher)
         {
             //Mật khẩu mặc định khi thêm mới tài khoản
-            if (student.UserPw == null || student.UserPw == "")
+            if (teacher.UserPw == null || teacher.UserPw == "")
             {
-                student.UserPw = this._defaultPassword;
+                teacher.UserPw = this._defaultPassword;
             }
 
-            //Cấu lệnh truy vấn ở dạng string
-            //StudentId tự động được sinh ra, ta không cần phải truyền vào StudentId ở câu query
-            string queryString = "INSERT INTO Student (IdentificationCode, UserPw, UserName, UserFullName, UserDob, UserGender, UserAddress, UserMobile, UserEmail , TotalTuTition, TotalinDebt, UserAvatar, UserType) VALUES" +
-                                 "(@identificationCode, @userPw, @userName, @userFullName, @userDob, @userGender, @userAddress, @userMobile, @userEmail, @totalTuTition, @totalinDebt, @userAvatar, @userType);"
-                                 + " SELECT @@IDENTITY"; //Lấy ra Key(StudentId) của học sinh vừa được thêm
+            //Câu lệnh truy vấn ở dạng string
+            string queryString = "INSERT INTO Teacher (IdentificationCode, UserPw, UserName, UserFullName, UserDob, UserGender, UserAddress, UserMobile, UserEmail, UserAvatar, UserType) VALUES" +
+                                 "(@identificationCode, @userPw, @userName, @userFullName, @userDob, @userGender, @userAddress, @userMobile, @userEmail, @userAvatar, @userType);";
 
             //Mở kết nối đến database
             using (SqlConnection connection =
                 new SqlConnection(this.ConnectionString))
             {
-                // Khởi tạo command với các tham số truyền vào là các trường trong đối tượng Student
+                // Khởi tạo command với các tham số truyền vào là các trường trong đối tượng Teacher
                 SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.AddWithValue("@identificationCode", string.IsNullOrEmpty(student.IdentificationCode) 
-                    ? (object)DBNull.Value : student.IdentificationCode); //Trường này cho phép null, thì ktra nếu là null thì truyền vào DBNull. Nếu không làm bước này nó sẽ truyền vào tham số là ' ' gây lỗi query
-                command.Parameters.AddWithValue("@userPw", student.UserPw);
-                command.Parameters.AddWithValue("@userName", student.UserName);
-                command.Parameters.AddWithValue("@userFullName", student.UserFullName);
-                command.Parameters.AddWithValue("@userDob", student.UserDob);
-                command.Parameters.AddWithValue("@userGender", student.UserGender == 0 ? (object)DBNull.Value : student.UserGender);
-                command.Parameters.AddWithValue("@userAddress", string.IsNullOrEmpty(student.UserAddress)
-                    ? (object)DBNull.Value : student.UserAddress);
-                command.Parameters.AddWithValue("@userMobile", string.IsNullOrEmpty(student.UserMobile)
-                    ? (object)DBNull.Value : student.UserMobile);   
-                command.Parameters.AddWithValue("@userEmail", string.IsNullOrEmpty(student.UserEmail)
-                    ? (object)DBNull.Value : student.UserEmail);
-                command.Parameters.AddWithValue("@totalTuTition", student.TotalTutition.GetValueOrDefault() == 0 ? (object)DBNull.Value : student.TotalTutition);
-                command.Parameters.AddWithValue("@totalinDebt", student.TotalinDebt.GetValueOrDefault() == 0 ? (object)DBNull.Value : student.TotalinDebt);
-                command.Parameters.AddWithValue("@userAvatar", string.IsNullOrEmpty(student.UserAvatar)
-                    ? (object)DBNull.Value : student.UserAvatar);
-                command.Parameters.AddWithValue("@userType", student.UserType);
+                command.Parameters.AddWithValue("@identificationCode", string.IsNullOrEmpty(teacher.IdentificationCode)
+                    ? (object)DBNull.Value : teacher.IdentificationCode); //Trường này cho phép null, thì ktra nếu là null thì truyền vào DBNull. Nếu không làm bước này nó sẽ truyền vào tham số là ' ' gây lỗi query
+                command.Parameters.AddWithValue("@userPw", teacher.UserPw);
+                command.Parameters.AddWithValue("@userName", teacher.UserName);
+                command.Parameters.AddWithValue("@userFullName", teacher.UserFullName);
+                command.Parameters.AddWithValue("@userDob", teacher.UserDob);
+                command.Parameters.AddWithValue("@userGender", teacher.UserGender == 0 ? (object)DBNull.Value : teacher.UserGender);
+                command.Parameters.AddWithValue("@userAddress", string.IsNullOrEmpty(teacher.UserAddress)
+                    ? (object)DBNull.Value : teacher.UserAddress);
+                command.Parameters.AddWithValue("@userMobile", string.IsNullOrEmpty(teacher.UserMobile)
+                    ? (object)DBNull.Value : teacher.UserMobile);
+                command.Parameters.AddWithValue("@userEmail", string.IsNullOrEmpty(teacher.UserEmail)
+                    ? (object)DBNull.Value : teacher.UserEmail);
+                command.Parameters.AddWithValue("@userAvatar", string.IsNullOrEmpty(teacher.UserAvatar)
+                    ? (object)DBNull.Value : teacher.UserAvatar);
+                command.Parameters.AddWithValue("@userType", teacher.UserType);
 
                 //Mở kết nối và thực hiện query vào database
                 connection.Open();
@@ -167,44 +158,43 @@ namespace WebServer.Repository
                 //Đọc kết quả trả về
                 while (reader.Read())
                 {
-                    //Lấy StudenthId sau khi Create xong
-                    student.UserId = Convert.ToInt64(reader.GetValue(0).ToString());
+                    //Lấy managerID sau khi Create xong
+                    teacher.UserId = Convert.ToInt64(reader.GetValue(0).ToString());
                 }
                 reader.Close();
                 connection.Close();
             }
 
-            return student;
+            return teacher;
         }
 
-        public Student UpdateStudent(Student student)
+        //Hàm sửa đổi thông tin của giáo viên.
+        public Teacher UpdateTeacher(Teacher teacher)
         {
-            string queryString = "UPDATE Student SET IdentificationCode = @identificationCode, UserName = @userName, UserFullName = @userFullName, UserDob = @userDob, UserGender = @userGender, UserAddress = @userAddress, UserMobile = @userMobile, UserEmail = @userEmail, TotalTuTition = @totalTuTition, TotalinDebt = @totalinDebt, UserAvatar = @userAvatar"
+            string queryString = "UPDATE Teacher SET IdentificationCode = @identificationCode, UserName = @userName, UserFullName = @userFullName, UserDob = @userDob, UserGender = @userGender, UserAddress = @userAddress, UserMobile = @userMobile, UserEmail = @userEmail, UserAvatar = @userAvatar"
                                + "  WHERE UserId = @userId";
             //Mở kết nối đến database
             using (SqlConnection connection =
                 new SqlConnection(this.ConnectionString))
             {
-                // Khởi tạo command với các tham số truyền vào là các trường trong đối tượng Student
+                // Khởi tạo command với các tham số truyền vào là các trường trong đối tượng Teacher
                 //Không cho phép update password và usertype ở hàm update
                 SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.AddWithValue("@userId", student.UserId);
-                command.Parameters.AddWithValue("@identificationCode", string.IsNullOrEmpty(student.IdentificationCode)
-                    ? (object)DBNull.Value : student.IdentificationCode); //Trường này cho phép null, thì ktra nếu là null thì truyền vào DBNull. Nếu không làm bước này nó sẽ truyền vào tham số là ' ' gây lỗi query
-                command.Parameters.AddWithValue("@userName", student.UserName);
-                command.Parameters.AddWithValue("@userFullName", student.UserFullName);
-                command.Parameters.AddWithValue("@userDob", student.UserDob);
-                command.Parameters.AddWithValue("@userGender", student.UserGender == 0 ? (object)DBNull.Value : student.UserGender);
-                command.Parameters.AddWithValue("@userAddress", string.IsNullOrEmpty(student.UserAddress)
-                    ? (object)DBNull.Value : student.UserAddress);
-                command.Parameters.AddWithValue("@userMobile", string.IsNullOrEmpty(student.UserMobile)
-                    ? (object)DBNull.Value : student.UserMobile);
-                command.Parameters.AddWithValue("@userEmail", string.IsNullOrEmpty(student.UserEmail)
-                    ? (object)DBNull.Value : student.UserEmail);
-                command.Parameters.AddWithValue("@totalTuTition", student.TotalTutition.GetValueOrDefault() == 0 ? (object)DBNull.Value : student.TotalTutition);
-                command.Parameters.AddWithValue("@totalinDebt", student.TotalinDebt.GetValueOrDefault() == 0 ? (object)DBNull.Value : student.TotalinDebt);
-                command.Parameters.AddWithValue("@userAvatar", string.IsNullOrEmpty(student.UserAvatar)
-                    ? (object)DBNull.Value : student.UserAvatar);
+                command.Parameters.AddWithValue("@userId", teacher.UserId);
+                command.Parameters.AddWithValue("@identificationCode", string.IsNullOrEmpty(teacher.IdentificationCode)
+                    ? (object)DBNull.Value : teacher.IdentificationCode); //Trường này cho phép null, thì ktra nếu là null thì truyền vào DBNull. Nếu không làm bước này nó sẽ truyền vào tham số là ' ' gây lỗi query
+                command.Parameters.AddWithValue("@userName", teacher.UserName);
+                command.Parameters.AddWithValue("@userFullName", teacher.UserFullName);
+                command.Parameters.AddWithValue("@userDob", teacher.UserDob);
+                command.Parameters.AddWithValue("@userGender", teacher.UserGender == 0 ? (object)DBNull.Value : teacher.UserGender);
+                command.Parameters.AddWithValue("@userAddress", string.IsNullOrEmpty(teacher.UserAddress)
+                    ? (object)DBNull.Value : teacher.UserAddress);
+                command.Parameters.AddWithValue("@userMobile", string.IsNullOrEmpty(teacher.UserMobile)
+                    ? (object)DBNull.Value : teacher.UserMobile);
+                command.Parameters.AddWithValue("@userEmail", string.IsNullOrEmpty(teacher.UserEmail)
+                    ? (object)DBNull.Value : teacher.UserEmail);
+                command.Parameters.AddWithValue("@userAvatar", string.IsNullOrEmpty(teacher.UserAvatar)
+                     ? (object)DBNull.Value : teacher.UserAvatar);
 
                 //Mở kết nối và thực hiện query vào database
                 connection.Open();
@@ -215,17 +205,17 @@ namespace WebServer.Repository
             }
 
             //Trả về chính tham số truyền vào nếu hàm không xảy ra bất cứ lỗi gì
-            return student;
+            return teacher;
         }
 
-
-        public List<Student> GetAllStudent(string searchKeyword)
+        //Lấy danh sách tất cả giáo viên.
+        public List<Teacher> GetAllTeacher(string searchKeyword)
         {
-            //Giá trị trả về của hàm này: List<HocSinh>
-            List<Student> queryResult = new List<Student>();
+            //Giá trị trả về của hàm này: List<Teacher>
+            List<Teacher> queryResult = new List<Teacher>();
 
             //Cấu lệnh truy vấn ở dạng string
-            string queryString = "SELECT * FROM Student WHERE UserFullName like '%' + @searchKeyword + '%' OR UserName like '%' + @searchKeyword + '%'";
+            string queryString = "SELECT * FROM Teacher WHERE UserFullName like '%' + @searchKeyword + '%' OR UserName like '%' + @searchKeyword + '%'";
 
             //Mở kết nối đến database
             using (SqlConnection connection =
@@ -243,7 +233,7 @@ namespace WebServer.Repository
                 while (reader.Read())
                 {
                     //Tạo biến tạm để lấy đọc giá trị và sau dó thêm vào List queryResult
-                    Student entity = new Student();
+                    Teacher entity = new Teacher();
 
                     //Lấy từng cột đọc được lưu vào entity
                     if (reader["UserId"] != DBNull.Value)
@@ -282,14 +272,6 @@ namespace WebServer.Repository
                     {
                         entity.UserEmail = (string)reader["UserEmail"];
                     }
-                    if (reader["TotalTutition"] != DBNull.Value)
-                    {
-                        entity.TotalTutition = (double)reader["TotalTutition"];
-                    }
-                    if (reader["TotalinDebt"] != DBNull.Value)
-                    {
-                        entity.TotalinDebt = (double)reader["TotalinDebt"];
-                    }
                     if (reader["UserAvatar"] != DBNull.Value)
                     {
                         entity.UserAvatar = (string)reader["UserAvatar"];
@@ -298,7 +280,6 @@ namespace WebServer.Repository
                     {
                         entity.UserType = (long)reader["UserType"];
                     }
-
                     //Thêm entity vào list trả về
                     queryResult.Add(entity);
                 }
@@ -312,21 +293,22 @@ namespace WebServer.Repository
             return queryResult;
         }
 
-        public Student GetOneStudentById(long studentId)
+        //Hàm lấy 1 người giáo viên theo Id
+        public Teacher GetOneTeacherById(long teacherId)
         {
             //Giá trị trả về của hàm này
-            Student queryResult = new Student();
+            Teacher queryResult = new Teacher();
 
-            //Cấu lệnh truy vấn ở dạng string
-            string queryString = "SELECT * FROM Student WHERE UserId = @studentId";
+            //Câu lệnh truy vấn ở dạng string
+            string queryString = "SELECT * FROM Teacher WHERE UserId = @teacherId";
 
             //Mở kết nối đến database
             using (SqlConnection connection =
                 new SqlConnection(this.ConnectionString))
             {
-                // Khởi tạo command với tham số truyền vào là hocSinhId
+                // Khởi tạo command với tham số truyền vào là managerId
                 SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.AddWithValue("@studentId", studentId);
+                command.Parameters.AddWithValue("@teacherId", teacherId);
 
                 //Mở kết nối và thực hiện query vào database
                 connection.Open();
@@ -372,14 +354,6 @@ namespace WebServer.Repository
                     {
                         queryResult.UserEmail = (string)reader["UserEmail"];
                     }
-                    if (reader["TotalTutition"] != DBNull.Value)
-                    {
-                        queryResult.TotalTutition = (double)reader["TotalTutition"];
-                    }
-                    if (reader["TotalinDebt"] != DBNull.Value)
-                    {
-                        queryResult.TotalinDebt = (double)reader["TotalinDebt"];
-                    }
                     if (reader["UserAvatar"] != DBNull.Value)
                     {
                         queryResult.UserAvatar = (string)reader["UserAvatar"];
@@ -397,20 +371,21 @@ namespace WebServer.Repository
             return queryResult;
         }
 
-        public long DeleteStudentById(long studentId)
+        //Hàm xóa thông tin giáo viên ra khỏi danh sách
+        public long DeleteTeacherById(long teacherId)
         {
-            // Hàm trả về studentId
+            // Hàm trả về teacherId
 
             //Cấu lệnh truy vấn ở dạng string
-            string queryString = "DELETE FROM Student WHERE UserId = @studentId";
+            string queryString = "DELETE FROM Teacher WHERE UserId = @teacherId";
 
             //Mở kết nối đến database
             using (SqlConnection connection =
                 new SqlConnection(this.ConnectionString))
             {
-                // Khởi tạo command với tham số truyền vào là studentId
+                // Khởi tạo command với tham số truyền vào là teacherId
                 SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.AddWithValue("@studentId", studentId);
+                command.Parameters.AddWithValue("@teacherId", teacherId);
 
                 //Mở kết nối và thực hiện query vào database
                 connection.Open();
@@ -420,23 +395,22 @@ namespace WebServer.Repository
                 connection.Close();
             }
 
-            // Hàm trả về HocSinhId
-            return studentId;
+            // Hàm trả về ManagerId
+            return teacherId;
         }
 
         //Hàm đặt lại mật khẩu mặt định
-        public Student ResetPassword(Student student)
+        public Teacher ResetPassword(Teacher teacher)
         {
-            //HocSinhId tự động được sinh ra, ta không cần phải truyền vào HocSinhId ở câu query
-            string queryString = "UPDATE Student SET UserPw = @password"
-                               + "  WHERE StudentId = @studentId";
+            string queryString = "UPDATE Teacher SET UserPw = @password"
+                               + "  WHERE TeacherId = @teacherId";
             //Mở kết nối đến database
             using (SqlConnection connection =
                 new SqlConnection(this.ConnectionString))
             {
-                // Khởi tạo command với các tham số truyền vào là hocSinhId và mật khẩu mặc định
+                // Khởi tạo command với các tham số truyền vào là teacherId và mật khẩu mặc định
                 SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.AddWithValue("@studentId", student.UserId);
+                command.Parameters.AddWithValue("@teacherId", teacher.UserId);
                 command.Parameters.AddWithValue("@password", this._defaultPassword);
 
                 //Mở kết nối và thực hiện query vào database
@@ -448,7 +422,7 @@ namespace WebServer.Repository
             }
 
             //Trả về chính tham số truyền vào nếu hàm không xảy ra bất cứ lỗi gì
-            return student;
+            return teacher;
         }
 
     }

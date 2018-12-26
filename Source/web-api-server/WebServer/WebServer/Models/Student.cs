@@ -32,7 +32,7 @@ namespace WebServer.Models
         public string UserAddress { get; set; }
         public string UserMobile { get; set; }
         public string UserEmail { get; set; }
-        public Nullable<double> TotalTutition { get; set; }
+        public Nullable<double> TotalTuTition { get; set; }
         public Nullable<double> TotalinDebt { get; set; }
         public long UserType { get; set; }
         public string UserAvatar { get; set; }
