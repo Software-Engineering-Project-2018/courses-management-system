@@ -57,7 +57,7 @@ a {
 /* Global layout */
 .body-content .body-content-row {
   margin: 10px 0;
-  border-bottom: 1px dashed #ccc;
+  /* border-bottom: 1px dashed #ccc; */
 }
 
 .body-content .body-content-row h5 {

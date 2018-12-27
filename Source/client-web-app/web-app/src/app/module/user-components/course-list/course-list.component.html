@@ -22,19 +22,23 @@
           <th scope="col">STT</th>
           <th scope="col">Tên khóa học</th>
           <th class="tex-center" scope="col">Giáo viên phụ trách</th>
-          <th class="tex-center" scope="col">Đăng ký</th>
           <th class="tex-center" scope="col">Ngày bắt đầu</th>
           <th class="tex-center" scope="col">Ngày kết thúc</th>
+          <th class="tex-center" scope="col">Đăng ký</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let item of courseList; let i = index;">
           <th scope="row">{{i + 1}}</th>
-          <td (click)="userInfoOnClick(item.UserId)">{{item.CourseName}}</td>
-          <td class="text-center">{{item.DateStart|date:'dd/MM/yyyy HH:mm:ss'}}</td>
-          <td class="text-center">{{item.DateEnd|date:'dd/MM/yyyy HH:mm:ss'}}</td>
+          <td (click)="courseInfoOnClick(item.UserId)">{{item.CourseName}}</td>
+          <td>
+            <p (click)="teacherInfoOnClick(item.UserId)">Nguyễn Văn A</p>
+            <p (click)="teacherInfoOnClick(item.UserId)">Nguyễn Văn B</p>
+          </td>
+          <td class="text-center">{{item.DateStart|date:'dd/MM/yyyy'}}</td>
+          <td class="text-center">{{item.DateEnd|date:'dd/MM/yyyy'}}</td>
           <td class="text-center">
-            <span class="text-link" (click)="courseInfoOnClick(item.CourseId)">Đăng ký</span>
+            <span class="text-link" (click)="enrollCourseOnClick(item.CourseId)">Đăng ký</span>
             <span class="float-right">Đã đăng ký</span>
           </td>
         </tr>

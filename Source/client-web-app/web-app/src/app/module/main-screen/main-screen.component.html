@@ -190,8 +190,9 @@
   <main class="page-content">
     <div class="position-fixed" [ngClass]="{'bg-overlay': isLoading}" style="
       height: 40px;
-      width: 100%;
+      width: calc(100% + 40px);
       z-index: 2;
+      margin-left: -40px;
       background-color: #fff;">
       <a id="show-sidebar" class="btn btn-sm">
         <i class="fa fa-bars"></i>
@@ -203,10 +204,11 @@
             <i class="fa fa-github"></i></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/dashboard/general-notification']" routerLinkActive="router-link-active"><i class="fa fa-bell"></i></a>
+          <a class="nav-link" [routerLink]="['/dashboard/general-notification']" routerLinkActive="router-link-active"><i
+              class="fa fa-bell"></i></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/dasboard']" routerLinkActive="router-link-active" ><i class="fa fa-comments"></i></a>
+          <a class="nav-link" [routerLink]="['/dasboard']" routerLinkActive="router-link-active"><i class="fa fa-comments"></i></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" (click)="logOutOnClick()" tabindex><i class="fa fa-power-off"></i></a>
@@ -219,7 +221,7 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-white">
             <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-            <li class="breadcrumb-item"><a [routerLink]="['/dashboard']" routerLinkActive="router-link-active" >Dashboard</a></li>
+            <li class="breadcrumb-item"><a [routerLink]="['/dashboard']" routerLinkActive="router-link-active">Dashboard</a></li>
             <!-- <li class="breadcrumb-item active" aria-current="page">Data</li> -->
           </ol>
         </nav>
