@@ -5,17 +5,17 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="8dbccabf8177472ca52d2767f2c53979" Name="Diagram1">
-        <EntityTypeShape EntityType="CoursesSystemModel.Course" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoursesSystemModel.CourseStudentDetail" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoursesSystemModel.CourseTeacherDetail" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoursesSystemModel.DocumentDetail" Width="1.5" PointX="3" PointY="10.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoursesSystemModel.Manager" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoursesSystemModel.Notification" Width="1.5" PointX="3" PointY="14.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoursesSystemModel.Parent" Width="1.5" PointX="3" PointY="22.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoursesSystemModel.Student" Width="1.5" PointX="0.75" PointY="11.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoursesSystemModel.Task" Width="1.5" PointX="3" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoursesSystemModel.Course" Width="1.5" PointX="0.625" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoursesSystemModel.CourseStudentDetail" Width="1.5" PointX="4.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoursesSystemModel.CourseTeacherDetail" Width="1.5" PointX="3" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoursesSystemModel.DocumentDetail" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoursesSystemModel.Manager" Width="1.5" PointX="8.125" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoursesSystemModel.Notification" Width="2" PointX="3" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoursesSystemModel.Parent" Width="1.5" PointX="7.5" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoursesSystemModel.Student" Width="1.5" PointX="5" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoursesSystemModel.Task" Width="1.5" PointX="0.625" PointY="17" IsExpanded="true" />
         <EntityTypeShape EntityType="CoursesSystemModel.TaskDetail" Width="1.5" PointX="5.25" PointY="17.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoursesSystemModel.Teacher" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoursesSystemModel.Teacher" Width="1.5" PointX="0.75" PointY="0.5" IsExpanded="true" />
         <AssociationConnector Association="CoursesSystemModel.FK_CourseStudentDetail_Course" ManuallyRouted="false" />
         <AssociationConnector Association="CoursesSystemModel.FK_CourseTeacherDetail_Course" ManuallyRouted="false" />
         <AssociationConnector Association="CoursesSystemModel.FK_DocumentDetail_Course" ManuallyRouted="false" />

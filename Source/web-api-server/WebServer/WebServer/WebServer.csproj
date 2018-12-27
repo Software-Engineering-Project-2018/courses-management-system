@@ -245,9 +245,18 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\CourseController.cs" />
+    <Compile Include="Controllers\CourseStudentDetailController.cs" />
+    <Compile Include="Controllers\CourseTeacherDetailController.cs" />
+    <Compile Include="Controllers\DocumentDetailController.cs" />
+    <Compile Include="Controllers\ManagerController.cs" />
+    <Compile Include="Controllers\NotificationController.cs" />
+    <Compile Include="Controllers\ParentController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\TaskController.cs" />
+    <Compile Include="Controllers\TaskDetailController.cs" />
+    <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -302,10 +311,19 @@
     <Compile Include="OAuthProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reposistory\CourseReposistory.cs" />
+    <Compile Include="Reposistory\CourseStudentDetailReposistory.cs" />
+    <Compile Include="Reposistory\CourseTeacherDetailReposistory.cs" />
+    <Compile Include="Reposistory\DocumentDetailReposistory.cs" />
+    <Compile Include="Reposistory\ManagerReposistory.cs" />
+    <Compile Include="Reposistory\NotificationReposistory.cs" />
+    <Compile Include="Reposistory\ParentReposistory.cs" />
     <Compile Include="Reposistory\StudentReposistory.cs" />
     <Compile Include="Reposistory\ref\UserBaseDto.cs" />
     <Compile Include="Reposistory\SystemsReposistory.cs" />
     <Compile Include="Reposistory\BaseReposistory.cs" />
+    <Compile Include="Reposistory\TaskDetailReposistory.cs" />
+    <Compile Include="Reposistory\TaskReposistory.cs" />
+    <Compile Include="Reposistory\TeacherReposistory.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

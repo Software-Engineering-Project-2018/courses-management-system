@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'E:\nmcnpmProject\courses-management-system\Source\web-api-server\WebServer\WebServer\Models\SystemModel.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\NMCNPM\courses-management-system\Source\web-api-server\WebServer\WebServer\Models\SystemModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
