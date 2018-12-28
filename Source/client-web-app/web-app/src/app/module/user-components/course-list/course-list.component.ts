@@ -1,6 +1,7 @@
 import { Component, OnInit, Injector } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { CourseObject } from 'src/app/object/course-object';
+import { CourseService } from 'src/app/services/data-services/course.service';
 
 @Component({
   selector: 'app-course-list',
@@ -10,9 +11,13 @@ import { CourseObject } from 'src/app/object/course-object';
 export class CourseListComponent extends BaseComponent implements OnInit {
 
   searchKeyword = '';
-  public courseList: CourseObject[] = [];
+  // screenName = 'course-list';
+  courseService: CourseService;
+  public courseJoinedList: CourseObject[] = [];
+  public courseNotJoinedList: CourseObject[] = [];
   constructor(injector: Injector) {
     super(injector);
+    this.courseService = injector.get(CourseService);
     this.getData();
   }
   ngOnInit() {
@@ -20,31 +25,51 @@ export class CourseListComponent extends BaseComponent implements OnInit {
 
   getData() {
     this.startLoadingUi();
-    // this.studentService.getAllStudent(this.searchKeyword).subscribe(
-    //   response => {
-    //     this.studentList = response;
-    let dto: CourseObject;
-    dto = new CourseObject();
-    dto.CourseId = 1;
-    dto.CourseName = 'Hệ điều hành 2016';
-    dto.DateEnd = new Date();
-    dto.DateStart = new Date();
-    dto.Tutition = 1000000;
-    this.courseList.push(dto);
-    this.stopLoadingUi();
-    // });
+    setTimeout(() => {
+      this.courseService.getAllCourseJoined(this.searchKeyword, this.UserLogin.UserId).subscribe(
+        response1 => {
+          this.courseJoinedList = response1;
+          this.courseService.getAllCourseNotJoined(this.searchKeyword, this.UserLogin.UserId).subscribe(
+            response2 => {
+              this.courseNotJoinedList = response2;
+              this.stopLoadingUi();
+            },
+            error => {
+              console.error(error);
+              this.stopLoadingUi();
+            });
+          this.stopLoadingUi();
+        },
+        error => {
+          console.error(error);
+          this.stopLoadingUi();
+        });
+    }, 500);
   }
 
   searchOnclick() {
     this.getData();
   }
+
   courseInfoOnClick(courseId) {
-    this.router.navigate(['/dashboard/course-info']);
+    this.router.navigate(['/dashboard/course-info',
+      {
+        courseId: [courseId]
+      }]);
   }
-  teacherInfoOnClick(uteacherId) {
-    this.router.navigate(['/dashboard/user-info']);
+
+  teacherInfoOnClick(teacherId) {
+    this.router.navigate(['/dashboard/user-info',
+      {
+        userType: [2],
+        userId: [1]
+      }]);
   }
+
   enrollCourseOnClick(courseId) {
-    this.router.navigate(['/dashboard/enroll-course']);
+    this.router.navigate(['/dashboard/enroll-course',
+      {
+        courseId: [courseId]
+      }]);
   }
 }

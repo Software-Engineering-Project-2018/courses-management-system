@@ -40,6 +40,10 @@ export class StorageService {
         localStorage.removeItem('user-token');
     }
 
+    public removeUserInfo() {
+        localStorage.removeItem('user-info');
+    }
+
     // public setExpiredToken(expired)
     // {
     //     var currentDate = new Date();

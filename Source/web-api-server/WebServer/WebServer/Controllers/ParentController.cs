@@ -55,11 +55,11 @@ namespace WebServer.Controllers
         }
 
         //API Lấy tất cả phụ huynh của học sinh(tìm kiếm phụ huynh theo Id của học sinh)
-        [Route("rest/parent/get-all-ByStdId")]
+        [Route("rest/parent/get-all-by-student")]
         [HttpGet]
-        public IHttpActionResult GetAllParentByStudentId(long searchStdId)
+        public IHttpActionResult GetAllParentByStudentId(long studentId)
         {
-            return Ok(parentReposistory.GetAllParentByStudentId(searchStdId));
+            return Ok(parentReposistory.GetAllParentByStudentId(studentId));
         }
 
 

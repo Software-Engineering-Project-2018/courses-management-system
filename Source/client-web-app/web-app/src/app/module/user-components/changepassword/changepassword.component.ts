@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BaseComponent } from '../../base/base.component';
 
 @Component({
   selector: 'app-changepassword',
   templateUrl: './changepassword.component.html',
   styleUrls: ['./changepassword.component.css']
 })
-export class ChangepasswordComponent implements OnInit {
+export class ChangepasswordComponent extends BaseComponent implements OnInit {
 
   oldPassword = '';
   newPassword = '';
@@ -14,7 +15,8 @@ export class ChangepasswordComponent implements OnInit {
 
   passwordForm: FormGroup;
 
-  constructor(fb: FormBuilder) {
+  constructor(injector: Injector, fb: FormBuilder) {
+    super(injector);
     this.passwordForm = fb.group({
       'oldPassword': [null, Validators.compose([Validators.required])],
       'newPassword': [null, Validators.compose([Validators.required, Validators.minLength(8)])],

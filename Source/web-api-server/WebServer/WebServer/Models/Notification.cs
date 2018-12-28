@@ -23,5 +23,10 @@ namespace WebServer.Models
         public Nullable<long> CourseId { get; set; }
     
         public virtual Course Course { get; set; }
+
+        public Notification()
+        {
+            this.Course = new Course();
+        }
     }
 }

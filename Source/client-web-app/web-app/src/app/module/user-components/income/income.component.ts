@@ -11,10 +11,11 @@ import { BaseComponent } from '../../base/base.component';
 export class IncomeComponent extends BaseComponent implements OnInit {
 
   searchKeyword = '';
+  private studentService: StudentService;
   public studentList: StudentObject[];
-  constructor(injector: Injector,
-    private studentService: StudentService) {
+  constructor(injector: Injector) {
     super(injector);
+    this.studentService = injector.get(StudentService);
     this.getData();
   }
   ngOnInit() {
@@ -22,11 +23,17 @@ export class IncomeComponent extends BaseComponent implements OnInit {
 
   getData() {
     this.startLoadingUi();
-    // this.studentService.getAllStudent(this.searchKeyword).subscribe(
-    //   response => {
-    //     this.studentList = response;
-    this.stopLoadingUi();
-    // });
+    setTimeout(() => {
+      this.studentService.getAllStudent(this.searchKeyword).subscribe(
+        response => {
+          this.studentList = response;
+          this.stopLoadingUi();
+        },
+        error => {
+          console.error(error);
+          this.stopLoadingUi();
+        });
+    }, 500);
   }
 
   searchOnclick() {

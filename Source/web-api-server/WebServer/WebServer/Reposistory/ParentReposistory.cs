@@ -218,7 +218,7 @@ namespace WebServer.Repository
             {
                 // Khởi tạo command có tham số nào truyền vào là từ khóa tìm kiếm
                 SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.AddWithValue("@searchKeyword", searchKeyword);
+                command.Parameters.AddWithValue("@searchKeyword", string.IsNullOrEmpty(searchKeyword) ? "" : searchKeyword);
 
                 //Mở kết nối và thực hiện query vào database
                 connection.Open();
@@ -271,7 +271,7 @@ namespace WebServer.Repository
                     {
                         entity.UserType = (long)reader["UserType"];
                     }
-                    if (reader["StudentID"] != DBNull.Value)
+                    if (reader["StudentId"] != DBNull.Value)
                     {
                         entity.UserType = (long)reader["StduentId"];
                     }
@@ -418,13 +418,13 @@ namespace WebServer.Repository
             return parent;
         }
         //Hàm lấy danh sách phụ huynh của học sinh
-        public List<Parent> GetAllParentByStudentId(long searchStdId)
+        public List<Parent> GetAllParentByStudentId(long studentId)
         {
             //Giá trị trả về của hàm này: List<PhuHuynh>
             List<Parent> queryResult = new List<Parent>();
 
             //Cấu lệnh truy vấn ở dạng string
-            string queryString = "SELECT * FROM Parent WHERE StudentID like '%' + @searchStdId + '%'";
+            string queryString = "SELECT * FROM Parent WHERE StudentId = @studentId";
 
             //Mở kết nối đến database
             using (SqlConnection connection =
@@ -432,7 +432,7 @@ namespace WebServer.Repository
             {
                 // Khởi tạo command có tham số nào truyền vào là từ khóa tìm kiếm
                 SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.AddWithValue("@searchStdId", searchStdId);
+                command.Parameters.AddWithValue("@studentId", studentId);
 
                 //Mở kết nối và thực hiện query vào database
                 connection.Open();

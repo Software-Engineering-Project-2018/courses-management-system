@@ -30,12 +30,12 @@ namespace WebServer.Controllers
             return Ok(documentDetailReposistory.UpdateDocumentDetail(documentDetail));
         }
 
-        //API Lấy thông tin tất cả bài tập(tìm kiếm theo mã bài tập và theo mã giáo viên)
+        //API Lấy thông tin tất cả bài tập trong khóa học
         [Route("rest/documentdetail/get-all")]
         [HttpGet]
-        public IHttpActionResult GetAllDocumentDetailByCourseAndTeacher(long courseId, long teacherId)
+        public IHttpActionResult GetAllDocumentDetailByCourseAndTeacher(long courseId)
         {
-            return Ok(documentDetailReposistory.GetAllDocumentDetailByCourseAndTeacher(courseId, teacherId));
+            return Ok(documentDetailReposistory.GetAllDocumentDetailByCourse(courseId));
         }
 
         //API Lấy thông tin chi tiết 1 tài liệu

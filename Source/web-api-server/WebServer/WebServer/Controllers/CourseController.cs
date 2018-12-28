@@ -30,16 +30,28 @@ namespace WebServer.Controllers
             return Ok(courseReposistory.UpdateCourse(course));
         }
 
-        //API Lấy tất cả khóa học(tìm kiếm quản lý theo tên)
-        [Route("rest/course/get-all")]
-        [HttpGet]
-        public IHttpActionResult GetAllCourse(string searchKeyword)
+        //API Lấy tất cả khóa học đã tham gia(tìm kiếm quản lý theo tên)
+        [Route("rest/course/get-all-joined")]
+        [HttpPost]
+        public IHttpActionResult GetAllCourseJoined([FromBody] dynamic data)
         {
-            return Ok(courseReposistory.GetAllCourse(searchKeyword));
+            string searchKeyword = data.searchKeyword;
+            long studentId = data.studentId;
+            return Ok(courseReposistory.GetAllCourseJoined(searchKeyword, studentId));
+        }
+
+        //API Lấy tất cả khóa học chưa đã tham gia(tìm kiếm quản lý theo tên)
+        [Route("rest/course/get-all-not-joined")]
+        [HttpPost]
+        public IHttpActionResult GetAllCourseNotJoined([FromBody] dynamic data)
+        {
+            string searchKeyword = data.searchKeyword;
+            long studentId = data.studentId;
+            return Ok(courseReposistory.GetAllCourseNotJoined(searchKeyword, studentId));
         }
 
         //API Lấy thông tin 1 khóa học
-        [Route("rest/teacher/get")]
+        [Route("rest/course/get")]
         [HttpGet]
         public IHttpActionResult GetOneCourse(long courseId)
         {
@@ -52,6 +64,22 @@ namespace WebServer.Controllers
         public IHttpActionResult DeleteCourse(long courseId)
         {
             return Ok(courseReposistory.DeleteCourseById(courseId));
+        }
+        
+        //API Lấy danh sách khoá học mà học sinh đã tham gia
+        [Route("rest/course/get-by-student-id")]
+        [HttpGet]
+        public IHttpActionResult GetAllCourseByStudent(long studentId)
+        {
+            return Ok(courseReposistory.GetAllCourseByStudent(studentId));
+        }
+
+        //API Lấy danh sách khoá học mà giáo viên đã tham gia
+        [Route("rest/course/get-by-teacher-id")]
+        [HttpGet]
+        public IHttpActionResult GetAllCourseByTeacher(long teacherId)
+        {
+            return Ok(courseReposistory.GetAllCourseByTeacher(teacherId));
         }
     }
 }

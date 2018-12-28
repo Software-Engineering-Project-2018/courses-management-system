@@ -4,8 +4,8 @@ import { StorageService } from 'src/app/services/storage.service';
 
 
 export class BaseService {
-  // public prefixRestUrl = 'http://localhost:50734';
-  public prefixRestUrl = 'http://quanlylophoc.tk';
+  public prefixRestUrl = 'http://localhost:50734/';
+  // public prefixRestUrl = 'http://quanlylophoc.tk/';
   protected readonly httpHeader;
   public storageService: StorageService;
   constructor(public injector: Injector) {
@@ -17,7 +17,7 @@ export class BaseService {
     //   .append('Authentication', 'Bearer ' + token);
     this.httpHeader = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authentication': 'Bearer ' + token
+      // 'Authentication': 'Bearer ' + token
     });
   }
 }

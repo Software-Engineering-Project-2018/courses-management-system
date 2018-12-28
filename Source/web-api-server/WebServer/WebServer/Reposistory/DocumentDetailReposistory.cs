@@ -70,13 +70,13 @@ namespace WebServer.Repository
         }
 
         //Lấy danh sách chi tiết tất cả tài liệu.
-        public List<DocumentDetail> GetAllDocumentDetailByCourseAndTeacher(long courseId, long teacherId)
+        public List<DocumentDetail> GetAllDocumentDetailByCourse(long courseId)
         {
             //Giá trị trả về của hàm này: List<DocumentDetail>
             List<DocumentDetail> queryResult = new List<DocumentDetail>();
 
             //Cấu lệnh truy vấn ở dạng string
-            string queryString = "SELECT * FROM DocumentDetail WHERE CourseId like '%' + @courseId + '%' OR TeacherId like '%' + @teacherId +'%'";
+            string queryString = "SELECT * FROM DocumentDetail WHERE CourseId = @courseId ";
 
             //Mở kết nối đến database
             using (SqlConnection connection =
@@ -85,7 +85,6 @@ namespace WebServer.Repository
                 // Khởi tạo command có tham số nào truyền vào là từ khóa tìm kiếm
                 SqlCommand command = new SqlCommand(queryString, connection);
                 command.Parameters.AddWithValue("@courseId", courseId);
-                command.Parameters.AddWithValue("@teacherId", teacherId);
                 //Mở kết nối và thực hiện query vào database
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
@@ -103,11 +102,11 @@ namespace WebServer.Repository
                     }
                     if (reader["CourseId"] != DBNull.Value)
                     {
-                        entity.CourseId = (long)reader["CourseId"];
+                        entity.Course.CourseId = (long)reader["CourseId"];
                     }
                     if (reader["TeacherId"] != DBNull.Value)
                     {
-                        entity.TeacherId = (long)reader["TeacherId"];
+                        entity.Teacher.UserId = (long)reader["TeacherId"];
                     }
                     if (reader["DocumentDetailFileUpload"] != DBNull.Value)
                     {

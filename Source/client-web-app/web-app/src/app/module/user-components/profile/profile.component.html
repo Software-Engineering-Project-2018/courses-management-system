@@ -2,7 +2,7 @@
 
   <div id="profile-screen" class="container">
     <div class="header-content">
-      <h4 class="title d-inline-block" placement="right" ngbTooltip="Tên người dùng.">HuynhDuyTan</h4>
+      <h4 class="title d-inline-block" placement="right" ngbTooltip="Tên người dùng.">{{UserLogin.UserName}}</h4>
     </div>
 
     <div class="body-content">
@@ -46,9 +46,9 @@
           <div class="form-group" [ngClass]="{'has-error':!infoForm.controls['birthday'].valid && infoForm.controls['birthday'].touched}">
             <label>Ngày sinh: </label>
             <div class="input-group" placement="top" ngbTooltip="Chọn ngày sinh.">
-              <input class="form-control" [(ngModel)]="userInfo.UserDob"
+              <input class="form-control" [(ngModel)]="ngDateOfBirth"
               placeholder="yyyy-mm-dd" [formControl]="infoForm.controls['birthday']" name="dp"
-                ngbDatepicker #d="ngbDatepicker">
+                ngbDatepicker #d="ngbDatepicker" (ngModelChange)="dateChanged($event)">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
                   <i class="fa fa-calendar"></i>
@@ -68,27 +68,23 @@
             <div class="row" placement="top" ngbTooltip="Chọn giới tính.">
               <div class="radio col-4">
                 <label>
-                  <input type="radio" name="gender" value="Male" [formControl]="infoForm.controls['gender']">
+                  <input type="radio" name="gender" [checked]="userInfo.UserGender == 1" (change)="userInfo.UserGender = 1">
                   Nam
                 </label>
               </div>
               <div class="radio col-4">
                 <label>
-                  <input type="radio" name="gender" value="Female" [formControl]="infoForm.controls['gender']">
+                  <input type="radio" name="gender" [checked]="userInfo.UserGender == 2" (change)="userInfo.UserGender = 2">
                   Nữ
                 </label>
               </div>
               <div class="radio col-4">
                 <label>
-                  <input type="radio" name="gender" value="Other" [formControl]="infoForm.controls['gender']">
+                  <input type="radio" name="gender" [checked]="userInfo.UserGender !== 1 && userInfo.UserGender !== 2" (change)="userInfo.UserGender = 3">
                   Khác
                 </label>
               </div>
             </div>
-
-            <div class="alert text-danger" *ngIf="!infoForm.controls['gender'].valid && infoForm.controls['gender'].touched">
-              <i class="fa fa-exclamation-triangle"></i>
-              Bạn phải chọn giới tính.</div>
           </div>
 
           <div class="form-group" [ngClass]="{'has-error':!infoForm.controls['phone'].valid && infoForm.controls['phone'].touched}">
@@ -139,7 +135,7 @@
               Lưu
             </button>
 
-            <button class="btn btn-danger m-2" (click)="resetInfoFormOnClick()" placement="top" ngbTooltip="Nhập lại.">
+            <button type="reset" class="btn btn-danger m-2" (click)="resetInfoFormOnClick()" placement="top" ngbTooltip="Nhập lại.">
               Đặt lại
             </button>
           </div>

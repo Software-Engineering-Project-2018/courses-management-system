@@ -78,13 +78,13 @@ namespace WebServer.Repository
         }
 
         //Lấy danh sách tất cả bài tập.
-        public List<Task> GetAllTask(string searchKeyword)
+        public List<Task> GetAllTask(long courseId)
         {
             //Giá trị trả về của hàm này: List<Task>
             List<Task> queryResult = new List<Task>();
 
             //Cấu lệnh truy vấn ở dạng string
-            string queryString = "SELECT * FROM Task WHERE TaskName like '%' + @searchKeyword + '%'";
+            string queryString = "SELECT * FROM Task WHERE CourseId = @courseId";
 
             //Mở kết nối đến database
             using (SqlConnection connection =
@@ -92,7 +92,7 @@ namespace WebServer.Repository
             {
                 // Khởi tạo command có tham số nào truyền vào là từ khóa tìm kiếm
                 SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.AddWithValue("@searchKeyword", searchKeyword);
+                command.Parameters.AddWithValue("@courseId", courseId);
 
                 //Mở kết nối và thực hiện query vào database
                 connection.Open();
@@ -115,11 +115,11 @@ namespace WebServer.Repository
                     }
                     if (reader["CourseId"] != DBNull.Value)
                     {
-                        entity.CourseId = (long)reader["CourseId"];
+                        entity.Course.CourseId = (long)reader["CourseId"];
                     }
-                    if (reader["TaskDescripsion"] != DBNull.Value)
+                    if (reader["TaskDescription"] != DBNull.Value)
                     {
-                        entity.TaskDescription = (string)reader["TaskDescripsion"];
+                        entity.TaskDescription = (string)reader["TaskDescription"];
                     }
                     if (reader["TaskContent"] != DBNull.Value)
                     {
@@ -188,9 +188,9 @@ namespace WebServer.Repository
                     {
                        queryResult.CourseId = (long)reader["CourseId"];
                     }
-                    if (reader["TaskDescripsion"] != DBNull.Value)
+                    if (reader["TaskDescription"] != DBNull.Value)
                     {
-                        queryResult.TaskDescription = (string)reader["TaskDescripsion"];
+                        queryResult.TaskDescription = (string)reader["TaskDescription"];
                     }
                     if (reader["TaskContent"] != DBNull.Value)
                     {
@@ -208,13 +208,13 @@ namespace WebServer.Repository
                     {
                         queryResult.TaskDateSubmission = (DateTime)reader["TaskDateSubmission"];
                     }
-                    //Đóng kết nối
-                    reader.Close();
-                    connection.Close();
                 }
-                //Trả về kết quả
-                return queryResult;
+                //Đóng kết nối
+                reader.Close();
+                connection.Close();
             }
+            //Trả về kết quả
+            return queryResult;
         }
 
         //Hàm xóa thông tin bài tập ra khỏi danh sách

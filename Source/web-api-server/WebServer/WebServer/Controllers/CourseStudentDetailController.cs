@@ -14,7 +14,7 @@ namespace WebServer.Controllers
         private CourseStudentDetailReposistory courseStudentDetailReposistory = new CourseStudentDetailReposistory();
 
         // API Thêm mới khóa học chi tiết cfhco học sinh
-        [Route("rest/coursestudentdetail/insert")] //Đây là chuỗi url dùng để client có gọi đến server qua url này
+        [Route("rest/course-student-detail/insert")] //Đây là chuỗi url dùng để client có gọi đến server qua url này
         [HttpPost]   //Phương thức truyền của http (Get, Post, Delete...)
         public IHttpActionResult InsertCourseStudentDetail([FromBody] CourseStudentDetail courseStudentDetail)
         {
@@ -23,7 +23,7 @@ namespace WebServer.Controllers
         }
 
         //API Sửa thông tin chi tiết khóa học
-        [Route("rest/coursestudentdetail/update")]
+        [Route("rest/course-student-detail/update")]
         [HttpPost]
         public IHttpActionResult UpdateCourseStudentDetail([FromBody] CourseStudentDetail courseStudentDetail)
         {
@@ -31,7 +31,7 @@ namespace WebServer.Controllers
         }
 
         //API Lấy thông tin chi tiết khoá học theo mã khóa học và theo học sinh
-        [Route("rest/coursestudentdetail/get-all")]
+        [Route("rest/course-student-detail/get-all")]
         [HttpGet]
         public IHttpActionResult GetAllCourseStudentDetailByCourseAndStudent(long courseId, long studentId)
         {
@@ -39,7 +39,7 @@ namespace WebServer.Controllers
         }
 
         //API Lấy thông tin chi tiết 1 khóa học của học sinh
-        [Route("rest/coursestudentdetail/get")]
+        [Route("rest/course-student-detail/get")]
         [HttpGet]
         public IHttpActionResult GetOneDocumentDetail(long courseStudentDetailId)
         {
@@ -47,7 +47,7 @@ namespace WebServer.Controllers
         }
 
         //API Delete thông tin của 1 khóa học của học sinh
-        [Route("rest/coursestudentdetail/delete")]
+        [Route("rest/course-student-detail/delete")]
         [HttpDelete]
         public IHttpActionResult DeleteCourseStudentDetail(long courseStudentDetailId)
         {

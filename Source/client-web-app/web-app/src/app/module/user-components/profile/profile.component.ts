@@ -4,6 +4,11 @@ import { CropperSettings } from 'ng2-img-cropper';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { BaseComponent } from '../../base/base.component';
 import { UserObject } from 'src/app/object/user-object';
+import { TeacherService } from 'src/app/services/data-services/teacher.service';
+import { ParentService } from 'src/app/services/data-services/parent.service';
+import { ManagerService } from 'src/app/services/data-services/manager.service';
+import { StudentObject } from 'src/app/object/student-object';
+import { NgbDateParserFormatter, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-profile',
@@ -14,17 +19,32 @@ import { UserObject } from 'src/app/object/user-object';
 export class ProfileComponent extends BaseComponent implements OnInit {
 
   // Form data
-  public userInfo: any = new UserObject();
-
+  public userInfo: any;
+  ngDateOfBirth: NgbDate;
   //
   infoForm: FormGroup;
   data: any;
   cropperSettings: CropperSettings;
+  studentService: StudentService;
+  teacherService: TeacherService;
+  parentService: ParentService;
+  managerService: ManagerService;
 
-  constructor(fb: FormBuilder,
+  constructor(fb: FormBuilder, private ngbDateParserFormatter: NgbDateParserFormatter,
     injector: Injector) {
     super(injector);
+    this.teacherService = injector.get(TeacherService);
+    this.studentService = injector.get(StudentService);
+    this.parentService = injector.get(ParentService);
+    this.managerService = injector.get(ManagerService);
     this.cropperSettings = new CropperSettings();
+
+    this.userInfo = this.localStorageService.getUserInfo();
+    if (this.userInfo.UserDob) {
+      let dob: Date;
+      dob = new Date(this.userInfo.UserDob);
+      this.ngDateOfBirth = new NgbDate(dob.getFullYear(), dob.getMonth(), dob.getDay());
+    }
     this.cropperSettings.width = 100;
     this.cropperSettings.height = 100;
     this.cropperSettings.croppedWidth = 100;
@@ -36,7 +56,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     this.infoForm = fb.group({
       'name': [null, Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50)])],
       'id': [null, Validators.compose([Validators.required, Validators.minLength(7), Validators.maxLength(8)])],
-      'gender': [null, Validators.required],
+      // 'gender': [null, Validators.required],
       'birthday': [null, Validators.required],
       'phone': [null, Validators.compose([Validators.required, Validators.pattern('[0-9]*'),
       Validators.minLength(10), Validators.maxLength(10)])],
@@ -54,14 +74,55 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     this.data.image = undefined;
   }
 
-  changeInfoOnClick() {
+  dateChanged(data) {
+    this.userInfo.UserDob = new Date(data.year, data.month - 1, data.day);
+  }
 
+  changeInfoOnClick() {
+    switch (this.userInfo.UserType) {
+      case 1:
+        this.managerService.updateManager(JSON.parse(JSON.stringify(this.userInfo))).subscribe(
+          result => {
+            this.userInfo = result;
+            alert('Lưu thành công!');
+            this.localStorageService.setUserInfo(this.userInfo, 28800);
+          }
+        );
+        break;
+      case 2:
+        this.teacherService.updateTeacher(JSON.parse(JSON.stringify(this.userInfo))).subscribe(
+          result => {
+            this.userInfo = result;
+            alert('Lưu thành công!');
+            this.localStorageService.setUserInfo(this.userInfo, 28800);
+          }
+        );
+        break;
+      case 3:
+        this.studentService.updateStudent(JSON.parse(JSON.stringify(this.userInfo))).subscribe(
+          result => {
+            this.userInfo = result;
+            alert('Lưu thành công!');
+            this.localStorageService.setUserInfo(this.userInfo, 28800);
+          }
+        );
+        break;
+      case 4:
+        this.parentService.updateParent(JSON.parse(JSON.stringify(this.userInfo))).subscribe(
+          result => {
+            this.userInfo = result;
+            alert('Lưu thành công!');
+            this.localStorageService.setUserInfo(this.userInfo, 28800);
+          }
+        );
+        break;
+    }
   }
 
   resetInfoFormOnClick() {
     this.userInfo.UserFullName = '';
     this.userInfo.IdentificationCode = '';
-    this.userInfo.UserGender = 0;
+    // this.userInfo.UserGender = 0;
     this.userInfo.UserDob = new Date();
     this.userInfo.UserMobile = '';
     this.userInfo.UserAddress = '';

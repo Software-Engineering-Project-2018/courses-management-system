@@ -223,7 +223,7 @@ namespace WebServer.Repository
             {
                 // Khởi tạo command có tham số nào truyền vào là từ khóa tìm kiếm
                 SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.AddWithValue("@searchKeyword", searchKeyword);
+                command.Parameters.AddWithValue("@searchKeyword", string.IsNullOrEmpty(searchKeyword) ? "" : searchKeyword);
 
                 //Mở kết nối và thực hiện query vào database
                 connection.Open();

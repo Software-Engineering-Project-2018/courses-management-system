@@ -1,6 +1,7 @@
 import { Component, OnInit, Injector } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
-import { TeacherObject } from 'src/app/object/teacher-object';
+import { TeacherObject } from '../../../object/teacher-object';
+import { TeacherService } from '../../../services/data-services/teacher.service';
 
 @Component({
   selector: 'app-teacher-list',
@@ -10,28 +11,36 @@ import { TeacherObject } from 'src/app/object/teacher-object';
 export class TeacherListComponent extends BaseComponent implements OnInit {
 
   searchKeyword = '';
-  // teacherService: TeacherService;
+  teacherService: TeacherService;
   public teacherList: TeacherObject[];
   constructor(injector: Injector) {
     super(injector);
-    // this.teacherService = injector.get(TeacherService)
+    this.teacherService = injector.get(TeacherService);
     this.getData();
   }
+
   ngOnInit() {
   }
 
   getData() {
     this.startLoadingUi();
-    // this.studentService.getAllStudent(this.searchKeyword).subscribe(
-    //   response => {
-    //     this.studentSelected = response;
-        this.stopLoadingUi();
-    //   });
+    setTimeout(() => {
+      this.teacherService.getAllTeacher(this.searchKeyword).subscribe(
+        response => {
+          this.teacherList = response;
+          this.stopLoadingUi();
+        },
+        error => {
+          console.error(error);
+          this.stopLoadingUi();
+        });
+    }, 500);
   }
 
   searchOnclick() {
     this.getData();
   }
+
   userInfoOnClick(studentId) {
     this.router.navigate(['/dashboard/user-info']);
   }

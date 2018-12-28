@@ -29,7 +29,9 @@ namespace WebServer.Models
         public System.DateTime DateStart { get; set; }
         public System.DateTime DateEnd { get; set; }
         public double Tutition { get; set; }
-    
+        public string CourseIntro { get; set; }
+        public string CourseLinkRef { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CourseStudentDetail> CourseStudentDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

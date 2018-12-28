@@ -18,6 +18,7 @@ export class HomePageComponent extends BaseComponent implements OnInit {
   }
   logOutOnClick() {
     this.logOut();
+    this.isLoginIn = this.authenticationService.isLoggedIn();
     this.router.navigate(['/']);
   }
 }

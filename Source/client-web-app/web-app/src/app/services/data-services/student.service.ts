@@ -19,7 +19,7 @@ export class StudentService extends BaseService {
             headers: this.httpHeader,
             params: params
         };
-        return this.http.get<StudentObject[]>(this.prefixRestUrl + '/rest/student/get-all', httpOptions).pipe();
+        return this.http.get<StudentObject[]>(this.prefixRestUrl + 'rest/student/get-all', httpOptions).pipe();
     }
 
     getOneStudent(hocSinhId: number): Observable<StudentObject> {
@@ -30,7 +30,21 @@ export class StudentService extends BaseService {
             headers: this.httpHeader,
             params: params
         };
-        return this.http.get<StudentObject>(this.prefixRestUrl + '/rest/student/get', httpOptions).pipe();
+        return this.http.get<StudentObject>(this.prefixRestUrl + 'rest/student/get', httpOptions).pipe();
+    }
+
+    insertStudent(student: StudentObject): Observable<any> {
+        const httpOptions = {
+            headers: this.httpHeader
+        };
+        return this.http.post(this.prefixRestUrl + 'rest/student/insert', student);
+    }
+
+    updateStudent(student: StudentObject): Observable<any> {
+        const httpOptions = {
+            headers: this.httpHeader
+        };
+        return this.http.post(this.prefixRestUrl + 'rest/student/update', student, httpOptions);
     }
 
     deleteOneStudent(hocSinhId: number): Observable<any> {
@@ -41,7 +55,7 @@ export class StudentService extends BaseService {
             headers: this.httpHeader,
             params: params
         };
-        return this.http.delete(this.prefixRestUrl + '/rest/student/delete', httpOptions).pipe();
+        return this.http.delete(this.prefixRestUrl + 'rest/student/delete', httpOptions).pipe();
     }
 }
 

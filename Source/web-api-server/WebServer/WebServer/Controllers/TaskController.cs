@@ -33,9 +33,9 @@ namespace WebServer.Controllers
         //API Lấy tất cả bài tập(tìm kiếm quản lý theo tên)
         [Route("rest/task/get-all")]
         [HttpGet]
-        public IHttpActionResult GetAllTask(string searchKeyword)
+        public IHttpActionResult GetAllTask(long courseId)
         {
-            return Ok(taskReposistory.GetAllTask(searchKeyword));
+            return Ok(taskReposistory.GetAllTask(courseId));
         }
 
         //API Lấy thông tin 1 bài tập

@@ -16,6 +16,7 @@ export abstract class BaseComponent implements OnInit {
   protected router: Router;
   UserLogin: UserObject;
   isLoading = false;
+  public routerSubscribe: any;
   protected eventEmiter: EventEmiterService;
   public localStorageService: StorageService;
   public authenticationService: AuthService;
@@ -24,9 +25,14 @@ export abstract class BaseComponent implements OnInit {
     this.localStorageService = injector.get(StorageService);
     this.authenticationService = injector.get(AuthService);
     this.eventEmiter = injector.get(EventEmiterService);
+    this.UserLogin = this.getUserLogin();
   }
 
   ngOnInit() {
+  }
+
+  getUserLogin(): any {
+    return this.localStorageService.getUserInfo();
   }
 
   startLoadingUi(): void {
@@ -45,5 +51,6 @@ export abstract class BaseComponent implements OnInit {
 
   public logOut() {
     this.localStorageService.removeUserToken();
+    this.localStorageService.removeUserInfo();
   }
 }

@@ -1,0 +1,55 @@
+<ng-scrollbar class="task-info">
+  <div class="row-header">
+    <h3 class="title">
+      {{taskDetailInfo.Task.TaskName}}
+    </h3>
+  </div>
+
+  <div class="dot-line"></div>
+
+  <div class="list-content">
+
+    <div class="body-content">
+      <div class="info body-content-row">
+        <h5>Nộp bài</h5>
+
+        <div class="info-content">
+          <ul class="">
+            <li class="">
+              Trạng thái nộp bài: {{taskDetailInfo.TaskSubmissionState ? 'Đã nộp bài' : 'Chưa nộp bài'}}
+            </li>
+            <li class="">
+              Tình trạng chấm điểm: {{taskDetailInfo.TaskScore ? taskDetailInfo.TaskScore + 'điểm' : 'Chưa chấm.'}}
+            </li>
+            <li class="">
+              Ngày bắt đầu: {{taskDetailInfo.Task.TaskDateStart|date:'dd/MM/yyyy HH:mm:ss'}}
+            </li>
+            <li class="">
+              Hạn chót: {{taskDetailInfo.Task.TaskDeadline|date:'dd/MM/yyyy HH:mm:ss'}}
+            </li>
+            <li class="">
+              <h6>Nội dung bài tập:</h6>
+              <p class="">{{taskDetailInfo.Task.TaskContent}}</p>
+            </li>
+            <li class="">
+              <h6>Mô tả chi tiết:</h6>
+              <p class="">{{taskDetailInfo.Task.TaskDescription}}</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <input type="file" name="" id="">
+      </div>
+      <div class="col-12 text-center">
+        <button type="button" class="btn btn-outline-primary mr-3" (click)="submitExOnClick()">Nộp bài</button>
+        <button type="button" class="btn btn-outline-primary ml-3" (click)="cancelExOnClick()">Hủy bỏ</button>
+      </div>
+
+      <div class="dot-line mt-4"></div>
+    </div>
+
+  </div>
+
+</ng-scrollbar>

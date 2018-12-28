@@ -15,5 +15,8 @@ export class UserObject extends BaseObject {
 
     constructor() {
         super();
+        this.UserDob = new Date();
+        this.UserType = 3;
+        this.UserGender = 3;
     }
 }

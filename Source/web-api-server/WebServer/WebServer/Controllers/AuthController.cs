@@ -17,25 +17,25 @@ namespace WebServer.Controllers
 
         //API Đăng nhập
         //[Authorize]
-        [Route("rest/systems/login")]
-        //[HttpGet]
-        public IHttpActionResult Login([FromBody] dynamic data)
-        {
-            string userName = data.userName;
-            string password = data.password;
-            return Ok(systemsReposistory.Login(userName, password));
-        }
+        //[Route("rest/systems/login")]
+        ////[HttpGet]
+        //public IHttpActionResult Login([FromBody] dynamic data)
+        //{
+        //    string userName = data.userName;
+        //    string password = data.password;
+        //    return Ok(systemsReposistory.Login(userName, password));
+        //}
 
         //API Đăng ký
-        //[Authorize]
+        [Authorize]
         [Route("rest/systems/register")]
-        [HttpGet]
+        [HttpPost]
         public IHttpActionResult Register([FromBody] dynamic data)
         {
             long userType = data.userType;  //Loại người dùng Quản lý/ Học sinh/ Giáo viên/ phụ huynh
             string userName = data.userName;
             string identificationCode = null;    //Mã học sinh/ Mã giao viên
-            if (data.identificationCodo != null)
+            if (data.identificationCode != null)
             {
                 identificationCode = data.identificationCode;
             }
@@ -53,8 +53,8 @@ namespace WebServer.Controllers
 
         //API Get thông tin user đăng nhập
         [Route("rest/systems/get-user-info")]
+        [Authorize]
         [HttpGet]
-        //[Authorize]
         public IHttpActionResult GetUserInfo()
         {
             ClaimsIdentity identityClaims = (ClaimsIdentity)User.Identity;

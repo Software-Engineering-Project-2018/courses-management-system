@@ -11,8 +11,8 @@ namespace WebServer.Repository
         public CourseStudentDetail InsertCourseStudentDetail(CourseStudentDetail courseStudentDetail)
         {
             //Cấu lệnh truy vấn ở dạng string
-            string queryString = "INSERT INTO CourseStudentDetail (CourseStudentDetailId, CourseId, StudentId, FinalScore) VALUES" +
-                                 "(CourseStudentDetailId = @courseStudentDetailId, CourseId = @courseId, StudentId = @studentId, FinalScore = @finalScore)";
+            string queryString = "INSERT INTO CourseStudentDetail (CourseId, StudentId, FinalScore) VALUES" +
+                                 "(@courseId, @studentId, @finalScore) SELECT @@IDENTITY";
                                  
             //Mở kết nối đến database
             using (SqlConnection connection =
@@ -20,10 +20,9 @@ namespace WebServer.Repository
             {
                 // Khởi tạo command với các tham số truyền vào là các trường trong đối tượng CourseStudentDetail
                 SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.AddWithValue("@courseStudentDetailId", courseStudentDetail.CourseStudentDetailId);
-                command.Parameters.AddWithValue("@courseId", courseStudentDetail.CourseId);
-                command.Parameters.AddWithValue("@studentId", courseStudentDetail.StudentId);
-                command.Parameters.AddWithValue("@finalScore", courseStudentDetail.FinalScore);
+                command.Parameters.AddWithValue("@courseId", courseStudentDetail.Course.CourseId);
+                command.Parameters.AddWithValue("@studentId", courseStudentDetail.Student.UserId);
+                command.Parameters.AddWithValue("@finalScore", courseStudentDetail.FinalScore == null ? (object)DBNull.Value : courseStudentDetail.FinalScore);
                 
                 //Mở kết nối và thực hiện query vào database
                 connection.Open();

@@ -18,6 +18,7 @@ namespace WebServer.Models
         public Task()
         {
             this.TaskDetails = new HashSet<TaskDetail>();
+            this.Course = new Course();
         }
     
         public long TaskId { get; set; }

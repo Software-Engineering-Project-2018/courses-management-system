@@ -92,6 +92,8 @@ CREATE TABLE Course
 	CourseName nvarchar(50) not null,
 	DateStart date not null,
 	DateEnd date not null,
+	CourseIntro nvarchar(max) null,
+	CourseLinkRef nvarchar(max) null,
 	Tutition float not null, -- học phí
 	constraint pk_course primary key (CourseId)
 )
@@ -151,7 +153,7 @@ CREATE TABLE DocumentDetail
 (
 	DocumentDetailId bigint IDENTITY(1,1) not null,
 	CourseId bigint not null,	--foreign key
-	TeacherId bigint not null,	--foreign key
+	TeacherId bigint null,	--foreign key
 	DocumentDetailFileUpload varchar(max) null,
 	constraint pk_document_detail primary key (DocumentDetailId)
 )

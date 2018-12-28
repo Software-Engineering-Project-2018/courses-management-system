@@ -23,5 +23,11 @@ namespace WebServer.Models
     
         public virtual Student Student { get; set; }
         public virtual Task Task { get; set; }
+
+        public TaskDetail()
+        {
+            this.Student = new Student();
+            this.Task = new Task();
+        }
     }
 }

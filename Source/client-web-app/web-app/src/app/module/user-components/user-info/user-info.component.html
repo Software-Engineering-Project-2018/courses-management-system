@@ -1,58 +1,64 @@
-<ng-scrollbar class="user-info">
+<ng-scrollbar class="course-info">
+  <div class="row-header">
+    <h3 class="title">
+      {{userInfo.UserName}}
+    </h3>
+  </div>
 
-  <div id="user-info-screen" class="container">
-    <div class="header-content">
-      <h4 class="title d-inline-block" placement="right" ngbTooltip="Tên người dùng.">HuynhDuyTan</h4>
-    </div>
+  <div class="dot-line"></div>
+
+  <div class="list-content">
 
     <div class="body-content">
-      <!-- <div class="avatar body-content-row">
-        <h5>Ảnh đại diện</h5>
-      </div> -->
       <div class="info body-content-row">
         <h5>Thông tin cá nhân</h5>
 
-        <div class="info-content row">
+        <div class="info-content">
           <div class="position-relative pb-3 col-12 col-md-4">
             <img [src]="defaultAvatar" data-toggle="modal" data-target="#avatarModalCenter" placement="top" ngbTooltip="Nhấn để xem ảnh đại diện.">
           </div>
           <div class="col-12 col-md-8">
-            <div class="row">
+            <div class="row" *ngIf="userInfo.UserType === 2">
+              <label>Mã giáo viên: </label>
+              <span class="value">{{userInfo.IdentificationCode}}</span>
+            </div>
+            <div class="row" *ngIf="userInfo.UserType === 3">
               <label>Mã học sinh: </label>
-              <span class="value">1612597</span>
+              <span class="value">{{userInfo.IdentificationCode}}</span>
             </div>
             <div class="row">
               <label>Ngày sinh: </label>
-              <span class="value">10/10/1998</span>
+              <span class="value">{{userInfo.UserDob|date:'dd/MM/yyyy'}}</span>
             </div>
             <div class="row">
               <label>Giới tính: </label>
-              <span class="value">Nam</span>
+              <span class="value" *ngIf="userInfo.UserGender === 1">Nam</span>
+              <span class="value" *ngIf="userInfo.UserGender === 2">Nữ</span>
+              <span class="value" *ngIf="userInfo.UserGender !== 1 && userInfo.UserGender !== 2">Khác</span>
             </div>
             <div class="row">
               <label>Số điện thoại: </label>
-              <span class="value">03 633 839 93</span>
-            </div>
-            <div class="row">
-              <label>Mã học sinh: </label>
-              <span class="value">1612597</span>
+              <span class="value">{{userInfo.UserMobile}}</span>
             </div>
             <div class="row">
               <label>Email: </label>
-              <span class="value">duytan.0422@gmail.com</span>
+              <span class="value">{{userInfo.UserEmail}}</span>
             </div>
             <div class="row">
               <label>Đĩa chỉ: </label>
-              <span class="value">39/9 Trinh Hoai Duc, Hiep phu, Q9</span>
+              <span class="value">{{userInfo.UserAddress}}</span>
             </div>
           </div>
         </div>
       </div>
 
+      <div class="dot-line"></div>
+      <h5></h5>
+
       <div class="info body-content-row">
         <h5>Các khóa học đã tham gia</h5>
 
-        <div class="info-content row">
+        <div class="info-content">
           <div class="col-12">
             <div class="row">
               <span class="value">Hệ điều hành - CQ2016/1</span>
@@ -64,10 +70,12 @@
         </div>
       </div>
 
+      <div class="dot-line"></div>
+
       <div class="info body-content-row">
         <h5>Danh sách phụ huynh</h5>
 
-        <div class="info-content row">
+        <div class="info-content">
           <div class="col-12">
             <div class="row">
               <span class="value">Nguyễn văn A</span>
@@ -79,7 +87,9 @@
         </div>
       </div>
 
+      <div class="dot-line"></div>
     </div>
+
   </div>
 
 </ng-scrollbar>

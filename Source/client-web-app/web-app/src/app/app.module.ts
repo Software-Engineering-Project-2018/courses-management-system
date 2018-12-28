@@ -20,6 +20,7 @@ import { RegisterComponent } from './module/system-components/register/register.
 import { ContactComponent } from './module/system-components/contact/contact.component';
 import { ForgotPasswordComponent } from './module/system-components/forgot-password/forgot-password.component';
 import { CourseListComponent } from './module/user-components/course-list/course-list.component';
+import { MyCourseListComponent } from './module/user-components/course-list/my-course-list.component';
 import { SettingComponent } from './module/user-components/setting/setting.component';
 import { ProfileComponent } from './module/user-components/profile/profile.component';
 import { MainScreenComponent } from './module/main-screen/main-screen.component';
@@ -32,7 +33,7 @@ import { StudentListComponent } from './module/user-components/student-list/stud
 import { TeacherListComponent } from './module/user-components/teacher-list/teacher-list.component';
 import { IncomeComponent } from './module/user-components/income/income.component';
 import { CourseInfoComponent } from './module/user-components/course-info/course-info.component';
-import { LessonComponent } from './module/user-components/lesson/lesson.component';
+import { TaskComponent } from './module/user-components/task/task.component';
 import { UserInfoComponent } from './module/user-components/user-info/user-info.component';
 import { ParentListComponent } from './module/user-components/parent-list/parent-list.component';
 import { EnrollCourseComponent } from './module/user-components/enroll-course/enroll-course.component';
@@ -48,6 +49,7 @@ import { EventEmiterService } from './services/event.emmiter.service';
     ContactComponent,
     ForgotPasswordComponent,
     CourseListComponent,
+    MyCourseListComponent,
     SettingComponent,
     ProfileComponent,
     MainScreenComponent,
@@ -60,7 +62,7 @@ import { EventEmiterService } from './services/event.emmiter.service';
     TeacherListComponent,
     IncomeComponent,
     CourseInfoComponent,
-    LessonComponent,
+    TaskComponent,
     UserInfoComponent,
     EnrollCourseComponent,
     NotificationInfoComponent,

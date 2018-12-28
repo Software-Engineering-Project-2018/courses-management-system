@@ -23,19 +23,31 @@ export class StudentListComponent extends BaseComponent implements OnInit {
 
   getData() {
     this.startLoadingUi();
-    this.studentService.getAllStudent(this.searchKeyword).subscribe(
-      response => {
-        this.studentList = response;
-        this.stopLoadingUi();
-      });
+    setTimeout(() => {
+      this.studentService.getAllStudent(this.searchKeyword).subscribe(
+        response => {
+          this.studentList = response;
+          this.stopLoadingUi();
+        },
+        error => {
+          console.error(error);
+          this.stopLoadingUi();
+        });
+    }, 500);
   }
 
   searchOnclick() {
     this.getData();
   }
+
   userInfoOnClick(studentId) {
-    this.router.navigate(['/dashboard/user-info']);
+    this.router.navigate(['/dashboard/user-info',
+      {
+        userType: [3],
+        userId: [studentId]
+      }]);
   }
+
   listCourseOnClick(studentId) {
     this.router.navigate(['/dashboard/courses']);
   }

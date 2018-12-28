@@ -28,5 +28,10 @@ namespace WebServer.Models
         public string UserAvatar { get; set; }
     
         public virtual Student Student { get; set; }
+
+        public Parent()
+        {
+            this.Student = new Student();
+        }
     }
 }

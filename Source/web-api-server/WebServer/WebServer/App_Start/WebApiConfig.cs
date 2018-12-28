@@ -16,6 +16,8 @@ namespace WebServer
         {
             config.Formatters.Remove(config.Formatters.XmlFormatter);
 
+            config.Filters.Add(new AuthorizeAttribute());
+
             // Web API routes
             config.MapHttpAttributeRoutes();
         }

@@ -11,14 +11,13 @@
       </div>
       <div class="sidebar-header">
         <div class="user-pic">
-          <img class="img-responsive img-rounded" src="../../../assets/user.jpg" alt="User picture">
+          <img class="img-responsive img-rounded" [src]="UserLogin && UserLogin.UserAvatar ? UserLogin.UserAvatar : defaultAvatar" alt="User picture">
         </div>
         <div class="user-info">
           <span class="user-name" style="cursor: pointer;" [routerLink]="['/dashboard/profile']" routerLinkActive="router-link-active">
-            John
-            <strong>Cena</strong>
+            <strong> {{UserLogin.UserName}}</strong>
           </span>
-          <span class="user-role">Administrator</span>
+          <span class="user-role">{{userTypeName}}</span>
           <span class="user-status">
             <i class="fa fa-circle"></i>
             <span>Online</span>
@@ -28,7 +27,7 @@
 
       <!-- sidebar-header  -->
       <div class="sidebar-search">
-        <div>
+        <!-- <div>
           <div class="input-group">
             <input type="text" class="form-control search-menu" placeholder="Search...">
             <div class="input-group-append">
@@ -37,7 +36,7 @@
               </span>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
       <!-- END sidebar-header  -->
 
@@ -82,7 +81,7 @@
                   <a [routerLink]="['/dashboard/courses']" routerLinkActive="router-link-active">Danh sách khóa học</a>
                 </li>
                 <li>
-                  <a [routerLink]="['/dashboard/courses']" routerLinkActive="router-link-active">Khóa học của bạn</a>
+                  <a [routerLink]="['/dashboard/my-courses']" routerLinkActive="router-link-active">Khóa học của bạn</a>
                 </li>
                 <li>
                   <a [routerLink]="['/dashboard/scoreboard']" routerLinkActive="router-link-active">Xem điểm</a>

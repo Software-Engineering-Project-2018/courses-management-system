@@ -16,7 +16,7 @@ import { StudentListComponent } from './module/user-components/student-list/stud
 import { TeacherListComponent } from './module/user-components/teacher-list/teacher-list.component';
 import { IncomeComponent } from './module/user-components/income/income.component';
 import { ChangepasswordComponent } from './module/user-components/changepassword/changepassword.component';
-import { LessonComponent } from './module/user-components/lesson/lesson.component';
+import { TaskComponent } from './module/user-components/task/task.component';
 import { CourseInfoComponent } from './module/user-components/course-info/course-info.component';
 import { UserInfoComponent } from './module/user-components/user-info/user-info.component';
 import { EnrollCourseComponent } from './module/user-components/enroll-course/enroll-course.component';
@@ -24,6 +24,7 @@ import { AuthGuard } from './services/auth-guard';
 import { CourseNotificationListComponent } from './module/user-components/notification-list/courses-notification-list.component';
 import { GeneralNotificationListComponent } from './module/user-components/notification-list/general-notification-list.component';
 import { NotificationInfoComponent } from './module/user-components/notification-info/notification-info.component';
+import { MyCourseListComponent } from './module/user-components/course-list/my-course-list.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -53,6 +54,10 @@ const routes: Routes = [
       {
         path: 'courses',
         component: CourseListComponent
+      },
+      {
+        path: 'my-courses',
+        component: MyCourseListComponent
       },
       {
         path: 'scoreboard',
@@ -87,8 +92,8 @@ const routes: Routes = [
         component: ContactComponent
       },
       {
-        path: 'lesson',
-        component: LessonComponent
+        path: 'task',
+        component: TaskComponent
       },
       {
         path: 'course-info',

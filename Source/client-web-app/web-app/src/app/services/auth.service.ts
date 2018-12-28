@@ -12,13 +12,12 @@ export class AuthService extends BaseService {
         super(injector);
     }
 
+
     login(userName, password): Observable<any> {
-        // tslint:disable-next-line:prefer-const
-        let data = 'UserName=' + userName + '&Password=' + password + '&grant_type=password';
-        // tslint:disable-next-line:prefer-const
-        let reqHeader = new HttpHeaders({
-            'Content-Type': 'application/json', 'No-Auth': 'True',
-            'Access-Control-Allow-Origin': '*'
+        const data = 'UserName=' + userName + '&Password=' + password + '&grant_type=password';
+        const reqHeader = new HttpHeaders({
+            'Content-Type': 'application/x-www-urlencoded',
+            'No-Auth': 'True'
         });
         return this.http.post(this.prefixRestUrl + '/token', data, { headers: reqHeader });
     }
@@ -28,10 +27,7 @@ export class AuthService extends BaseService {
             headers: this.httpHeader
             // params: params
         };
-        return this.http.get<any>(this.prefixRestUrl + '/rest/systems/get-user-info', { headers: {
-            'Content-Type': 'application/json', 'No-Auth': 'True',
-            'Access-Control-Allow-Origin': '*'
-        } }).pipe();
+        return this.http.get<any>(this.prefixRestUrl + '/rest/systems/get-user-info', this.httpHeader).pipe();
     }
 
     // Kiểm tra đã đăng nhập chưa, dựa vào expire date

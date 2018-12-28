@@ -73,14 +73,14 @@ namespace WebServer.Repository
             return course;
         }
 
-        //Lấy danh sách tất cả khóa học
-        public List<Course> GetAllCourse(string searchKeyword)
+        //Lấy danh sách tất cả khóa học học sinh đã tham gia
+        public List<dynamic> GetAllCourseJoined(string searchKeyword, long studentId)
         {
             //Giá trị trả về của hàm này: List<Course>
-            List<Course> queryResult = new List<Course>();
+            List<dynamic> queryResult = new List<dynamic>();
 
             //Cấu lệnh truy vấn ở dạng string
-            string queryString = "SELECT * FROM Course WHERE CourseName like '%' + @searchKeyword + '%'";
+            string queryString = "SELECT c.* FROM Course c LEFT JOIN CourseStudentDetail csd ON c.CourseId = csd.Courseid WHERE csd.StudentId = @studentId AND CourseName like '%' + @searchKeyword + '%'";
 
             //Mở kết nối đến database
             using (SqlConnection connection =
@@ -88,7 +88,8 @@ namespace WebServer.Repository
             {
                 // Khởi tạo command có tham số nào truyền vào là từ khóa tìm kiếm
                 SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.AddWithValue("@searchKeyword", searchKeyword);
+                command.Parameters.AddWithValue("@searchKeyword", string.IsNullOrEmpty(searchKeyword) ? "" : searchKeyword);
+                command.Parameters.AddWithValue("@studentId", studentId);
 
                 //Mở kết nối và thực hiện query vào database
                 connection.Open();
@@ -98,7 +99,7 @@ namespace WebServer.Repository
                 while (reader.Read())
                 {
                     //Tạo biến tạm để lấy đọc giá trị và sau dó thêm vào List queryResult
-                    Course entity = new Course();
+                    dynamic entity = new Course();
 
                     //Lấy từng cột đọc được lưu vào entity
                     if (reader["CourseId"] != DBNull.Value)
@@ -121,7 +122,86 @@ namespace WebServer.Repository
                     {
                         entity.Tutition = (double)reader["Tutition"];
                     }
-                    
+                    if (reader["CourseIntro"] != DBNull.Value)
+                    {
+                        entity.CourseIntro = (string)reader["CourseIntro"];
+                    }
+                    if (reader["CourseLinkRef"] != DBNull.Value)
+                    {
+                        entity.CourseLinkRef = (string)reader["CourseLinkRef"];
+                    }
+
+                    //Thêm entity vào list trả về
+                    queryResult.Add(entity);
+                }
+
+                //Đóng kết nối
+                reader.Close();
+                connection.Close();
+            }
+
+            //Trả về kết quả
+            return queryResult;
+        }
+
+        //Lấy danh sách tất cả khóa học học sinh chưa tham gia
+        public List<dynamic> GetAllCourseNotJoined(string searchKeyword, long studentId)
+        {
+            //Giá trị trả về của hàm này: List<Course>
+            List<dynamic> queryResult = new List<dynamic>();
+
+            //Cấu lệnh truy vấn ở dạng string
+            string queryString = "SELECT c.* FROM Course c LEFT JOIN CourseStudentDetail csd ON c.CourseId = csd.CourseId WHERE (csd.StudentId != @studentId OR csd.StudentId is null) AND CourseName like '%' + @searchKeyword + '%'";
+
+            //Mở kết nối đến database
+            using (SqlConnection connection =
+                new SqlConnection(this.ConnectionString))
+            {
+                // Khởi tạo command có tham số nào truyền vào là từ khóa tìm kiếm
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("@searchKeyword", string.IsNullOrEmpty(searchKeyword) ? "" : searchKeyword);
+                command.Parameters.AddWithValue("@studentId", studentId);
+
+                //Mở kết nối và thực hiện query vào database
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                //Đọc dữ liệu trả về từ truy vấn ở trên
+                while (reader.Read())
+                {
+                    //Tạo biến tạm để lấy đọc giá trị và sau dó thêm vào List queryResult
+                    dynamic entity = new Course();
+
+                    //Lấy từng cột đọc được lưu vào entity
+                    if (reader["CourseId"] != DBNull.Value)
+                    {
+                        entity.CourseId = (long)reader["CourseId"];
+                    }
+                    if (reader["CourseName"] != DBNull.Value)
+                    {
+                        entity.CourseName = (string)reader["CourseName"];
+                    }
+                    if (reader["DateStart"] != DBNull.Value)
+                    {
+                        entity.DateStart = (DateTime)reader["DateStart"];
+                    }
+                    if (reader["DateEnd"] != DBNull.Value)
+                    {
+                        entity.DateEnd = (DateTime)reader["DateEnd"];
+                    }
+                    if (reader["TutiTion"] != DBNull.Value)
+                    {
+                        entity.Tutition = (double)reader["Tutition"];
+                    }
+                    if (reader["CourseIntro"] != DBNull.Value)
+                    {
+                        entity.CourseIntro = (string)reader["CourseIntro"];
+                    }
+                    if (reader["CourseLinkRef"] != DBNull.Value)
+                    {
+                        entity.CourseLinkRef = (string)reader["CourseLinkRef"];
+                    }
+
                     //Thêm entity vào list trả về
                     queryResult.Add(entity);
                 }
@@ -150,7 +230,7 @@ namespace WebServer.Repository
             {
                 // Khởi tạo command với tham số truyền vào là CourseId
                 SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.AddWithValue("@CourseId", courseId);
+                command.Parameters.AddWithValue("@courseId", courseId);
 
                 //Mở kết nối và thực hiện query vào database
                 connection.Open();
@@ -180,13 +260,23 @@ namespace WebServer.Repository
                     {
                         queryResult.Tutition = (double)reader["Tutition"];
                     }
-                    //Đóng kết nối
-                    reader.Close();
-                    connection.Close();
+                    if (reader["CourseIntro"] != DBNull.Value)
+                    {
+                        queryResult.CourseIntro = (string)reader["CourseIntro"];
+                    }
+                    if (reader["CourseLinkRef"] != DBNull.Value)
+                    {
+                        queryResult.CourseLinkRef = (string)reader["CourseLinkRef"];
+                    }
                 }
-                //Trả về kết quả
-                return queryResult;
+
+                //Đóng kết nối
+                reader.Close();
+                connection.Close();
+
             }
+            //Trả về kết quả
+            return queryResult;
         }
 
         //Hàm xóa thông tin khóa học ra khỏi danh sách
@@ -216,5 +306,144 @@ namespace WebServer.Repository
             // Hàm trả về courseId
             return courseId;
         }
+
+        public List<Course> GetAllCourseByStudent(long studentId)
+        {
+            //Giá trị trả về của hàm này: List<CourseStudentDetail>
+            List<Course> queryResult = new List<Course>();
+
+            //Cấu lệnh truy vấn ở dạng string
+            string queryString = "SELECT c.* FROM CourseStudentDetail csd JOIN COURSE c ON csd.CourseId = c.CourseId WHERE StudentId = @studentId";
+
+            //Mở kết nối đến database
+            using (SqlConnection connection =
+                new SqlConnection(this.ConnectionString))
+            {
+                // Khởi tạo command có tham số nào truyền vào là từ khóa tìm kiếm
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("@studentId", studentId);
+
+                //Mở kết nối và thực hiện query vào database
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                //Đọc dữ liệu trả về từ truy vấn ở trên
+                while (reader.Read())
+                {
+                    //Tạo biến tạm để lấy đọc giá trị và sau dó thêm vào List queryResult
+                    Course entity = new Course();
+
+                    //Lấy từng cột đọc được lưu vào entity
+                    if (reader["CourseId"] != DBNull.Value)
+                    {
+                        entity.CourseId = (long)reader["CourseId"];
+                    }
+                    if (reader["CourseName"] != DBNull.Value)
+                    {
+                        entity.CourseName = (string)reader["CourseName"];
+                    }
+                    if (reader["DateStart"] != DBNull.Value)
+                    {
+                        entity.DateStart = (DateTime)reader["DateStart"];
+                    }
+                    if (reader["DateEnd"] != DBNull.Value)
+                    {
+                        entity.DateEnd = (DateTime)reader["DateEnd"];
+                    }
+                    if (reader["TutiTion"] != DBNull.Value)
+                    {
+                        entity.Tutition = (double)reader["Tutition"];
+                    }
+                    if (reader["CourseIntro"] != DBNull.Value)
+                    {
+                        entity.CourseIntro = (string)reader["CourseIntro"];
+                    }
+                    if (reader["CourseLinkRef"] != DBNull.Value)
+                    {
+                        entity.CourseLinkRef = (string)reader["CourseLinkRef"];
+                    }
+
+                    //Thêm entity vào list trả về
+                    queryResult.Add(entity);
+                }
+
+                //Đóng kết nối
+                reader.Close();
+                connection.Close();
+            }
+
+            //Trả về kết quả
+            return queryResult;
+        }
+
+        public List<Course> GetAllCourseByTeacher(long teacherId)
+        {
+            //Giá trị trả về của hàm này: List<CourseStudentDetail>
+            List<Course> queryResult = new List<Course>();
+
+            //Cấu lệnh truy vấn ở dạng string
+            string queryString = "SELECT c.* FROM CourseTeacherDetail ctd JOIN COURSE c ON ctd.CourseId = c.CourseId WHERE ctd.TeacherId = @teacherId";
+
+            //Mở kết nối đến database
+            using (SqlConnection connection =
+                new SqlConnection(this.ConnectionString))
+            {
+                // Khởi tạo command có tham số nào truyền vào là từ khóa tìm kiếm
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("@teacherId", teacherId);
+
+                //Mở kết nối và thực hiện query vào database
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                //Đọc dữ liệu trả về từ truy vấn ở trên
+                while (reader.Read())
+                {
+                    //Tạo biến tạm để lấy đọc giá trị và sau dó thêm vào List queryResult
+                    Course entity = new Course();
+
+                    //Lấy từng cột đọc được lưu vào entity
+                    if (reader["CourseId"] != DBNull.Value)
+                    {
+                        entity.CourseId = (long)reader["CourseId"];
+                    }
+                    if (reader["CourseName"] != DBNull.Value)
+                    {
+                        entity.CourseName = (string)reader["CourseName"];
+                    }
+                    if (reader["DateStart"] != DBNull.Value)
+                    {
+                        entity.DateStart = (DateTime)reader["DateStart"];
+                    }
+                    if (reader["DateEnd"] != DBNull.Value)
+                    {
+                        entity.DateEnd = (DateTime)reader["DateEnd"];
+                    }
+                    if (reader["TutiTion"] != DBNull.Value)
+                    {
+                        entity.Tutition = (double)reader["Tutition"];
+                    }
+                    if (reader["CourseIntro"] != DBNull.Value)
+                    {
+                        entity.CourseIntro = (string)reader["CourseIntro"];
+                    }
+                    if (reader["CourseLinkRef"] != DBNull.Value)
+                    {
+                        entity.CourseLinkRef = (string)reader["CourseLinkRef"];
+                    }
+
+                    //Thêm entity vào list trả về
+                    queryResult.Add(entity);
+                }
+
+                //Đóng kết nối
+                reader.Close();
+                connection.Close();
+            }
+
+            //Trả về kết quả
+            return queryResult;
+        }
+
     }
 }

@@ -4,7 +4,7 @@ import { CourseObject } from './Course-object';
 export class TaskObject extends BaseObject {
     TaskId: number;
     TaskName: string;
-    TaskDesctiption: string;
+    TaskDescription: string;
     TaskContent: string;
     TaskDateStart: Date;
     TaskDeadline: Date;

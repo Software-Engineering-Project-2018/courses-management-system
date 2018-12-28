@@ -20,5 +20,11 @@ namespace WebServer.Models
     
         public virtual Course Course { get; set; }
         public virtual Teacher Teacher { get; set; }
+
+        public CourseTeacherDetail()
+        {
+            this.Course = new Course();
+            this.Teacher = new Teacher();
+        }
     }
 }

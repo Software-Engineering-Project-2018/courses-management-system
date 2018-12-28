@@ -1,6 +1,7 @@
 import { Component, OnInit, Injector } from '@angular/core';
 import * as $ from 'jquery';
 import { BaseComponent } from '../base/base.component';
+import { ɵshimContentAttribute } from '@angular/platform-browser';
 @Component({
   selector: 'app-main-screen',
   templateUrl: './main-screen.component.html',
@@ -9,6 +10,8 @@ import { BaseComponent } from '../base/base.component';
 export class MainScreenComponent extends BaseComponent implements OnInit {
 
   isMobile = false;
+  userTypeName = 'Không xác định';
+  defaultAvatar = '../../../assets/user.jpg';
   constructor(public injector: Injector) {
     super(injector);
   }
@@ -84,6 +87,18 @@ export class MainScreenComponent extends BaseComponent implements OnInit {
     //   });
     //   $('.sidebar-content').addClass('desktop');
 
+    // }
+    // if (this.userInfo.UserType) {
+    //   switch (this.userInfo.UserType) {
+    //     case 1: this.userTypeName = 'Admministrator';
+    //       break;
+    //     case 2: this.userTypeName = 'Giáo viên';
+    //       break;
+    //     case 3: this.userTypeName = 'Học sinh';
+    //       break;
+    //     case 4: this.userTypeName = 'Phụ huynh';
+    //       break;
+    //   }
     // }
   }
 

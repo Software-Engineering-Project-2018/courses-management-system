@@ -1,7 +1,7 @@
 <ng-scrollbar class="course-info">
   <div class="row-header">
     <h3 class="title">
-      Hệ điều hành
+      {{courseInfo.CourseName}}
     </h3>
   </div>
 
@@ -14,14 +14,22 @@
         <h5>Thông tin môn</h5>
 
         <div class="info-content">
-          <div class="col-12 col-md-8">
-            <div class="row">
-              <a>Giới thiệu môn học</a>
-            </div>
-            <div class="row">
-              <a>Nhóm thảo luận</a>
-            </div>
-          </div>
+          <ul class="">
+            <li class="">
+              Ngày bắt đầu: {{courseInfo.DateStart|date:'dd/MM/yyyy'}}
+            </li>
+            <li class="">
+              Ngày kết thúc(dự kiến): {{courseInfo.DateEnd|date:'dd/MM/yyyy'}}
+            </li>
+            <li class="">
+              <h6>Giới thiệu môn học:</h6>
+              <p class="">{{courseInfo.CourseIntro}}</p>
+            </li>
+            <li class="">
+              <h6>Nhóm thảo luận:</h6>
+              <p class="">{{courseInfo.CourseLinkRef}}</p>
+            </li>
+          </ul>
         </div>
       </div>
 
@@ -32,12 +40,11 @@
 
         <div class="info-content">
           <div class="col-12">
-            <div class="row">
-              <a>Bai1_Gioi_thieu_tong-quan.pdf</a>
-            </div>
-            <div class="row">
-              <a>Bai2_Gioi_thieu_tong-quan.docx</a>
-            </div>
+            <ul>
+              <li *ngFor="let item of courseInfo.DocumentDetailList">
+                <a>Bai1_Gioi_thieu_tong-quan.pdf</a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -49,12 +56,11 @@
 
         <div class="info-content">
           <div class="col-12">
-            <div class="row">
-              <a>Bài tập 1 - deadline 1-1-2020</a>
-            </div>
-            <div class="row">
-              <a>Bài tập 2 - deadline 2-1-2020</a>
-            </div>
+            <ul>
+              <li *ngFor="let item of courseInfo.TaskList">
+                <a (click)="taskInfoOnClick(item.TaskId)">{{item.TaskName}}</a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>

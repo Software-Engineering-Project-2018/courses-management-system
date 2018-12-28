@@ -49,15 +49,15 @@ export class LoginComponent extends BaseComponent implements OnInit {
       .login(this.username, this.password)
       .subscribe(
         response => {
-          this.router.navigateByUrl('/dashboard');
           this.localStorageService.setUserToken(response.access_token, response.expires_in);
-          // this.authenticationService.getUserInfo().subscribe(
-          //   user => {
-          //     // store user
-          //     this.localStorageService.setUserInfo(user, response.expires_in);
-          //     // this.stopLoadingUi();
-          //   }
-          // );
+          this.authenticationService.getUserInfo().subscribe(
+            user => {
+              // store user
+              this.localStorageService.setUserInfo(user, response.expires_in);
+              this.router.navigateByUrl('/dashboard');
+              // this.stopLoadingUi();
+            }
+          );
           this.stopLoadingUi();
         },
         error => {
