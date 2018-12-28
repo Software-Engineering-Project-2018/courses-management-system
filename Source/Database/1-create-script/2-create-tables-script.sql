@@ -164,7 +164,7 @@ CREATE TABLE Notification
 	NotificationId bigint IDENTITY(1,1) not null,
 	NotificationName nvarchar(50) not null,
 	NotificationDateCreate datetime not null,
-	NotificationCreatorName datetime not null,
+	NotificationCreatorName nvarchar(50) not null,
 	NotificationContent nvarchar(max) null,
 	NotificationType bigint not null,
 	CourseId bigint null,	--foreign key. NotificationType là 2 thì lấy dữ liệu từ CourseId, NotificationType là 0 thì không lấy
