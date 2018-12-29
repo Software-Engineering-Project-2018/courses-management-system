@@ -1,0 +1,46 @@
+<div class="course-student-list">
+  <div class="searcher-header">
+    <div class="form-group row">
+      <label for="inputKeyword" class="col-12 col-sm-6 col-md-4 col-lg-2 col-form-label">Tìm kiếm học sinh: </label>
+      <div class="col-12 col-sm-6 col-md-8 col-lg-10">
+        <input type="text" [(ngModel)]="searchKeyword" (keyup.enter)="searchOnclick()" class="form-control" id="inputKeyword"
+          placeholder="Nhập mã số | tên học sinh">
+      </div>
+    </div>
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary" (click)="searchOnclick()">Tìm kiếm</button>
+    </div>
+  </div>
+
+  <div class="dot-line"></div>
+
+  <div class="list-content">
+    <h2 class="default-color p-2">Danh sách học sinh</h2>
+    <table class="table">
+      <thead class="default-color text-center">
+        <tr>
+          <th scope="col">STT</th>
+          <th scope="col">Mã số</th>
+          <th scope="col">Họ tên</th>
+          <th class="text-center" scope="col">Điểm tổng kết</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of courseStudentList; let i = index;">
+          <th scope="row">{{i + 1}}</th>
+          <td (click)="userInfoOnClick(item.Student.UserId)">{{item.Student.IdentificationCode}}</td>
+          <td (click)="userInfoOnClick(item.Student.UserId)">{{item.Student.UserFullName}}</td>
+          <td class="text-center">
+            <input type="number" [(ngModel)]="item.Student.Tutition" class="form-control">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="!courseStudentList || courseStudentList.length == 0" class="text-center p-3">
+      Không có dữ liệu!
+    </div>
+    <div class="col-12 text-center">
+      <button type="button" class="btn btn-outline-primary">Lưu</button>
+    </div>
+  </div>
+</div>

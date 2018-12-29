@@ -13,6 +13,9 @@ export class AppComponent {
     emitService.changeEmitted$.subscribe(
       isLoading => {
         this.isLoading = isLoading;
+      },
+      error => {
+        console.log(error);
       });
   }
 }

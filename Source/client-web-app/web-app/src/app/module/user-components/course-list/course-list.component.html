@@ -17,18 +17,19 @@
   <div class="list-content">
     <h2 class="default-color p-2">Danh sách khóa học</h2>
     <div class="btn-add">
-      <button type="button" class="btn btn-outline-primary">Thêm khóa học</button>
+      <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#addNewModalCenter">Thêm
+        khóa học</button>
     </div>
     <table class="table">
       <thead class="default-color text-center">
         <tr>
           <th scope="col">STT</th>
           <th scope="col">Tên khóa học</th>
-          <th class="tex-center" scope="col">Giáo viên phụ trách</th>
-          <th class="tex-center" scope="col">Ngày bắt đầu</th>
-          <th class="tex-center" scope="col">Ngày kết thúc</th>
-          <th class="tex-center" scope="col">Đăng ký</th>
-          <th class="tex-center" scope="col">Quản lý</th>
+          <th class="text-center" scope="col">Giáo viên phụ trách</th>
+          <th class="text-center" scope="col">Ngày bắt đầu</th>
+          <th class="text-center" scope="col">Ngày kết thúc</th>
+          <th class="text-center" scope="col">Đăng ký</th>
+          <th class="text-center" scope="col">Quản lý</th>
         </tr>
       </thead>
       <tbody>
@@ -50,8 +51,9 @@
                 <i class="fa fa-sliders" data-toggle="dropdown" style="font-size: 25px; line-height: 30px; cursor: pointer;"></i>
                 <div class="dropdown-menu">
                   <div class="list-group">
-                      <a class="list-group-item list-group-item-action" (click)="courseInfoOnClick(item.CourseId)">Xem</a>
-                      <a class="list-group-item list-group-item-action" (click)="courseInfoOnClick(item.CourseId)">Sửa</a>
+                    <a class="list-group-item list-group-item-action" (click)="courseInfoOnClick(item.CourseId)">Xem</a>
+                    <a class="list-group-item list-group-item-action" (click)="courseStudentListOnClick(item.CourseId)">Danh sách học sinh</a>
+                    <a class="list-group-item list-group-item-action" (click)="courseInfoOnClick(item.CourseId)">Sửa</a>
                     <a class="list-group-item list-group-item-action" data-toggle="modal" data-target="#acceptDeleteModalCenter">Xóa</a>
                   </div>
                 </div>
@@ -112,6 +114,95 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
         <button type="button" class="btn btn-primary">Đống ý</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="addNewModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Thêm mới khóa học</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="courseInfoForm" (ngSubmit)="insertCourseOnClick()">
+          <div class="form-group" [ngClass]="{'has-error':!courseInfoForm.controls['courseName'].valid && courseInfoForm.controls['courseName'].touched}">
+            <label>Tên khóa học: </label>
+            <input class="form-control" type="text" [(ngModel)]="courseInfo.CourseName" placeholder="Khóa học"
+              [formControl]="courseInfoForm.controls['courseName']" placement="top" ngbTooltip="Nhập tên khóa học.">
+            <div *ngIf="courseInfoForm.controls['courseName'].hasError('required') && courseInfoForm.controls['courseName'].touched"
+              class="alert text-danger">
+              <i class="fa fa-exclamation-triangle"></i>Chưa nhập tên khóa học.</div>
+            <div *ngIf="courseInfoForm.controls['courseName'].hasError('minlength') && courseInfoForm.controls['courseName'].touched"
+              class="alert text-danger">
+              <i class="fa fa-exclamation-triangle"></i>Tên quá ngắn.</div>
+            <div *ngIf="courseInfoForm.controls['courseName'].hasError('maxlength') && courseInfoForm.controls['courseName'].touched"
+              class="alert text-danger">
+              <i class="fa fa-exclamation-triangle"></i>Tên quá dài.</div>
+          </div>
+
+          <div class="form-group" [ngClass]="{'has-error':!courseInfoForm.controls['dateStart'].valid && courseInfoForm.controls['dateStart'].touched}">
+            <label>Ngày bắt đầu: </label>
+            <input class="form-control" type="date" [(ngModel)]="courseInfo.DateStart" [formControl]="courseInfoForm.controls['dateStart']"
+              placement="top" ngbTooltip="Chọn ngày bắt đầu khóa học.">
+            <div *ngIf="courseInfoForm.controls['dateStart'].hasError('required') && courseInfoForm.controls['dateStart'].touched"
+              class="alert text-danger">
+              <i class="fa fa-exclamation-triangle"></i>Chọn ngày bắt đầu.
+            </div>
+          </div>
+
+          <div class="form-group" [ngClass]="{'has-error':!courseInfoForm.controls['dateEnd'].valid && courseInfoForm.controls['dateEnd'].touched}">
+            <label>Ngày kết thúc dự kiến: </label>
+            <input class="form-control" type="date" [(ngModel)]="courseInfo.DateEnd" placeholder="Nguyễn Văn A"
+              [formControl]="courseInfoForm.controls['dateEnd']" placement="top" ngbTooltip="Chọn ngày kết thúc khóa học.">
+
+            <div *ngIf="courseInfoForm.controls['dateEnd'].hasError('required') && courseInfoForm.controls['dateEnd'].touched"
+              class="alert text-danger">
+              <i class="fa fa-exclamation-triangle"></i>Chọn ngày kết thúc.</div>
+          </div>
+
+          <div class="form-group" [ngClass]="{'has-error':!courseInfoForm.controls['tutition'].valid && courseInfoForm.controls['tutition'].touched}">
+            <label>Học phí: </label>
+            <input class="form-control" type="number" [(ngModel)]="courseInfo.Tutition" placeholder="0" [formControl]="courseInfoForm.controls['tutition']"
+              placement="top" ngbTooltip="Nhập số tiền mỗi học sinh phải đóng để tham gia khóa học.">
+            <div *ngIf="courseInfoForm.controls['tutition'].hasError('required') && courseInfoForm.controls['tutition'].touched"
+              class="alert text-danger">
+              <i class="fa fa-exclamation-triangle"></i>Chưa nhập học phí.
+            </div>
+            <div *ngIf="courseInfo.Tutition < 0" class="alert text-danger">
+              <i class="fa fa-exclamation-triangle"></i>Sô tiền không hợp lệ.
+            </div>
+          </div>
+
+          <div class="form-group" >
+            <label>Giới thiệu khóa học: </label>
+            <input class="form-control" type="text" [(ngModel)]="courseInfo.CourseIntro" [formControl]="courseInfoForm.controls['courseIntro']"
+              placement="top" ngbTooltip="Thông tin giới thiệu khóa học.">
+          </div>
+
+          <div class="form-group">
+            <label>Liên kết thêm: </label>
+            <input class="form-control" type="text" [(ngModel)]="courseInfo.CourseLinkRef" [formControl]="courseInfoForm.controls['courseLinkRef']"
+              placement="top" ngbTooltip="Các trang web liên kết, link nhóm facebook...">
+          </div>
+
+          <div class="form-group text-center">
+            <button type="submit" class="btn btn-success m-2" [disabled]="!courseInfoForm.valid" placement="bottom"
+              ngbTooltip="Nhấn để lưu.">
+              Lưu
+            </button>
+
+            <button type="reset" class="btn btn-danger m-2" data-dismiss="modal" placement="top" ngbTooltip="Hủy.">
+              Hủy
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

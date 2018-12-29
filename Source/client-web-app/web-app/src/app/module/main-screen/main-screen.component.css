@@ -1130,7 +1130,7 @@ body {
 
 .nav.fixed-top {
   left: auto;
-  border-bottom: 1px dashed #63a4cfdb;
+  /* border-bottom: 1px dashed #63a4cfdb; */
 }
 
 .header-breadcrumb {

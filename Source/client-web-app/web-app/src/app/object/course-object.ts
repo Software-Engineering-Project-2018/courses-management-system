@@ -16,6 +16,8 @@ export class CourseObject extends BaseObject {
     TaskList: TaskObject[];
     public constructor() {
         super();
+        this.DateStart = new Date();
+        this.DateEnd = new Date();
         this.DocumentDetailList = [];
         this.TaskList = [];
     }

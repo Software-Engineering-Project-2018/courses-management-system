@@ -2,6 +2,7 @@
 using System.Web.Http;
 using WebServer.Models;
 using WebServer.Repository;
+using WebServer.Repository.sp;
 
 namespace WebServer.Controllers
 {
@@ -56,9 +57,9 @@ namespace WebServer.Controllers
         //API Resert password
         [Route("rest/student/reset-password")]
         [HttpPost]
-        public IHttpActionResult ResetPassword([FromBody] Student student)
+        public IHttpActionResult ResetPassword(long studentId)
         {
-            return Ok(studentReposistory.ResetPassword(student));
+            return Ok(studentReposistory.ResetPassword(studentId));
         }
 
        

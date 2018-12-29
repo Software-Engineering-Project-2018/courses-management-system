@@ -23,11 +23,23 @@ export class TaskDetailService extends BaseService {
         return this.http.get<TaskDetailObject>(this.prefixRestUrl + 'rest/task-detail/get', httpOptions).pipe();
     }
 
+    getTaskDetailByStudentAndCourse(studentId: number, taskId: number): Observable<any> {
+        const data = {
+            studentId: studentId,
+            taskId: taskId
+        };
+        const httpOptions = {
+            headers: this.httpHeader
+        };
+        return this.http.post(this.prefixRestUrl + 'rest/task-detail/get-all-by-student-task', data, httpOptions).pipe();
+    }
+
+
     insertTaskDetail(taskDetail: TaskDetailObject): Observable<any> {
         const httpOptions = {
             headers: this.httpHeader
         };
-        return this.http.post(this.prefixRestUrl + 'rest/task-detail/insert', taskDetail);
+        return this.http.post(this.prefixRestUrl + 'rest/task-detail/insert', taskDetail, httpOptions);
     }
 
     updateTaskDetail(taskDetail: TaskDetailObject): Observable<any> {

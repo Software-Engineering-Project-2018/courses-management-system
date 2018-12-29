@@ -66,9 +66,9 @@ namespace WebServer.Controllers
         //API Resert password
         [Route("rest/parent/reset-password")]
         [HttpPost]
-        public IHttpActionResult ResetPassword([FromBody] Parent parent)
+        public IHttpActionResult ResetPassword(long parentId)
         {
-            return Ok(parentReposistory.ResetPassword(parent));
+            return Ok(parentReposistory.ResetPassword(parentId));
         }
     }
 }

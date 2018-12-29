@@ -47,6 +47,20 @@ export class CourseService extends BaseService {
         return this.http.get<CourseObject>(this.prefixRestUrl + 'rest/course/get', httpOptions).pipe();
     }
 
+    insertCourse(course: CourseObject): Observable<any> {
+        const httpOptions = {
+            headers: this.httpHeader
+        };
+        return this.http.post(this.prefixRestUrl + 'rest/course/insert', course);
+    }
+
+    updateCourse(course: CourseObject): Observable<any> {
+        const httpOptions = {
+            headers: this.httpHeader
+        };
+        return this.http.post(this.prefixRestUrl + 'rest/course/update', course, httpOptions);
+    }
+
     deleteOneCourse(hocSinhId: number): Observable<any> {
         const params = new HttpParams()
             .set('CourseId', hocSinhId.toString());

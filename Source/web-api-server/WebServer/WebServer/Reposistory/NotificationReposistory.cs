@@ -75,14 +75,14 @@ namespace WebServer.Repository
             return notification;
         }
 
-        //Lấy danh sách tất cả thông báo.
-        public List<Notification> GetAllNotification(string searchKeyword)
+        //Lấy danh sách tất cả thông báo chung.
+        public List<Notification> GetAllGeneralNotification(string searchKeyword)
         {
             //Giá trị trả về của hàm này: List<Notification>
             List<Notification> queryResult = new List<Notification>();
 
             //Cấu lệnh truy vấn ở dạng string
-            string queryString = "SELECT * FROM Notification WHERE NotificationName like '%' + @searchKeyword + '%'";
+            string queryString = "SELECT * FROM Notification WHERE NotificationType = 1 AND NotificationName like '%' + @searchKeyword + '%'";
 
             //Mở kết nối đến database
             using (SqlConnection connection =
@@ -116,7 +116,77 @@ namespace WebServer.Repository
                     }
                     if (reader["NotificationCreatorName"] != DBNull.Value)
                     {
-                        entity.NotificationCreatorName = (DateTime)reader["NotificationCreatorname"];
+                        entity.NotificationCreatorName = (string)reader["NotificationCreatorname"];
+                    }
+                    if (reader["NotificationContent"] != DBNull.Value)
+                    {
+                        entity.NotificationContent = (string)reader["NotificationContent"];
+                    }
+                    if (reader["NotificationType"] != DBNull.Value)
+                    {
+                        entity.NotificationType = (long)reader["NotificationType"];
+                    }
+                    if (reader["CourseId"] != DBNull.Value)
+                    {
+                        entity.CourseId = (long)reader["CourseId"];
+                    }
+
+                    //Thêm entity vào list trả về
+                    queryResult.Add(entity);
+                }
+
+                //Đóng kết nối
+                reader.Close();
+                connection.Close();
+            }
+
+            //Trả về kết quả
+            return queryResult;
+        }
+
+        //Lấy danh sách tất cả thông báo từ khóa học mà học sinh tham gia.
+        public List<Notification> GetAllCourseNotification(string searchKeyword, long studentId)
+        {
+            //Giá trị trả về của hàm này: List<Notification>
+            List<Notification> queryResult = new List<Notification>();
+
+            //Cấu lệnh truy vấn ở dạng string
+            string queryString = "SELECT nt.* FROM Notification nt JOIN CourseStudentDetail csd ON nt.CourseId = csd.CourseId WHERE NotificationType = 2 AND csd.StudentId = @studentId AND nt.NotificationName like '%' + @searchKeyword + '%'";
+
+            //Mở kết nối đến database
+            using (SqlConnection connection =
+                new SqlConnection(this.ConnectionString))
+            {
+                // Khởi tạo command có tham số nào truyền vào là từ khóa tìm kiếm
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("@searchKeyword", string.IsNullOrEmpty(searchKeyword) ? "" : searchKeyword);
+                command.Parameters.AddWithValue("@studentId", studentId);
+                //Mở kết nối và thực hiện query vào database
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                //Đọc dữ liệu trả về từ truy vấn ở trên
+                while (reader.Read())
+                {
+                    //Tạo biến tạm để lấy đọc giá trị và sau dó thêm vào List queryResult
+                    Notification entity = new Notification();
+
+                    //Lấy từng cột đọc được lưu vào entity
+                    if (reader["NotificationId"] != DBNull.Value)
+                    {
+                        entity.NotificationId = (long)reader["NotificationId"];
+                    }
+                    if (reader["NotificationName"] != DBNull.Value)
+                    {
+                        entity.NotificationName = (string)reader["NotificationName"];
+                    }
+                    if (reader["NotificationDateCreate"] != DBNull.Value)
+                    {
+                        entity.NotificationDateCreate = (DateTime)reader["NotificationDateCreate"];
+                    }
+                    if (reader["NotificationCreatorName"] != DBNull.Value)
+                    {
+                        entity.NotificationCreatorName = (string)reader["NotificationCreatorname"];
                     }
                     if (reader["NotificationContent"] != DBNull.Value)
                     {
@@ -183,7 +253,7 @@ namespace WebServer.Repository
                     }
                     if (reader["NotificationCreatorName"] != DBNull.Value)
                     {
-                        queryResult.NotificationCreatorName = (DateTime)reader["NotificationCreatorname"];
+                        queryResult.NotificationCreatorName = (string)reader["NotificationCreatorname"];
                     }
                     if (reader["NotificationContent"] != DBNull.Value)
                     {

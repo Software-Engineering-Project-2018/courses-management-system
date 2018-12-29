@@ -70,13 +70,13 @@ namespace WebServer.Repository
         }
 
 
-        public List<CourseStudentDetail> GetAllCourseStudentDetailByCourseAndStudent(long studentId, long courseId)
+        public List<CourseStudentDetail> GetAllCourseStudentDetailByStudent(long studentId)
         {
             //Giá trị trả về của hàm này: List<CourseStudentDetail>
             List<CourseStudentDetail> queryResult = new List<CourseStudentDetail>();
 
             //Cấu lệnh truy vấn ở dạng string
-            string queryString = "SELECT * FROM CourseStudentDetail WHERE CourseId like '%' + @course + '%' OR StudentId like '%' + @studentId + '%'";
+            string queryString = "SELECT * FROM CourseStudentDetail WHERE StudentId = @studentId";
 
             //Mở kết nối đến database
             using (SqlConnection connection =
@@ -84,7 +84,6 @@ namespace WebServer.Repository
             {
                 // Khởi tạo command có tham số nào truyền vào là từ khóa tìm kiếm
                 SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.AddWithValue("@courseId", courseId);
                 command.Parameters.AddWithValue("@studentId", studentId);
 
                 //Mở kết nối và thực hiện query vào database
@@ -104,17 +103,77 @@ namespace WebServer.Repository
                     }
                     if (reader["CourseId"] != DBNull.Value)
                     {
-                        entity.CourseId = (long)reader["CourseId"];
+                        entity.Course.CourseId = (long)reader["CourseId"];
                     }
                     if (reader["StudentId"] != DBNull.Value)
                     {
-                        entity.StudentId = (long)reader["StudentId"];
+                        entity.Student.UserId = (long)reader["StudentId"];
                     }
                     if (reader["FinalScore"] != DBNull.Value)
                     {
                         entity.FinalScore = (long)reader["FinalScore"];
                     }
-                   
+
+                    entity.Course = new CourseReposistory().GetOneCourseById(entity.Course.CourseId);
+                    //Thêm entity vào list trả về
+                    queryResult.Add(entity);
+                }
+
+                //Đóng kết nối
+                reader.Close();
+                connection.Close();
+            }
+
+            //Trả về kết quả
+            return queryResult;
+        }
+
+        public List<CourseStudentDetail> GetAllCourseStudentDetailByCourse(string searchKeyword, long courseId)
+        {
+            //Giá trị trả về của hàm này: List<CourseStudentDetail>
+            List<CourseStudentDetail> queryResult = new List<CourseStudentDetail>();
+
+            //Cấu lệnh truy vấn ở dạng string
+            string queryString = "SELECT * FROM CourseStudentDetail csd JOIN Student st ON csd.StudentId = st.UserId WHERE csd.CourseId = @courseId AND st.UserFullName like '%' + @searchKeyword + '%'";
+
+            //Mở kết nối đến database
+            using (SqlConnection connection =
+                new SqlConnection(this.ConnectionString))
+            {
+                // Khởi tạo command có tham số nào truyền vào là từ khóa tìm kiếm
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("@courseId", courseId);
+                command.Parameters.AddWithValue("@searchKeyword", searchKeyword);
+
+                //Mở kết nối và thực hiện query vào database
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                //Đọc dữ liệu trả về từ truy vấn ở trên
+                while (reader.Read())
+                {
+                    //Tạo biến tạm để lấy đọc giá trị và sau dó thêm vào List queryResult
+                    CourseStudentDetail entity = new CourseStudentDetail();
+
+                    //Lấy từng cột đọc được lưu vào entity
+                    if (reader["CourseStudentDetailId"] != DBNull.Value)
+                    {
+                        entity.CourseStudentDetailId = (long)reader["CourseStudentDetailId"];
+                    }
+                    if (reader["CourseId"] != DBNull.Value)
+                    {
+                        entity.Course.CourseId = (long)reader["CourseId"];
+                    }
+                    if (reader["StudentId"] != DBNull.Value)
+                    {
+                        entity.Student.UserId = (long)reader["StudentId"];
+                    }
+                    if (reader["FinalScore"] != DBNull.Value)
+                    {
+                        entity.FinalScore = (long)reader["FinalScore"];
+                    }
+
+                    entity.Student = new StudentReposistory().GetOneStudentById(entity.Student.UserId);
                     //Thêm entity vào list trả về
                     queryResult.Add(entity);
                 }

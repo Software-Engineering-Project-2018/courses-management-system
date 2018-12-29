@@ -11,7 +11,7 @@ export class NotificationService extends BaseService {
         super(injector);
     }
 
-    getAllNotification(searchKeyword): Observable<NotificationObject[]> {
+    getAllGeneralNotification(searchKeyword): Observable<NotificationObject[]> {
         const params = new HttpParams()
             .set('searchKeyword', searchKeyword.toString());
 
@@ -19,7 +19,18 @@ export class NotificationService extends BaseService {
             headers: this.httpHeader,
             params: params
         };
-        return this.http.get<NotificationObject[]>(this.prefixRestUrl + 'rest/Notification/get-all', httpOptions).pipe();
+        return this.http.get<NotificationObject[]>(this.prefixRestUrl + 'rest/notification/get-general', httpOptions).pipe();
+    }
+
+    getAllCourseNotification(searchKeyword): Observable<NotificationObject[]> {
+        const params = new HttpParams()
+            .set('searchKeyword', searchKeyword.toString());
+
+        const httpOptions = {
+            headers: this.httpHeader,
+            params: params
+        };
+        return this.http.get<NotificationObject[]>(this.prefixRestUrl + 'rest/notification/get-course', httpOptions).pipe();
     }
 
     getOneNotification(hocSinhId: number): Observable<NotificationObject> {

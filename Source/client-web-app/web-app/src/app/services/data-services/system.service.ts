@@ -1,6 +1,6 @@
 import { CourseObject } from '../../object/course-object';
 import { Injectable, Injector } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { BaseService } from 'src/app/module/base/base.service';
 

@@ -10,10 +10,11 @@ namespace WebServer.Repository
         //Thêm mới 1 bài tập chi tiết.
         public TaskDetail InsertTaskDetail(TaskDetail taskdetail)
         {
+            taskdetail.TaskSubmissionState = true;
 
             //Câu lệnh truy vấn ở dạng string
-            string queryString = "INSERT INTO Task(TaskDetailId, StudentId, TaskId, TaskFileUpload, TaskSubmissionState, TaskScore) VALUES" +
-                                 "(@TaskDetailId, @StudentId, @TaskId, @TaskFileUpload, @TaskSubmissionState, @TaskScore);";
+            string queryString = "INSERT INTO TaskDetail(StudentId, TaskId, TaskFileUpload, TaskSubmissionState, TaskScore) VALUES" +
+                                 "(@studentId, @taskId, @taskFileUpload, @taskSubmissionState, @taskScore); SELECT @@IDENTITY";
 
             //Mở kết nối đến database
             using (SqlConnection connection =
@@ -21,12 +22,12 @@ namespace WebServer.Repository
             {
                 // Khởi tạo command với các tham số truyền vào là các trường trong đối tượng TaskDetail
                 SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.AddWithValue("@taskDetailId", taskdetail.TaskDetailId);
-                command.Parameters.AddWithValue("@studentId", taskdetail.StudentId);
-                command.Parameters.AddWithValue("@taskId", taskdetail.TaskId);
-                command.Parameters.AddWithValue("@taskFileUpload", taskdetail.TaskFileUpload);
-                command.Parameters.AddWithValue("@taskSubmission", taskdetail.TaskSubmissionState);
-                command.Parameters.AddWithValue("@taskScore", taskdetail.TaskScore);
+                command.Parameters.AddWithValue("@studentId", taskdetail.Student.UserId);
+                command.Parameters.AddWithValue("@taskId", taskdetail.Task.TaskId);
+                command.Parameters.AddWithValue("@taskFileUpload", string.IsNullOrEmpty(taskdetail.TaskFileUpload)
+                    ? (object)DBNull.Value : taskdetail.TaskFileUpload);
+                command.Parameters.AddWithValue("@taskSubmissionState", taskdetail.TaskSubmissionState);
+                command.Parameters.AddWithValue("@taskScore", taskdetail.TaskScore == null ? (object)DBNull.Value : taskdetail.TaskScore);
                 //Mở kết nối và thực hiện query vào database
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
@@ -56,11 +57,12 @@ namespace WebServer.Repository
                 // Khởi tạo command với các tham số truyền vào là các trường trong đối tượng TaskDetail
                 SqlCommand command = new SqlCommand(queryString, connection);
                 command.Parameters.AddWithValue("@taskDetailId", taskdetail.TaskDetailId);
-                command.Parameters.AddWithValue("@studentId", taskdetail.StudentId);
-                command.Parameters.AddWithValue("@taskId", taskdetail.TaskId);
-                command.Parameters.AddWithValue("@taskFileUpload", taskdetail.TaskFileUpload);
+                command.Parameters.AddWithValue("@studentId", taskdetail.Student.UserId);
+                command.Parameters.AddWithValue("@taskId", taskdetail.Task.TaskId);
+                command.Parameters.AddWithValue("@taskFileUpload", string.IsNullOrEmpty(taskdetail.TaskFileUpload)
+                    ? (object)DBNull.Value : taskdetail.TaskFileUpload);
                 command.Parameters.AddWithValue("@taskSubmission", taskdetail.TaskSubmissionState);
-                command.Parameters.AddWithValue("@taskScore", taskdetail.TaskScore);
+                command.Parameters.AddWithValue("@taskScore", taskdetail.TaskScore == null ? (object)DBNull.Value : taskdetail.TaskScore);
                 //Mở kết nối và thực hiện query vào database
                 connection.Open();
                 command.ExecuteNonQuery(); //Không có giá trị trả về: dùng ExecuteNonQuery
@@ -80,7 +82,7 @@ namespace WebServer.Repository
             List<TaskDetail> queryResult = new List<TaskDetail>();
 
             //Cấu lệnh truy vấn ở dạng string
-            string queryString = "SELECT * FROM TaskDetail WHERE TaskId like '%' + @taskId + '%' OR StudentId like '%' + @studentId +'%'";
+            string queryString = "SELECT * FROM TaskDetail WHERE TaskId = @taskId AND StudentId = @studentId";
 
             //Mở kết nối đến database
             using (SqlConnection connection =
@@ -107,11 +109,11 @@ namespace WebServer.Repository
                     }
                     if (reader["StudentId"] != DBNull.Value)
                     {
-                        entity.StudentId = (long)reader["StudentId"];
+                        entity.Student.UserId = (long)reader["StudentId"];
                     }
                     if (reader["TaskId"] != DBNull.Value)
                     {
-                        entity.TaskId = (long)reader["TaskId"];
+                        entity.Task.TaskId = (long)reader["TaskId"];
                     }
                     if (reader["TaskFileUpload"] != DBNull.Value)
                     {
@@ -119,7 +121,7 @@ namespace WebServer.Repository
                     }
                     if (reader["TaskSubmissionState"] != DBNull.Value)
                     {
-                        entity.TaskSubmissionState = (Boolean)reader["TaskSubmissionState"];
+                        entity.TaskSubmissionState = (bool)reader["TaskSubmissionState"];
                     }
                     if (reader["TaskScore"] != DBNull.Value)
                     {
@@ -170,11 +172,11 @@ namespace WebServer.Repository
                     }
                     if (reader["StudentId"] != DBNull.Value)
                     {
-                        queryResult.StudentId = (long)reader["StudentId"];
+                        queryResult.Student.UserId = (long)reader["StudentId"];
                     }
                     if (reader["TaskId"] != DBNull.Value)
                     {
-                        queryResult.TaskId = (long)reader["TaskId"];
+                        queryResult.Task.TaskId = (long)reader["TaskId"];
                     }
                     if (reader["TaskFileUpload"] != DBNull.Value)
                     {

@@ -58,9 +58,6 @@
             <div *ngIf="infoForm.controls['birthday'].hasError('required') && infoForm.controls['birthday'].touched"
               class="alert text-danger">
               <i class="fa fa-exclamation-triangle"></i>Chọn ngày sinh.</div>
-            <div *ngIf="infoForm.controls['birthday'].hasError('minlength') && infoForm.controls['birthday'].touched"
-              class="alert text-danger">
-              <i class="fa fa-exclamation-triangle"></i>Chưa chọn ngày sinh.</div>
           </div>
 
           <div class="form-group">

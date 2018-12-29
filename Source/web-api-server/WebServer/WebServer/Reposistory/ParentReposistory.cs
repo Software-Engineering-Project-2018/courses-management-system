@@ -393,7 +393,7 @@ namespace WebServer.Repository
         }
 
         //Hàm đặt lại mật khẩu mặt định
-        public Parent ResetPassword(Parent parent)
+        public long ResetPassword(long parentId)
         {
             string queryString = "UPDATE Parent SET UserPw = @password"
                                + "  WHERE ParentId = @parentId";
@@ -403,7 +403,7 @@ namespace WebServer.Repository
             {
                 // Khởi tạo command với các tham số truyền vào là parentId và mật khẩu mặc định
                 SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.AddWithValue("@parentId", parent.UserId);
+                command.Parameters.AddWithValue("@parentId", parentId);
                 command.Parameters.AddWithValue("@password", this._defaultPassword);
 
                 //Mở kết nối và thực hiện query vào database
@@ -415,7 +415,7 @@ namespace WebServer.Repository
             }
 
             //Trả về chính tham số truyền vào nếu hàm không xảy ra bất cứ lỗi gì
-            return parent;
+            return parentId;
         }
         //Hàm lấy danh sách phụ huynh của học sinh
         public List<Parent> GetAllParentByStudentId(long studentId)

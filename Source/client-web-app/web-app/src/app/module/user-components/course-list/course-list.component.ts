@@ -2,6 +2,7 @@ import { Component, OnInit, Injector } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { CourseObject } from 'src/app/object/course-object';
 import { CourseService } from 'src/app/services/data-services/course.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-course-list',
@@ -13,12 +14,26 @@ export class CourseListComponent extends BaseComponent implements OnInit {
   searchKeyword = '';
   // screenName = 'course-list';
   courseService: CourseService;
+
+  // Form data
+  public courseInfo = new CourseObject();
+  courseInfoForm: FormGroup;
+
   public courseJoinedList: CourseObject[] = [];
   public courseNotJoinedList: CourseObject[] = [];
-  constructor(injector: Injector) {
+  constructor(injector: Injector, fb: FormBuilder) {
     super(injector);
     this.courseService = injector.get(CourseService);
     this.getData();
+
+    this.courseInfoForm = fb.group({
+      'courseName': [null, Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(100)])],
+      'dateStart': [null, Validators.required],
+      'dateEnd': [null, Validators.required],
+      'tutition': [null, Validators.required],
+      'courseIntro': [null],
+      'courseLinkRef': [null]
+    });
   }
   ngOnInit() {
   }
@@ -51,6 +66,18 @@ export class CourseListComponent extends BaseComponent implements OnInit {
     this.getData();
   }
 
+  insertCourseOnClick() {
+    this.courseService.insertCourse(this.courseInfo).subscribe(
+      result => {
+        alert('Thêm khóa học thành công!');
+        this.courseNotJoinedList.unshift(result);
+      },
+      error => {
+        console.log(error);
+      }
+    )
+  }
+
   courseInfoOnClick(courseId) {
     this.router.navigate(['/dashboard/course-info',
       {
@@ -68,6 +95,13 @@ export class CourseListComponent extends BaseComponent implements OnInit {
 
   enrollCourseOnClick(courseId) {
     this.router.navigate(['/dashboard/enroll-course',
+      {
+        courseId: [courseId]
+      }]);
+  }
+
+  courseStudentListOnClick(courseId) {
+    this.router.navigate(['/dashboard/course-students',
       {
         courseId: [courseId]
       }]);

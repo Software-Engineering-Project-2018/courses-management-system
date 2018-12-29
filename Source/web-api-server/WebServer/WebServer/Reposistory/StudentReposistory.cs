@@ -225,7 +225,7 @@ namespace WebServer.Repository
             List<Student> queryResult = new List<Student>();
 
             //Cấu lệnh truy vấn ở dạng string
-            string queryString = "SELECT * FROM Student WHERE UserFullName like '%' + @searchKeyword + '%' OR UserName like '%' + @searchKeyword + '%'";
+            string queryString = "SELECT * FROM Student WHERE UserFullName like '%' + @searchKeyword + '%' OR IdentificationCode like '%' + @searchKeyword + '%'";
 
             //Mở kết nối đến database
             using (SqlConnection connection =
@@ -425,7 +425,7 @@ namespace WebServer.Repository
         }
 
         //Hàm đặt lại mật khẩu mặt định
-        public Student ResetPassword(Student student)
+        public long ResetPassword(long studentId)
         {
             //HocSinhId tự động được sinh ra, ta không cần phải truyền vào HocSinhId ở câu query
             string queryString = "UPDATE Student SET UserPw = @password"
@@ -436,7 +436,7 @@ namespace WebServer.Repository
             {
                 // Khởi tạo command với các tham số truyền vào là hocSinhId và mật khẩu mặc định
                 SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.AddWithValue("@studentId", student.UserId);
+                command.Parameters.AddWithValue("@studentId", studentId);
                 command.Parameters.AddWithValue("@password", this._defaultPassword);
 
                 //Mở kết nối và thực hiện query vào database
@@ -448,7 +448,7 @@ namespace WebServer.Repository
             }
 
             //Trả về chính tham số truyền vào nếu hàm không xảy ra bất cứ lỗi gì
-            return student;
+            return studentId;
         }
 
     }

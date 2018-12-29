@@ -33,7 +33,7 @@ namespace WebServer.Controllers
         //API Lấy thông tin tất cả bài tập trong khóa học
         [Route("rest/documentdetail/get-all")]
         [HttpGet]
-        public IHttpActionResult GetAllDocumentDetailByCourseAndTeacher(long courseId)
+        public IHttpActionResult GetAllDocumentDetailByCourse(long courseId)
         {
             return Ok(documentDetailReposistory.GetAllDocumentDetailByCourse(courseId));
         }

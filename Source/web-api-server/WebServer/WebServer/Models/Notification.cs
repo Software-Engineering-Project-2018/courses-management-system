@@ -17,7 +17,7 @@ namespace WebServer.Models
         public long NotificationId { get; set; }
         public string NotificationName { get; set; }
         public System.DateTime NotificationDateCreate { get; set; }
-        public System.DateTime NotificationCreatorName { get; set; }
+        public string NotificationCreatorName { get; set; }
         public string NotificationContent { get; set; }
         public long NotificationType { get; set; }
         public Nullable<long> CourseId { get; set; }

@@ -41,9 +41,9 @@ namespace WebServer.Controllers
         //API Lấy thông tin 1 bài tập
         [Route("rest/task/get")]
         [HttpGet]
-        public IHttpActionResult GetOneCourse(long taskId)
+        public IHttpActionResult GetOneCourse(string taskId)
         {
-            return Ok(taskReposistory.GetOneTaskById(taskId));
+            return Ok(taskReposistory.GetOneTaskById(long.Parse(taskId)));
         }
 
         //API Delete 1 bài tập

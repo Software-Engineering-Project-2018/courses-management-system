@@ -39,12 +39,17 @@
         </div>
       </div>
 
-      <div class="col-12">
-        <input type="file" name="" id="">
+      <div class="col-12 input-group m-3">
+        <div class="custom-file w-100">
+          <input type="file" accept="file_extension" class="custom-file-input"
+           id="fileUpload" (change)="changedFile($event)">
+          <label class="custom-file-label" for="fileUpload">{{taskDetailInfo.TaskFileUpload ? taskDetailInfo.TaskFileUpload : 'Chưa chọn file.'}}</label>
+        </div>
       </div>
+
       <div class="col-12 text-center">
-        <button type="button" class="btn btn-outline-primary mr-3" (click)="submitExOnClick()">Nộp bài</button>
-        <button type="button" class="btn btn-outline-primary ml-3" (click)="cancelExOnClick()">Hủy bỏ</button>
+        <button type="button" class="btn btn-outline-primary mr-3" (click)="submitUploadOnClick()">Nộp bài</button>
+        <button type="button" class="btn btn-outline-primary ml-3" (click)="cancelFileOnClick()">Hủy bỏ</button>
       </div>
 
       <div class="dot-line mt-4"></div>

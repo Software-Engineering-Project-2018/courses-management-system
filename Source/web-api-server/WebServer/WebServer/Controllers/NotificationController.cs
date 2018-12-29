@@ -5,6 +5,7 @@ using System.Web;
 using WebServer.Repository;
 using System.Web.Http;
 using WebServer.Models;
+using WebServer.Repository.sp;
 
 namespace WebServer.Controllers
 {
@@ -30,12 +31,21 @@ namespace WebServer.Controllers
             return Ok(notificationReposistory.UpdateNotification(notification));
         }
 
-        //API Lấy thông tin tất cả thông báo
-        [Route("rest/notification/get-all")]
+        //API Lấy tất cả thông báo chung
+        [Route("rest/notification/get-general")]
         [HttpGet]
-        public IHttpActionResult GetAllNotification(string searchKeyword)
+        public IHttpActionResult GetAllGeneralNotification(string searchKeyword)
         {
-            return Ok(notificationReposistory.GetAllNotification(searchKeyword));
+            return Ok(notificationReposistory.GetAllGeneralNotification(searchKeyword));
+        }
+
+        //API Lấy tất cả thông báo từ khóa học mà học sinh tham gia
+        [Route("rest/notification/get-course")]
+        [HttpGet]
+        public IHttpActionResult GetAllCourseNotification(string searchKeyword)
+        {
+            UserBaseDto user = this.GetUserLogin();
+            return Ok(notificationReposistory.GetAllCourseNotification(searchKeyword, user.UserId));
         }
 
         //API Lấy thông tin chi tiết thông báo

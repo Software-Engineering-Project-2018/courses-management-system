@@ -373,7 +373,9 @@
     </Content>
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="File\Data\" />
+  </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Models\SystemModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

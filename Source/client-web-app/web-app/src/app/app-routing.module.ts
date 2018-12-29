@@ -25,6 +25,8 @@ import { CourseNotificationListComponent } from './module/user-components/notifi
 import { GeneralNotificationListComponent } from './module/user-components/notification-list/general-notification-list.component';
 import { NotificationInfoComponent } from './module/user-components/notification-info/notification-info.component';
 import { MyCourseListComponent } from './module/user-components/course-list/my-course-list.component';
+import { CourseStudentListComponent } from './module/user-components/course-student-list/course-student-list.component';
+import { TutitionFeeComponent } from './module/user-components/tutition-fee/tutition-fee.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -56,6 +58,10 @@ const routes: Routes = [
         component: CourseListComponent
       },
       {
+        path: 'course-students',
+        component: CourseStudentListComponent
+      },
+      {
         path: 'my-courses',
         component: MyCourseListComponent
       },
@@ -74,6 +80,10 @@ const routes: Routes = [
       {
         path: 'income',
         component: IncomeComponent
+      },
+      {
+        path: 'tutition',
+        component: TutitionFeeComponent
       },
       {
         path: 'settings',

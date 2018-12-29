@@ -42,7 +42,7 @@
           <div class="col-12">
             <ul>
               <li *ngFor="let item of courseInfo.DocumentDetailList">
-                <a>Bai1_Gioi_thieu_tong-quan.pdf</a>
+                <a [href]="item.DocumentDetailFileUpload">{{item.DocumentDetailFileUpload}}</a>
               </li>
             </ul>
           </div>

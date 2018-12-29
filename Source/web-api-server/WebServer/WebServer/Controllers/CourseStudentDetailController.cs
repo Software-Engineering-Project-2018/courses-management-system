@@ -31,11 +31,21 @@ namespace WebServer.Controllers
         }
 
         //API Lấy thông tin chi tiết khoá học theo mã khóa học và theo học sinh
-        [Route("rest/course-student-detail/get-all")]
+        [Route("rest/course-student-detail/get-all-by-student")]
         [HttpGet]
-        public IHttpActionResult GetAllCourseStudentDetailByCourseAndStudent(long courseId, long studentId)
+        public IHttpActionResult GetAllCourseStudentDetailByStudent(string studentId)
         {
-            return Ok(courseStudentDetailReposistory.GetAllCourseStudentDetailByCourseAndStudent(courseId, studentId));
+            return Ok(courseStudentDetailReposistory.GetAllCourseStudentDetailByStudent(long.Parse(studentId)));
+        }
+
+        //API Lấy thông tin chi tiết khoá học theo mã khóa học và theo học sinh
+        [Route("rest/course-student-detail/get-all-by-course")]
+        [HttpPost]
+        public IHttpActionResult GetAllCourseStudentDetailByCourse([FromBody] dynamic data)
+        {
+            string searchKeyword = data.searchKeyword;
+            long courseId = data.courseId;
+            return Ok(courseStudentDetailReposistory.GetAllCourseStudentDetailByCourse(searchKeyword, courseId));
         }
 
         //API Lấy thông tin chi tiết 1 khóa học của học sinh

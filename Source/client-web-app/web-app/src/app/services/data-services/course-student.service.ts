@@ -12,13 +12,33 @@ export class CourseStudentService extends BaseService {
         super(injector);
     }
 
+    getScoreboardByStudent(studentId): Observable<any> {
+        const params = new HttpParams()
+            .set('studentId', studentId.toString());
+        const httpOptions = {
+            headers: this.httpHeader,
+            params: params
+        };
+        return this.http.get<any>(this.prefixRestUrl + 'rest/course-student-detail/get-all-by-student', httpOptions).pipe();
+    }
+
+    getAllByCourse(searchKeyword, courseId): Observable<any> {
+        const httpOptions = {
+            headers: this.httpHeader
+        };
+        const data = {
+            searchKeyword: searchKeyword,
+            courseId: courseId
+        };
+        return this.http.post(this.prefixRestUrl + 'rest/course-student-detail/get-all-by-course', data, httpOptions).pipe();
+    }
+
     insertCourseStudent(courseStudent: CourseStudentObject): Observable<any> {
         return this.http.post(this.prefixRestUrl + 'rest/course-student-detail/insert', courseStudent, { headers: this.httpHeader });
     }
     updateCourseStudent(courseStudent: CourseStudentObject): Observable<any> {
         return this.http.post(this.prefixRestUrl + 'rest/course-student-detail/update', courseStudent, { headers: this.httpHeader });
     }
-
 
     deleteCourseStudent(courseStudentId: number): Observable<any> {
         const params = new HttpParams()

@@ -5,6 +5,8 @@ using System.Web;
 using WebServer.Repository;
 using System.Web.Http;
 using WebServer.Models;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace WebServer.Controllers
 {
@@ -81,5 +83,76 @@ namespace WebServer.Controllers
         {
             return Ok(courseReposistory.GetAllCourseByTeacher(teacherId));
         }
+
+        [HttpPost]
+        [Route("rest/file/upload")]
+        [System.Web.Http.Authorize]
+        //public async Task<System.Web.Mvc.ActionResult> UploadFiles()
+        //{
+        //    var file = HttpContext.Current.Request.Files[0];
+        //    //...
+        //    return null;
+        //}
+        public IHttpActionResult UploadFiles()
+        {
+            int i = 0;
+            var uploadedFileNames = new List<string>();
+            HttpResponseMessage response = new HttpResponseMessage();
+
+            var httpRequest = HttpContext.Current.Request;
+            if (httpRequest.Files.Count > 0)
+            {
+                foreach (string file in httpRequest.Files)
+                {
+                    var postedFile = httpRequest.Files[i];
+                    var filePath = HttpContext.Current.Server.MapPath("~/File/Data/" + postedFile.FileName);
+                    try
+                    {
+                        postedFile.SaveAs(filePath);
+                        uploadedFileNames.Add(httpRequest.Files[i].FileName);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                    i++;
+                }
+            }
+
+            return Ok(uploadedFileNames);
+        }
+
+        [HttpPost]
+        [Route("rest/file/download")]
+        [System.Web.Http.Authorize]
+        public IHttpActionResult DownloadFiles()
+        {
+            int i = 0;
+            var uploadedFileNames = new List<string>();
+            //HttpResponseMessage response = new HttpResponseMessage();
+
+            //var httpRequest = HttpContext.Current.Request;
+            //if (httpRequest.Files.Count > 0)
+            //{
+            //    foreach (string file in httpRequest.Files)
+            //    {
+            //        var postedFile = httpRequest.Files[i];
+            //        var filePath = HttpContext.Current.Server.MapPath("~/File/Data/" + postedFile.FileName);
+            //        try
+            //        {
+            //            postedFile.SaveAs(filePath);
+            //            uploadedFileNames.Add(httpRequest.Files[i].FileName);
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            throw ex;
+            //        }
+            //        i++;
+            //    }
+            //}
+
+            return Ok(uploadedFileNames);
+        }
+
     }
 }

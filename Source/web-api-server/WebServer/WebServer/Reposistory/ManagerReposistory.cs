@@ -384,7 +384,7 @@ namespace WebServer.Repository
         }
 
         //Hàm đặt lại mật khẩu mặt định
-        public Manager ResetPassword(Manager manager)
+        public long ResetPassword(long managerId)
         {
             string queryString = "UPDATE Manager SET UserPw = @password"
                                + "  WHERE ManagerId = @managerId";
@@ -394,7 +394,7 @@ namespace WebServer.Repository
             {
                 // Khởi tạo command với các tham số truyền vào là parentId và mật khẩu mặc định
                 SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.AddWithValue("@managerId", manager.UserId);
+                command.Parameters.AddWithValue("@managerId", managerId);
                 command.Parameters.AddWithValue("@password", this._defaultPassword);
 
                 //Mở kết nối và thực hiện query vào database
@@ -406,7 +406,7 @@ namespace WebServer.Repository
             }
 
             //Trả về chính tham số truyền vào nếu hàm không xảy ra bất cứ lỗi gì
-            return manager;
+            return managerId;
         }
         
     }

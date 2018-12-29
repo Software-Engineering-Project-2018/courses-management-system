@@ -19,18 +19,6 @@ export abstract class NotificationListComponent extends BaseComponent implements
   }
 
   getData() {
-    this.startLoadingUi();
-    setTimeout(() => {
-      this.notificationService.getAllNotification(this.searchKeyword).subscribe(
-        response => {
-          this.notificationList = response;
-          this.stopLoadingUi();
-        },
-        error => {
-          console.error(error);
-          this.stopLoadingUi();
-        });
-    }, 500);
   }
 
   searchOnclick() {

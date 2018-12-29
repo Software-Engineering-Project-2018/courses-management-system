@@ -3,6 +3,7 @@ import { BaseComponent } from '../../base/base.component';
 import { CourseObject } from 'src/app/object/course-object';
 import { CourseService } from 'src/app/services/data-services/course.service';
 import { CourseListComponent } from './course-list.component';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-my-course-list',
@@ -12,8 +13,8 @@ import { CourseListComponent } from './course-list.component';
 export class MyCourseListComponent extends CourseListComponent {
 
   // screenName = 'my-course-list';
-  constructor(injector: Injector) {
-    super(injector);
+  constructor(injector: Injector, fb: FormBuilder) {
+    super(injector, fb);
   }
 
   getData() {

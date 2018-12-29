@@ -400,7 +400,7 @@ namespace WebServer.Repository
         }
 
         //Hàm đặt lại mật khẩu mặt định
-        public Teacher ResetPassword(Teacher teacher)
+        public long ResetPassword(long teacherId)
         {
             string queryString = "UPDATE Teacher SET UserPw = @password"
                                + "  WHERE TeacherId = @teacherId";
@@ -410,7 +410,7 @@ namespace WebServer.Repository
             {
                 // Khởi tạo command với các tham số truyền vào là teacherId và mật khẩu mặc định
                 SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.AddWithValue("@teacherId", teacher.UserId);
+                command.Parameters.AddWithValue("@teacherId", teacherId);
                 command.Parameters.AddWithValue("@password", this._defaultPassword);
 
                 //Mở kết nối và thực hiện query vào database
@@ -422,7 +422,7 @@ namespace WebServer.Repository
             }
 
             //Trả về chính tham số truyền vào nếu hàm không xảy ra bất cứ lỗi gì
-            return teacher;
+            return teacherId;
         }
 
     }

@@ -1,6 +1,7 @@
 import { Component, OnInit, Injector } from '@angular/core';
 import { CourseStudentObject } from 'src/app/object/course-student-detail-object';
 import { BaseComponent } from '../../base/base.component';
+import { CourseStudentService } from 'src/app/services/data-services/course-student.service';
 
 @Component({
   selector: 'app-scoreboard',
@@ -10,9 +11,11 @@ import { BaseComponent } from '../../base/base.component';
 export class ScoreboardComponent extends BaseComponent implements OnInit {
 
   searchKeyword = '';
+  courseStudentService: CourseStudentService;
   public courseStudentList: CourseStudentObject[];
   constructor(injector: Injector) {
     super(injector);
+    this.courseStudentService = injector.get(CourseStudentService);
     this.getData();
   }
   ngOnInit() {
@@ -20,10 +23,10 @@ export class ScoreboardComponent extends BaseComponent implements OnInit {
 
   getData() {
     this.startLoadingUi();
-    // this.studentService.getAllStudent(this.searchKeyword).subscribe(
-    //   response => {
-    //     this.studentList = response;
-    this.stopLoadingUi();
-    // });
+    this.courseStudentService.getScoreboardByStudent(this.UserLogin.UserId).subscribe(
+      response => {
+        this.courseStudentList = response;
+        this.stopLoadingUi();
+      });
   }
 }

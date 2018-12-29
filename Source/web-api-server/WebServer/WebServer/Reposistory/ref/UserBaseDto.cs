@@ -1,5 +1,7 @@
 ﻿
 
+using System;
+
 namespace WebServer.Repository.sp
 {
     public class UserBaseDto
@@ -15,5 +17,10 @@ namespace WebServer.Repository.sp
         public long UserType { get; set; }
         public string UserName { get; set; }
         public string UserPassword { get; set; }
+
+        //public static implicit operator UserBaseDto(UserBaseDto v)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

@@ -39,6 +39,8 @@ import { ParentListComponent } from './module/user-components/parent-list/parent
 import { EnrollCourseComponent } from './module/user-components/enroll-course/enroll-course.component';
 import { AuthInterceptor } from './services/app-http-interceptor';
 import { NotificationInfoComponent } from './module/user-components/notification-info/notification-info.component';
+import { CourseStudentListComponent } from './module/user-components/course-student-list/course-student-list.component';
+import { TutitionFeeComponent } from './module/user-components/tutition-fee/tutition-fee.component';
 import { EventEmiterService } from './services/event.emmiter.service';
 @NgModule({
   declarations: [
@@ -66,7 +68,9 @@ import { EventEmiterService } from './services/event.emmiter.service';
     UserInfoComponent,
     EnrollCourseComponent,
     NotificationInfoComponent,
-    ParentListComponent
+    ParentListComponent,
+    CourseStudentListComponent,
+    TutitionFeeComponent
   ],
   imports: [
     BrowserModule,

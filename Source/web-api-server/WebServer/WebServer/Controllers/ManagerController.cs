@@ -58,9 +58,9 @@ namespace WebServer.Controllers
         //API Resert password của quản lí
         [Route("rest/manager/reset-password")]
         [HttpPost]
-        public IHttpActionResult ResetPassword([FromBody] Manager manager)
+        public IHttpActionResult ResetPassword(long managerId)
         {
-            return Ok(managerReposistory.ResetPassword(manager));
+            return Ok(managerReposistory.ResetPassword(managerId));
         }
     }
 }
