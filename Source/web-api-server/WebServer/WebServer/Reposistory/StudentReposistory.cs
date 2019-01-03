@@ -412,7 +412,7 @@ namespace WebServer.Repository
             List<Student> queryResult = new List<Student>();
 
             //Cấu lệnh truy vấn ở dạng string
-            string queryString = "SELECT st.* FROM Student st JOIN Parent pr ON st.UserId = pr.StudentId WHERE pr.UserId = @parentId";
+            string queryString = "SELECT st.* FROM Student st JOIN CourseStudentDetail csd ON st.UserId = csd.StudentId WHERE csd.CourseId = @courseId AND (st.UserFullName like '%' + @searchKeyword + '%' OR st.IdentificationCode like '%' + @searchKeyword + '%')";
 
             //Mở kết nối đến database
             using (SqlConnection connection =
@@ -422,7 +422,7 @@ namespace WebServer.Repository
                 SqlCommand command = new SqlCommand(queryString, connection);
                 command.Parameters.AddWithValue("@courseId", courseId);
                 command.Parameters.AddWithValue("@searchKeyword", string.IsNullOrEmpty(searchKeyword)
-                     ? (object)DBNull.Value : searchKeyword);
+                     ? "" : searchKeyword);
 
                 //Mở kết nối và thực hiện query vào database
                 connection.Open();

@@ -215,7 +215,7 @@ namespace WebServer.Repository
             List<Teacher> queryResult = new List<Teacher>();
 
             //Cấu lệnh truy vấn ở dạng string
-            string queryString = "SELECT * FROM Teacher WHERE UserFullName like '%' + @searchKeyword + '%' OR UserName like '%' + @searchKeyword + '%'";
+            string queryString = "SELECT * FROM Teacher WHERE UserFullName like '%' + @searchKeyword + '%' OR IdentificationCode like '%' + @searchKeyword + '%'";
 
             //Mở kết nối đến database
             using (SqlConnection connection =
@@ -301,7 +301,7 @@ namespace WebServer.Repository
             List<Teacher> queryResult = new List<Teacher>();
 
             //Cấu lệnh truy vấn ở dạng string
-            string queryString = "SELECT * FROM Teacher t JOIN CourseTeacherDetail ctd ON t.UserId = ctd.TeacherId WHERE ctd.CourseId = @courseId AND t.UserFullName LIKE '%' + @searchKeyword + '%'";
+            string queryString = "SELECT * FROM Teacher t JOIN CourseTeacherDetail ctd ON t.UserId = ctd.TeacherId WHERE ctd.CourseId = @courseId AND (t.UserFullName LIKE '%' + @searchKeyword + '%' OR t.IdentificationCode like '%' + @searchKeyword + '%')";
 
             //Mở kết nối đến database
             using (SqlConnection connection =
@@ -311,7 +311,7 @@ namespace WebServer.Repository
                 SqlCommand command = new SqlCommand(queryString, connection);
                 command.Parameters.AddWithValue("@courseId", courseId);
                 command.Parameters.AddWithValue("@searchKeyword", string.IsNullOrEmpty(searchKeyword)
-                     ? (object)DBNull.Value : searchKeyword);
+                     ? "" : searchKeyword);
 
                 //Mở kết nối và thực hiện query vào database
                 connection.Open();

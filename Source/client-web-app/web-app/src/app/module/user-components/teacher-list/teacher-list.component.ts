@@ -48,7 +48,12 @@ export class TeacherListComponent extends BaseComponent implements OnInit {
         userId: [teacherId]
       }]);
   }
-  listCourseOnClick(studentId) {
-    this.router.navigate(['/dashboard/courses']);
+
+  listCourseOnClick(teacherId) {
+    this.router.navigate(['/dashboard/course-teacher',
+      {
+        userType: [2],
+        teacherId: [teacherId]
+      }]);
   }
 }

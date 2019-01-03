@@ -83,6 +83,77 @@ namespace WebServer.Repository
         }
 
         //Lấy danh sách tất cả khóa học học sinh đã tham gia
+        public List<dynamic> GetAllCourse(string searchKeyword)
+        {
+            //Giá trị trả về của hàm này: List<Course>
+            List<dynamic> queryResult = new List<dynamic>();
+
+            //Cấu lệnh truy vấn ở dạng string
+            string queryString = "SELECT * FROM Course WHERE CourseName like '%' + @searchKeyword + '%'";
+
+            //Mở kết nối đến database
+            using (SqlConnection connection =
+                new SqlConnection(this.ConnectionString))
+            {
+                // Khởi tạo command có tham số nào truyền vào là từ khóa tìm kiếm
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("@searchKeyword", string.IsNullOrEmpty(searchKeyword) ? "" : searchKeyword);
+
+                //Mở kết nối và thực hiện query vào database
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                //Đọc dữ liệu trả về từ truy vấn ở trên
+                while (reader.Read())
+                {
+                    //Tạo biến tạm để lấy đọc giá trị và sau dó thêm vào List queryResult
+                    dynamic entity = new ExpandoObject();
+
+                    //Lấy từng cột đọc được lưu vào entity
+                    if (reader["CourseId"] != DBNull.Value)
+                    {
+                        entity.CourseId = (long)reader["CourseId"];
+                    }
+                    if (reader["CourseName"] != DBNull.Value)
+                    {
+                        entity.CourseName = (string)reader["CourseName"];
+                    }
+                    if (reader["DateStart"] != DBNull.Value)
+                    {
+                        entity.DateStart = (DateTime)reader["DateStart"];
+                    }
+                    if (reader["DateEnd"] != DBNull.Value)
+                    {
+                        entity.DateEnd = (DateTime)reader["DateEnd"];
+                    }
+                    if (reader["TutiTion"] != DBNull.Value)
+                    {
+                        entity.Tutition = (double)reader["Tutition"];
+                    }
+                    if (reader["CourseIntro"] != DBNull.Value)
+                    {
+                        entity.CourseIntro = (string)reader["CourseIntro"];
+                    }
+                    if (reader["CourseLinkRef"] != DBNull.Value)
+                    {
+                        entity.CourseLinkRef = (string)reader["CourseLinkRef"];
+                    }
+
+                    entity.NumberOfStudent = new CourseStudentDetailReposistory().GetNumberOfStudentInCourse(entity.CourseId);
+                    //Thêm entity vào list trả về
+                    queryResult.Add(entity);
+                }
+
+                //Đóng kết nối
+                reader.Close();
+                connection.Close();
+            }
+
+            //Trả về kết quả
+            return queryResult;
+        }
+
+        //Lấy danh sách tất cả khóa học học sinh đã tham gia
         public List<dynamic> GetAllCourseJoined(string searchKeyword, long studentId)
         {
             //Giá trị trả về của hàm này: List<Course>
@@ -342,7 +413,7 @@ namespace WebServer.Repository
                 while (reader.Read())
                 {
                     //Tạo biến tạm để lấy đọc giá trị và sau dó thêm vào List queryResult
-                    dynamic entity = new Course();
+                    dynamic entity = new ExpandoObject();
 
                     //Lấy từng cột đọc được lưu vào entity
                     if (reader["CourseId"] != DBNull.Value)
@@ -404,7 +475,7 @@ namespace WebServer.Repository
                 SqlCommand command = new SqlCommand(queryString, connection);
                 command.Parameters.AddWithValue("@teacherId", teacherId);
                 command.Parameters.AddWithValue("@searchKeyword", string.IsNullOrEmpty(searchKeyword)
-                    ? (object)DBNull.Value : searchKeyword);
+                    ? "" : searchKeyword);
 
                 //Mở kết nối và thực hiện query vào database
                 connection.Open();
@@ -414,7 +485,7 @@ namespace WebServer.Repository
                 while (reader.Read())
                 {
                     //Tạo biến tạm để lấy đọc giá trị và sau dó thêm vào List queryResult
-                    dynamic entity = new Course();
+                    dynamic entity = new ExpandoObject();
 
                     //Lấy từng cột đọc được lưu vào entity
                     if (reader["CourseId"] != DBNull.Value)

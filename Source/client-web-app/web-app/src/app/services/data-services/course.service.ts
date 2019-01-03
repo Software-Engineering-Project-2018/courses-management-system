@@ -35,6 +35,16 @@ export class CourseService extends BaseService {
         return this.http.post(this.prefixRestUrl + 'rest/course/get-all-not-joined', params, httpOptions).pipe();
     }
 
+    getAllCourse(searchKeyword): Observable<CourseObject[]> {
+        const params = new HttpParams()
+            .set('searchKeyword', searchKeyword.toString());
+
+        const httpOptions = {
+            headers: this.httpHeader,
+            params: params
+        };
+        return this.http.get<CourseObject[]>(this.prefixRestUrl + 'rest/course/get-all', httpOptions).pipe();
+    }
 
     getOneCourse(hocSinhId: number): Observable<CourseObject> {
         const params = new HttpParams()

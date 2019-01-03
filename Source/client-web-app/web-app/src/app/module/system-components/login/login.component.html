@@ -7,7 +7,7 @@
       <form [formGroup]="loginForm" (ngSubmit)="loginOnClick()">
         <div class="form-group mb-5" [ngClass]="{'has-error':!loginForm.controls['username'].valid 
             && loginForm.controls['username'].touched}">
-          <input class="form-control" type="text" [(ngModel)]="username" 
+          <input class="form-control" type="text" [(ngModel)]="username" style="font-size: 20px;"
           [formControl]="loginForm.controls['username']" placeholder="Tên đăng nhập">
           <div *ngIf="loginForm.controls['username'].hasError('required') && loginForm.controls['username'].touched"
             class="alert text-danger">
@@ -17,7 +17,7 @@
 
         <div class="form-group mb-5" [ngClass]="{'has-error':!loginForm.controls['password'].valid
              && loginForm.controls['password'].touched}">
-          <input class="form-control" type="password" [(ngModel)]="password"
+          <input class="form-control" type="password" [(ngModel)]="password" style="font-size: 20px;"
            [formControl]="loginForm.controls['password']" placeholder="Mật khẩu">
           <div *ngIf="loginForm.controls['password'].hasError('required') && loginForm.controls['password'].touched"
             class="alert text-danger">

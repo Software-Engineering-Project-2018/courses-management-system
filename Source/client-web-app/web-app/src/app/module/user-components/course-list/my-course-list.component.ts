@@ -20,15 +20,41 @@ export class MyCourseListComponent extends CourseListComponent {
   getData() {
     this.startLoadingUi();
     setTimeout(() => {
-      this.courseService.getAllCourseJoined(this.searchKeyword, this.UserLogin.UserId).subscribe(
-        response => {
-          this.courseJoinedList = response;
-          this.stopLoadingUi();
-        },
-        error => {
-          console.error(error);
-          this.stopLoadingUi();
-        });
+      if (this.UserLogin.UserType === 3) {
+        this.courseService.getAllCourseJoined(this.searchKeyword, this.UserLogin.UserId).subscribe(
+          response => {
+            this.courseJoinedList = response;
+            this.courseJoinedList.forEach(item => {
+              this.teacherService.getAllTeacherByCourse(item.CourseId, '').subscribe(
+                result => {
+                  item.TeacherList = result;
+                  this.stopLoadingUi();
+                }
+              );
+            });
+          },
+          error => {
+            console.error(error);
+            this.stopLoadingUi();
+          });
+      } else if (this.UserLogin.UserType === 2) {
+        this.courseService.getCourseByTeacher(this.searchKeyword, this.UserLogin.UserId).subscribe(
+          response => {
+            this.courseJoinedList = response;
+            this.courseJoinedList.forEach(item => {
+              this.teacherService.getAllTeacherByCourse(item.CourseId, '').subscribe(
+                result => {
+                  item.TeacherList = result;
+                  this.stopLoadingUi();
+                }
+              );
+            });
+          },
+          error => {
+            console.error(error);
+            this.stopLoadingUi();
+          });
+      }
     }, 500);
   }
 

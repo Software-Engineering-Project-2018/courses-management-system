@@ -50,6 +50,8 @@ export class CourseListComponent extends BaseComponent implements OnInit {
       'courseIntro': [null],
       'courseLinkRef': [null]
     });
+
+    this.courseInfo = new CourseObject();
   }
   ngOnInit() {
   }
@@ -57,39 +59,27 @@ export class CourseListComponent extends BaseComponent implements OnInit {
   getData() {
     this.startLoadingUi();
     setTimeout(() => {
-      this.courseService.getAllCourseJoined(this.searchKeyword, this.UserLogin.UserId).subscribe(
+      this.courseService.getAllCourse(this.searchKeyword).subscribe(
         response1 => {
-          this.courseJoinedList = response1;
-          this.courseJoinedList.forEach(item => {
+          this.courseNotJoinedList = response1;
+          this.courseNotJoinedList.forEach(item => {
             this.teacherService.getAllTeacherByCourse(item.CourseId, '').subscribe(
               result => {
                 item.TeacherList = result;
+                this.stopLoadingUi();
               }
             );
           });
-          this.courseService.getAllCourseNotJoined(this.searchKeyword, this.UserLogin.UserId).subscribe(
-            response2 => {
-              this.courseNotJoinedList = response2;
-              this.courseNotJoinedList.forEach(item => {
-                this.teacherService.getAllTeacherByCourse(item.CourseId, '').subscribe(
-                  result => {
-                    item.TeacherList = result;
-                  }
-                );
-              });
-              this.stopLoadingUi();
-            },
-            error => {
-              console.error(error);
-              this.stopLoadingUi();
-            });
-          this.stopLoadingUi();
         },
         error => {
           console.error(error);
           this.stopLoadingUi();
         });
     }, 500);
+  }
+
+  selectCourseOnClick(course) {
+    this.currSelectedCourse = course;
   }
 
   searchOnclick() {
@@ -101,6 +91,7 @@ export class CourseListComponent extends BaseComponent implements OnInit {
       this.studentService.getAllStudentByCourse(this.currSelectedCourse.CourseId, this.searchKeywordStudentList).subscribe(
         result => {
           this.studentJoinedList = result;
+          this.stopLoadingUi();
         });
     }
   }
@@ -111,6 +102,7 @@ export class CourseListComponent extends BaseComponent implements OnInit {
   }
 
   searchStudentListOnclick() {
+    this.startLoadingUi();
     this.getDataStudentList();
   }
 
@@ -119,11 +111,13 @@ export class CourseListComponent extends BaseComponent implements OnInit {
       this.teacherService.getAllTeacherByCourse(this.currSelectedCourse.CourseId, this.searchKeywordTeacherList).subscribe(
         result => {
           this.teacherJoinedList = result;
+          this.stopLoadingUi();
         });
     }
   }
 
-  searchTeacherListOnclick() {
+  searchTeacherListOnClick() {
+    this.startLoadingUi();
     this.getDataTeacherList();
   }
 
@@ -158,6 +152,7 @@ export class CourseListComponent extends BaseComponent implements OnInit {
             this.courseNotJoinedList[i1] = result;
           }
         }
+        this.stopLoadingUi();
         this.currSelectedCourse = new CourseObject();
         this.btnCloseUpdate.nativeElement.click();
       },

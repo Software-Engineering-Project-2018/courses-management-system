@@ -70,6 +70,10 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (!(this.isStudentLogin() && this.isTeacherLogin())) {
+      this.infoForm.get('id').clearValidators();
+      this.infoForm.get('id').updateValueAndValidity();
+    }
   }
 
   changedAvatar($event: any) {

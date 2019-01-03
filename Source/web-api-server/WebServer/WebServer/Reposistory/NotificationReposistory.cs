@@ -268,10 +268,11 @@ namespace WebServer.Repository
                         queryResult.CourseId = (long)reader["CourseId"];
                     }
 
-                    //Đóng kết nối
-                    reader.Close();
-                    connection.Close();
                 }
+                //Đóng kết nối
+                reader.Close();
+                connection.Close();
+
                 //Trả về kết quả
                 return queryResult;
             }

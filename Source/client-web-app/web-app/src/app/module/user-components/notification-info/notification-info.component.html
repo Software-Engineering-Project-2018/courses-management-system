@@ -1,3 +1,41 @@
-<p>
-  Không có thông báo!
-</p>
+<ng-scrollbar class="notification-info">
+  <div class="row-header">
+    <h3 class="title">
+      {{notificationInfo.NotificationName}}
+    </h3>
+  </div>
+
+  <div class="dot-line"></div>
+
+  <div class="list-content">
+
+    <div class="body-content">
+      <div class="info body-content-row">
+
+        <div class="info-content">
+          <ul class="">
+            <li class="">
+              Ngày tạo: {{notificationInfo.NotificationDateCreate|date:'dd/MM/yyyy'}}
+            </li>
+            <li class="">
+              Người tạo: {{notificationInfo.NotificationCreatorName}}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="info body-content-row">
+        <h5>Nội dung thông báo</h5>
+
+        <div class="info-content">
+          <p>{{notificationInfo.NotificationContent}}</p>
+        </div>
+      </div>
+
+      <div class="dot-line"></div>
+
+    </div>
+
+  </div>
+
+</ng-scrollbar>

@@ -37,6 +37,13 @@
           </td>
         </tr>
       </tbody>
+      <tfoot>
+          <th scope="row">Tổng cộng</th>
+          <td></td>
+          <td></td>
+          <td>{{totalInDebt ? totalInDebt : 0|number:'0.0-0'}}</td>
+          <td></td>
+      </tfoot>
     </table>
     <div *ngIf="!studentList || studentList.length == 0" class="text-center p-3">
       Không có dữ liệu!

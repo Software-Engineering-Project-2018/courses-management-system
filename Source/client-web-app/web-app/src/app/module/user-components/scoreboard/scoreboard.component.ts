@@ -2,6 +2,7 @@ import { Component, OnInit, Injector } from '@angular/core';
 import { CourseStudentObject } from 'src/app/object/course-student-detail-object';
 import { BaseComponent } from '../../base/base.component';
 import { CourseStudentService } from 'src/app/services/data-services/course-student.service';
+import { StudentObject } from 'src/app/object/student-object';
 
 @Component({
   selector: 'app-scoreboard',
@@ -14,6 +15,7 @@ export class ScoreboardComponent extends BaseComponent implements OnInit {
   fromDate: Date;
   toDate: Date;
   courseStudentService: CourseStudentService;
+  studentInfo: StudentObject;
   public courseStudentList: CourseStudentObject[];
   constructor(injector: Injector) {
     super(injector);

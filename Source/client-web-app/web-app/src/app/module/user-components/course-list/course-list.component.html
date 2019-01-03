@@ -51,15 +51,15 @@
           </td>
           <td *ngIf="isTeacherLogin() || isManagerLogin()">
             <span class="text-link">
-              <div class="btn-group dropleft">
+              <div class="btn-group dropleft" (click)="selectCourseOnClick(item)">
                 <i class="fa fa-sliders" data-toggle="dropdown" style="font-size: 25px; line-height: 30px; cursor: pointer;"></i>
                 <div class="dropdown-menu">
                   <div class="list-group">
                     <a class="list-group-item list-group-item-action" (click)="courseInfoOnClick(item.CourseId)">Xem</a>
-                    <a class="list-group-item list-group-item-action" (click)="studentListOnClick(item)"
-                      data-toggle="modal" data-target="#studentListModalCenter">Danh sách học sinh</a>
-                    <a class="list-group-item list-group-item-action" (click)="teacherListOnClick(item)"
-                      data-toggle="modal" data-target="#teacherListModalCenter">Danh sách giáo viên</a>
+                    <a class="list-group-item list-group-item-action" (click)="studentListOnClick(item)" data-toggle="modal"
+                      data-target="#studentListModalCenter">Danh sách học sinh</a>
+                    <a class="list-group-item list-group-item-action" (click)="teacherListOnClick(item)" data-toggle="modal"
+                      data-target="#teacherListModalCenter">Danh sách giáo viên</a>
                     <a class="list-group-item list-group-item-action" (click)="currSelectedCourse = item" data-toggle="modal"
                       data-target="#updateModalCenter">Cập nhật</a>
                     <a class="list-group-item list-group-item-action" data-toggle="modal" data-target="#acceptDeleteModalCenter">Xóa</a>
@@ -85,19 +85,19 @@
           </td>
           <td *ngIf="isTeacherLogin() || isManagerLogin()">
             <span class="text-link">
-              <div class="btn-group dropleft">
+              <div class="btn-group dropleft" (click)="selectCourseOnClick(item)">
                 <i class="fa fa-sliders" data-toggle="dropdown" style="font-size: 25px; line-height: 30px; cursor: pointer;"></i>
                 <div class="dropdown-menu">
                   <div class="list-group">
                     <a class="list-group-item list-group-item-action" (click)="courseInfoOnClick(item.CourseId)">Xem</a>
                     <a class="list-group-item list-group-item-action" (click)="currSelectedCourse = item" data-toggle="modal"
                       data-target="#updateModalCenter">Cập nhật</a>
-                    <a class="list-group-item list-group-item-action" (click)="studentListOnClick(item)"
-                      data-toggle="modal" data-target="#studentListModalCenter">Danh sách học sinh</a>
-                    <a class="list-group-item list-group-item-action" (click)="teacherListOnClick(item)"
-                      data-toggle="modal" data-target="#teacherListModalCenter">Danh sách giáo viên</a>
-                    <a class="list-group-item list-group-item-action" *ngIf="isManagerLogin()"
-                    data-toggle="modal" data-target="#acceptDeleteModalCenter">Xóa</a>
+                    <a class="list-group-item list-group-item-action" (click)="studentListOnClick(item)" data-toggle="modal"
+                      data-target="#studentListModalCenter">Danh sách học sinh</a>
+                    <a class="list-group-item list-group-item-action" (click)="teacherListOnClick(item)" data-toggle="modal"
+                      data-target="#teacherListModalCenter">Danh sách giáo viên</a>
+                    <a class="list-group-item list-group-item-action" *ngIf="isManagerLogin()" data-toggle="modal"
+                      data-target="#acceptDeleteModalCenter">Xóa</a>
                   </div>
                 </div>
               </div>
@@ -253,7 +253,7 @@
 
           <div class="form-group" [ngClass]="{'has-error':!courseInfoForm.controls['dateStart'].valid && courseInfoForm.controls['dateStart'].touched}">
             <label>Ngày bắt đầu: </label>
-            <input class="form-control" type="date" [(ngModel)]="currSelectedCourse.DateStart" [formControl]="courseInfoForm.controls['dateStart']"
+            <input class="form-control" type="datetime-local" [(ngModel)]="currSelectedCourse.DateStart" [formControl]="courseInfoForm.controls['dateStart']"
               placement="top" ngbTooltip="Chọn ngày bắt đầu khóa học.">
             <div *ngIf="courseInfoForm.controls['dateStart'].hasError('required') && courseInfoForm.controls['dateStart'].touched"
               class="alert text-danger">
@@ -263,7 +263,7 @@
 
           <div class="form-group" [ngClass]="{'has-error':!courseInfoForm.controls['dateEnd'].valid && courseInfoForm.controls['dateEnd'].touched}">
             <label>Ngày kết thúc dự kiến: </label>
-            <input class="form-control" type="date" [(ngModel)]="currSelectedCourse.DateEnd" placeholder="Nguyễn Văn A"
+            <input class="form-control" type="datetime-local" [(ngModel)]="currSelectedCourse.DateEnd" placeholder="Nguyễn Văn A"
               [formControl]="courseInfoForm.controls['dateEnd']" placement="top" ngbTooltip="Chọn ngày kết thúc khóa học.">
 
             <div *ngIf="courseInfoForm.controls['dateEnd'].hasError('required') && courseInfoForm.controls['dateEnd'].touched"
@@ -315,7 +315,7 @@
 
 <div class="modal fade" id="studentListModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-dialog modal-dialog-centered container" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle">Danh sách học sinh trong lớp</h5>
@@ -330,8 +330,8 @@
               <label for="inputKeyword" class="col-12 col-sm-6 col-md-4 col-lg-2 col-form-label">Tìm kiếm học sinh:
               </label>
               <div class="col-12 col-sm-6 col-md-8 col-lg-10">
-                <input type="text" [(ngModel)]="searchKeywordStudentList" (keyup.enter)="searchStudentListOnclick()" class="form-control" id="inputKeyword"
-                  placeholder="Nhập mã số | tên học sinh">
+                <input type="text" [(ngModel)]="searchKeywordStudentList" (keyup.enter)="searchStudentListOnclick()"
+                  class="form-control" id="inputKeyword" placeholder="Nhập mã số | tên học sinh">
               </div>
             </div>
             <div class="text-center">
@@ -379,7 +379,7 @@
 
 <div class="modal fade" id="teacherListModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-dialog modal-dialog-centered container" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle">Danh sách giáo viên quản lý khóa học</h5>
@@ -394,12 +394,12 @@
               <label for="inputKeyword" class="col-12 col-sm-6 col-md-4 col-lg-2 col-form-label">Tìm kiếm giáo viên:
               </label>
               <div class="col-12 col-sm-6 col-md-8 col-lg-10">
-                <input type="text" [(ngModel)]="searchKeywordTeacherList" (keyup.enter)="searchTeacherListOnclick()" class="form-control" id="inputKeyword"
-                  placeholder="Nhập mã số | tên học sinh">
+                <input type="text" [(ngModel)]="searchKeywordTeacherList" (keyup.enter)="searchTeacherListOnClick()"
+                  class="form-control" id="inputKeyword" placeholder="Nhập mã số | tên giáo viên">
               </div>
             </div>
             <div class="text-center">
-              <button type="submit" class="btn btn-primary" (click)="searchTeacherListOnclick()">Tìm kiếm</button>
+              <button type="submit" class="btn btn-primary" (click)="searchTeacherListOnClick()">Tìm kiếm</button>
             </div>
           </div>
 
@@ -416,7 +416,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of teacherJoinedList; let i = index;">
+                <tr *ngFor="let item of currSelectedCourse.TeacherList; let i = index;">
                   <th scope="row">{{i + 1}}</th>
                   <td (click)="userInfoOnClick(item.UserId)">{{item.IdentificationCode}}</td>
                   <td (click)="userInfoOnClick(item.UserId)">{{item.UserFullName}}</td>
@@ -426,7 +426,7 @@
                 </tr>
               </tbody>
             </table>
-            <div *ngIf="!teacherJoinedList || teacherJoinedList.length == 0" class="text-center p-3">
+            <div *ngIf="!currSelectedCourse.TeacherList || currSelectedCourse.TeacherList.length == 0" class="text-center p-3">
               Không có dữ liệu!
             </div>
           </div>

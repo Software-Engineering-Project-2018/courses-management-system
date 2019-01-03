@@ -37,8 +37,12 @@ export abstract class NotificationListComponent extends BaseComponent implements
     this.getData();
   }
 
-  notificationInfoOnClick(parentId) {
-    this.router.navigate(['/dashboard/notification-info']);
+  notificationInfoOnClick(notificationId) {
+    this.router.navigate(['/dashboard/notification',
+      {
+        notificationId: [notificationId]
+      }]);
   }
+
   insertNotificationOnClick() { }
 }

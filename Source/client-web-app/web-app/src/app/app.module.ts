@@ -45,6 +45,7 @@ import { EventEmiterService } from './services/event.emmiter.service';
 import { CourseTeacherListComponent } from './module/user-components/course-teacher-list/course-teacher-list.component';
 import { DatePipe } from '@angular/common';
 import { TeacherCourseListComponent } from './module/user-components/course-list/teacher-course-list.component';
+import { StudentCourseListComponent } from './module/user-components/course-list/student-course-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -75,7 +76,8 @@ import { TeacherCourseListComponent } from './module/user-components/course-list
     CourseStudentListComponent,
     CourseTeacherListComponent,
     TutitionFeeComponent,
-    TeacherCourseListComponent
+    TeacherCourseListComponent,
+    StudentCourseListComponent
   ],
   imports: [
     BrowserModule,

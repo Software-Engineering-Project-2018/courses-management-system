@@ -32,6 +32,14 @@ namespace WebServer.Controllers
             return Ok(courseReposistory.UpdateCourse(course));
         }
 
+        //API Lấy tất cả khóa(tìm kiếm khóa học theo tên)
+        [Route("rest/course/get-all")]
+        [HttpGet]
+        public IHttpActionResult GetAllParent(string searchKeyword)
+        {
+            return Ok(courseReposistory.GetAllCourse(searchKeyword));
+        }
+
         //API Lấy tất cả khóa học đã tham gia(tìm kiếm quản lý theo tên)
         [Route("rest/course/get-all-joined")]
         [HttpPost]

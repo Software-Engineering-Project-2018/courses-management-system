@@ -11,6 +11,7 @@ import { BaseComponent } from '../../base/base.component';
 export class IncomeComponent extends BaseComponent implements OnInit {
 
   searchKeyword = '';
+  totalInDebt = 0;
   private studentService: StudentService;
   public studentList: StudentObject[];
   constructor(injector: Injector) {
@@ -24,9 +25,13 @@ export class IncomeComponent extends BaseComponent implements OnInit {
   getData() {
     this.startLoadingUi();
     setTimeout(() => {
+      this.totalInDebt = 0;
       this.studentService.getAllStudent(this.searchKeyword).subscribe(
         response => {
           this.studentList = response;
+          this.studentList.forEach(item => {
+            this.totalInDebt += item.TotalinDebt;
+          });
           this.stopLoadingUi();
         },
         error => {

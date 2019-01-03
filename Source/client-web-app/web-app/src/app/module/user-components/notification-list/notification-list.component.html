@@ -43,7 +43,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
             max-width: 20ch;">{{item.NotificationContent}}</div>
-            <div class="text-link" style="font-size: 12px;">Xem thêm</div>
+            <div class="text-link" style="font-size: 12px;" (click)="notificationInfoOnClick(item.NotificationId)">Xem thêm</div>
           </td>
         </tr>
       </tbody>

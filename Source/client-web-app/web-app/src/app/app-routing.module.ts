@@ -30,6 +30,7 @@ import { TutitionFeeComponent } from './module/user-components/tutition-fee/tuti
 import { CourseTeacherListComponent } from './module/user-components/course-teacher-list/course-teacher-list.component';
 import { ParentListComponent } from './module/user-components/parent-list/parent-list.component';
 import { TeacherCourseListComponent } from './module/user-components/course-list/teacher-course-list.component';
+import { StudentCourseListComponent } from './module/user-components/course-list/student-course-list.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -60,9 +61,13 @@ const routes: Routes = [
         path: 'courses',
         component: CourseListComponent
       },
-      {
+      {//
         path: 'course-students',
         component: CourseStudentListComponent
+      },
+      {
+        path: 'course-student',
+        component: StudentCourseListComponent
       },
       {
         path: 'course-teacher',
