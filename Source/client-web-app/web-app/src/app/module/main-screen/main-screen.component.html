@@ -11,7 +11,8 @@
       </div>
       <div class="sidebar-header">
         <div class="user-pic">
-          <img class="img-responsive img-rounded" [src]="UserLogin && UserLogin.UserAvatar ? UserLogin.UserAvatar : defaultAvatar" alt="User picture">
+          <img class="img-responsive img-rounded" [src]="UserLogin && UserLogin.UserAvatar ? UserLogin.UserAvatar : defaultAvatar"
+            alt="User picture">
         </div>
         <div class="user-info">
           <span class="user-name" style="cursor: pointer;" [routerLink]="['/dashboard/profile']" routerLinkActive="router-link-active">
@@ -27,16 +28,6 @@
 
       <!-- sidebar-header  -->
       <div class="sidebar-search">
-        <!-- <div>
-          <div class="input-group">
-            <input type="text" class="form-control search-menu" placeholder="Search...">
-            <div class="input-group-append">
-              <span class="input-group-text">
-                <i class="fa fa-search" aria-hidden="true"></i>
-              </span>
-            </div>
-          </div>
-        </div> -->
       </div>
       <!-- END sidebar-header  -->
 
@@ -76,7 +67,10 @@
               <span class="badge badge-pill badge-danger">New</span>
             </a>
             <div class="sidebar-submenu">
-              <ul>
+              <ul *ngIf="UserLogin.UserType !== 3">
+                <li class="text-center p-2"><i>(Không có quyền truy cập)</i></li>
+              </ul>
+              <ul *ngIf="UserLogin.UserType === 3">
                 <li>
                   <a [routerLink]="['/dashboard/courses']" routerLinkActive="router-link-active">Danh sách khóa học</a>
                 </li>
@@ -92,10 +86,64 @@
           <li class="sidebar-dropdown">
             <a>
               <i class="fa fa-graduation-cap"></i>
+              <span>Dành cho phụ huynh</span>
+            </a>
+            <div class="sidebar-submenu">
+              <ul *ngIf="UserLogin.UserType !== 4">
+                <li class="text-center p-2"><i>(Không có quyền truy cập)</i></li>
+              </ul>
+              <ul *ngIf="UserLogin.UserType === 4">
+                <li>
+                  <a [routerLink]="['/dashboard/course-students']" routerLinkActive="router-link-active">
+                    Xem danh sách môn học đã tham gia
+                  </a>
+                  <a [routerLink]="['/dashboard/scoreboard']" routerLinkActive="router-link-active">
+                    Xem kết quả học tập
+                  </a>
+                  <a [routerLink]="['/dashboard/tutition']" routerLinkActive="router-link-active">
+                    Xem nợ học phí
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="sidebar-dropdown">
+            <a>
+              <i class="fa fa-graduation-cap"></i>
+              <span>Dành cho giáo viên</span>
+            </a>
+            <div class="sidebar-submenu">
+              <ul *ngIf="UserLogin.UserType !== 2">
+                <li class="text-center p-2"><i>(Không có quyền truy cập)</i></li>
+              </ul>
+              <ul *ngIf="UserLogin.UserType === 2">
+                <li>
+                  <a [routerLink]="['/dashboard/courses']" routerLinkActive="router-link-active">
+                    Tất cả khóa học
+                  </a>
+                  <a [routerLink]="['/dashboard/course-teacher']" routerLinkActive="router-link-active">
+                    Khóa học đang quản lý
+                  </a>
+                  <a [routerLink]="['/dashboard/students']" routerLinkActive="router-link-active">
+                    Danh sách học sinh
+                  </a>
+                  <a [routerLink]="['/dashboard/parents']" routerLinkActive="router-link-active">
+                    Danh sách phụ huynh
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="sidebar-dropdown">
+            <a>
+              <i class="fa fa-graduation-cap"></i>
               <span>Dành cho quản lý</span>
             </a>
             <div class="sidebar-submenu">
-              <ul>
+              <ul *ngIf="UserLogin.UserType !== 1">
+                <li class="text-center p-2"><i>(Không có quyền truy cập)</i></li>
+              </ul>
+              <ul *ngIf="UserLogin.UserType === 1">
                 <li>
                   <a [routerLink]="['/dashboard/courses']" routerLinkActive="router-link-active">
                     Danh sách khóa học
@@ -105,6 +153,9 @@
                   </a>
                   <a [routerLink]="['/dashboard/students']" routerLinkActive="router-link-active">
                     Danh sách học sinh
+                  </a>
+                  <a [routerLink]="['/dashboard/parents']" routerLinkActive="router-link-active">
+                    Danh sách phụ huynh
                   </a>
                   <a [routerLink]="['/dashboard/income']" routerLinkActive="router-link-active">
                     Quản lý thu chi
@@ -124,7 +175,7 @@
                   <a [routerLink]="['/dashboard/profile']" routerLinkActive="router-link-active">
                     Thông tin cá nhân
                   </a>
-                  <a [routerLink]="['/dashboard/tutition']" routerLinkActive="router-link-active">
+                  <a *ngIf="UserLogin.UserType === 3" [routerLink]="['/dashboard/tutition']" routerLinkActive="router-link-active">
                     Kiểm tra học phí
                   </a>
                   <a [routerLink]="['/dashboard/changepassword']" routerLinkActive="router-link-active">
@@ -154,36 +205,6 @@
 
       <!-- END sidebar-menu  -->
     </ng-scrollbar>
-
-    <!-- sidebar-content  -->
-    <!-- <div class="sidebar-footer">
-      <div class="dropdown">
-        <a [routerLink]="['/dashboard/notification']" routerLinkActive="router-link-active">
-          <i class="fa fa-bell"></i>
-          <span class="badge badge-pill badge-warning notification">3</span>
-        </a>
-      </div>
-      <div class="dropdown">
-        <a>
-          <i class="fa fa-envelope"></i>
-          <span class="badge badge-pill badge-success notification">7</span>
-        </a>
-      </div>
-      <div class="dropdown">
-        <a [routerLink]="['/dashboard/settings']" routerLinkActive="router-link-active" >
-          <i class="fa fa-cog"></i>
-          <span class="badge-sonar"></span>
-        </a>
-      </div>
-      <div>
-        <a href="#">
-          <i class="fa fa-power-off"></i>
-        </a>
-      </div>
-    </div> -->
-
-    <!-- ENDsidebar-content  -->
-
   </nav>
   <!-- END sidebar-wrapper  -->
 
@@ -202,18 +223,18 @@
 
       <ul class="nav fixed-top">
         <li class="nav-item">
-          <a class="nav-link active" href="https://github.com/Software-Engineering-Project-2018/courses-management-system">
+          <a class="nav-link text-link active" href="https://github.com/Software-Engineering-Project-2018/courses-management-system">
             <i class="fa fa-github"></i></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/dashboard/general-notification']" routerLinkActive="router-link-active"><i
+          <a class="nav-link text-link" [routerLink]="['/dashboard/general-notification']" routerLinkActive="router-link-active"><i
               class="fa fa-bell"></i></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/dasboard']" routerLinkActive="router-link-active"><i class="fa fa-comments"></i></a>
+          <a class="nav-link text-link"><i class="fa fa-comments"></i></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" (click)="logOutOnClick()" tabindex><i class="fa fa-power-off"></i></a>
+          <a class="nav-link text-link" (click)="logOutOnClick()" tabindex><i class="fa fa-power-off"></i></a>
         </li>
       </ul>
 
@@ -228,7 +249,9 @@
           </ol>
         </nav>
       </div>
-      <router-outlet></router-outlet>
+      <div class="container">
+        <router-outlet></router-outlet>
+      </div>
     </div>
   </main>
   <!-- END page-content -->

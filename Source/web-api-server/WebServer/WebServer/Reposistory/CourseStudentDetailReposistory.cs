@@ -70,13 +70,13 @@ namespace WebServer.Repository
         }
 
 
-        public List<CourseStudentDetail> GetAllCourseStudentDetailByStudent(long studentId)
+        public List<CourseStudentDetail> GetAllCourseStudentDetailByStudent(long studentId, DateTime fromDate, DateTime toDate)
         {
             //Giá trị trả về của hàm này: List<CourseStudentDetail>
             List<CourseStudentDetail> queryResult = new List<CourseStudentDetail>();
 
             //Cấu lệnh truy vấn ở dạng string
-            string queryString = "SELECT * FROM CourseStudentDetail WHERE StudentId = @studentId";
+            string queryString = "SELECT * FROM CourseStudentDetail csd JOIN COURSE c ON csd.CourseId = c.CourseId WHERE StudentId = @studentId AND ((c.DateStart BETWEEN @fromDate AND @toDate) OR (c.DateEnd BETWEEN @fromDate AND @toDate))";
 
             //Mở kết nối đến database
             using (SqlConnection connection =
@@ -85,6 +85,8 @@ namespace WebServer.Repository
                 // Khởi tạo command có tham số nào truyền vào là từ khóa tìm kiếm
                 SqlCommand command = new SqlCommand(queryString, connection);
                 command.Parameters.AddWithValue("@studentId", studentId);
+                command.Parameters.AddWithValue("@fromDate", fromDate);
+                command.Parameters.AddWithValue("@toDate", toDate);
 
                 //Mở kết nối và thực hiện query vào database
                 connection.Open();
@@ -134,7 +136,7 @@ namespace WebServer.Repository
             List<CourseStudentDetail> queryResult = new List<CourseStudentDetail>();
 
             //Cấu lệnh truy vấn ở dạng string
-            string queryString = "SELECT * FROM CourseStudentDetail csd JOIN Student st ON csd.StudentId = st.UserId WHERE csd.CourseId = @courseId AND st.UserFullName like '%' + @searchKeyword + '%'";
+            string queryString = "SELECT * FROM Student st JOIN CourseStudentDetail csd ON st.UserId = csd.StudentId WHERE csd.CourseId = @courseId AND st.UserFullName LIKE '%' + @searchKeyword + '%'";
 
             //Mở kết nối đến database
             using (SqlConnection connection =
@@ -263,6 +265,41 @@ namespace WebServer.Repository
             // Hàm trả về ourseStudentDetailId
             return courseStudentDetailId;
         }
-        
+        public long GetNumberOfStudentInCourse(long courseId)
+        {
+            long queryResult = 0;
+
+            //Cấu lệnh truy vấn ở dạng string
+            string queryString = "SELECT COUNT(*) FROM CourseStudentDetail WHERE CourseId = @courseId";
+
+            //Mở kết nối đến database
+            using (SqlConnection connection =
+                new SqlConnection(this.ConnectionString))
+            {
+                // Khởi tạo command có tham số nào truyền vào là từ khóa tìm kiếm
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("@courseId", courseId);
+
+                //Mở kết nối và thực hiện query vào database
+                connection.Open();
+
+                object obj = command.ExecuteScalar();
+                if (obj.GetType() != typeof(DBNull))
+                {
+                    queryResult = Convert.ToInt64(obj);
+                }
+                else
+                {
+                    queryResult = 0;
+                }
+
+                //Đóng kết nối
+                connection.Close();
+            }
+
+            //Trả về kết quả
+            return queryResult;
+        }
+
     }
 }

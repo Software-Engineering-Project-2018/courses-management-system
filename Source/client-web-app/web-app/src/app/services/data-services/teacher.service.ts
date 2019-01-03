@@ -22,6 +22,18 @@ export class TeacherService extends BaseService {
         return this.http.get<TeacherObject[]>(this.prefixRestUrl + 'rest/teacher/get-all', httpOptions).pipe();
     }
 
+    getAllTeacherByCourse(courseId, searchKeyword): Observable<any> {
+        const httpOptions = {
+            headers: this.httpHeader
+        };
+        const data = {
+            courseId: courseId,
+            searchKeyword: searchKeyword
+        };
+        return this.http.post(this.prefixRestUrl + 'rest/teacher/get-all-by-course', data, httpOptions).pipe();
+    }
+
+
     getOneTeacher(hocSinhId: number): Observable<TeacherObject> {
         const params = new HttpParams()
             .set('TeacherId', hocSinhId.toString());

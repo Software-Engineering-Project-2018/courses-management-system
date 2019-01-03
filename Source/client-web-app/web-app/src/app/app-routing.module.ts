@@ -27,6 +27,9 @@ import { NotificationInfoComponent } from './module/user-components/notification
 import { MyCourseListComponent } from './module/user-components/course-list/my-course-list.component';
 import { CourseStudentListComponent } from './module/user-components/course-student-list/course-student-list.component';
 import { TutitionFeeComponent } from './module/user-components/tutition-fee/tutition-fee.component';
+import { CourseTeacherListComponent } from './module/user-components/course-teacher-list/course-teacher-list.component';
+import { ParentListComponent } from './module/user-components/parent-list/parent-list.component';
+import { TeacherCourseListComponent } from './module/user-components/course-list/teacher-course-list.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -62,6 +65,10 @@ const routes: Routes = [
         component: CourseStudentListComponent
       },
       {
+        path: 'course-teacher',
+        component: TeacherCourseListComponent
+      },
+      {
         path: 'my-courses',
         component: MyCourseListComponent
       },
@@ -76,6 +83,10 @@ const routes: Routes = [
       {
         path: 'teachers',
         component: TeacherListComponent
+      },
+      {
+        path: 'parents',
+        component: ParentListComponent
       },
       {
         path: 'income',

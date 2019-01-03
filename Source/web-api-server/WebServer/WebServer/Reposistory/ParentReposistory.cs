@@ -273,7 +273,7 @@ namespace WebServer.Repository
                     }
                     if (reader["StudentId"] != DBNull.Value)
                     {
-                        entity.UserType = (long)reader["StduentId"];
+                        entity.Student.UserId = (long)reader["StudentId"];
                     }
                     //Thêm entity vào list trả về
                     queryResult.Add(entity);
@@ -354,9 +354,10 @@ namespace WebServer.Repository
                     }
                     if (reader["StudentId"] != DBNull.Value)
                     {
-                        queryResult.UserType = (long)reader["StudentId"];
+                        queryResult.Student.UserId = (long)reader["StudentId"];
                     }
                 }
+                queryResult.Student = new StudentReposistory().GetOneStudentById(queryResult.Student.UserId);
                 //Đóng kết nối
                 reader.Close();
                 connection.Close();
@@ -485,9 +486,9 @@ namespace WebServer.Repository
                     {
                         entity.UserType = (long)reader["UserType"];
                     }
-                    if (reader["StudentID"] != DBNull.Value)
+                    if (reader["StudentId"] != DBNull.Value)
                     {
-                        entity.UserType = (long)reader["StduentId"];
+                        entity.Student.UserId = (long)reader["StudentId"];
                     }
                     //Thêm entity vào list trả về
                     queryResult.Add(entity);

@@ -62,5 +62,15 @@ namespace WebServer.Controllers
         {
             return Ok(teacherReposistory.ResetPassword(teacherId));
         }
+
+        //API Lấy tất cả giáo viên cùng quản lý khóa học
+        [Route("rest/teacher/get-all-by-course")]
+        [HttpPost]
+        public IHttpActionResult GetAllTeacherByCourse([FromBody] dynamic data) 
+        {
+            long courseId = data.courseId;
+            string searchKeyword = data.searchKeyword;
+            return Ok(teacherReposistory.GetAllTeacherByCourse(courseId, searchKeyword));
+        }
     }
 }

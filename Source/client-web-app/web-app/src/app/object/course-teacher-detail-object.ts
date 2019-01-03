@@ -2,7 +2,7 @@ import { BaseObject } from './base-object';
 import { TeacherObject } from './teacher-object';
 import { CourseObject } from './Course-object';
 
-export class CourseTeacherDetailObject extends BaseObject {
+export class CourseTeacherObject extends BaseObject {
     CourseSTeacherDetailId: number;
     Course: CourseObject;
     Teacher: TeacherObject;

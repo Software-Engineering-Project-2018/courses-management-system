@@ -3,12 +3,12 @@
     <div class="form-group row">
       <label for="inputKeyword" class="col-12 col-sm-6 col-md-4 col-lg-2 col-form-label">Tìm kiếm học sinh: </label>
       <div class="col-12 col-sm-6 col-md-8 col-lg-10">
-        <input type="text" [(ngModel)]="searchKeyword" (keyup.enter)="searchOnclick()" class="form-control" id="inputKeyword"
+        <input type="text" [(ngModel)]="searchKeyword" (keyup.enter)="searchOnClick()" class="form-control" id="inputKeyword"
           placeholder="Nhập mã số | tên học sinh">
       </div>
     </div>
     <div class="text-center">
-      <button type="submit" class="btn btn-primary" (click)="searchOnclick()">Tìm kiếm</button>
+      <button type="submit" class="btn btn-primary" (click)="searchOnClick()">Tìm kiếm</button>
     </div>
   </div>
 
@@ -17,7 +17,7 @@
   <div class="list-content">
     <h2 class="default-color p-2">Danh sách học sinh</h2>
     <table class="table">
-      <thead class="default-color text-center">
+      <thead class="default-color">
         <tr>
           <th scope="col">STT</th>
           <th scope="col">Mã số</th>

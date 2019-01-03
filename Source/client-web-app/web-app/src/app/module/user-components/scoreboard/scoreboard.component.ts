@@ -11,11 +11,16 @@ import { CourseStudentService } from 'src/app/services/data-services/course-stud
 export class ScoreboardComponent extends BaseComponent implements OnInit {
 
   searchKeyword = '';
+  fromDate: Date;
+  toDate: Date;
   courseStudentService: CourseStudentService;
   public courseStudentList: CourseStudentObject[];
   constructor(injector: Injector) {
     super(injector);
     this.courseStudentService = injector.get(CourseStudentService);
+    this.fromDate = new Date('1-1-1');
+    this.toDate = new Date();
+    this.courseStudentList = [];
     this.getData();
   }
   ngOnInit() {
@@ -23,10 +28,15 @@ export class ScoreboardComponent extends BaseComponent implements OnInit {
 
   getData() {
     this.startLoadingUi();
-    this.courseStudentService.getScoreboardByStudent(this.UserLogin.UserId).subscribe(
-      response => {
-        this.courseStudentList = response;
-        this.stopLoadingUi();
-      });
+    this.courseStudentService.getScoreboardByStudent(this.UserLogin.UserId,
+      this.fromDate, this.toDate).subscribe(
+        response => {
+          this.courseStudentList = response;
+          this.stopLoadingUi();
+        });
+  }
+
+  searchOnClick() {
+    this.getData();
   }
 }

@@ -1,7 +1,7 @@
-<ng-scrollbar class="course-info">
+<ng-scrollbar class="user-info">
   <div class="row-header">
     <h3 class="title">
-      {{userInfo.UserName}}
+      {{userInfo.UserFullName}}
     </h3>
   </div>
 
@@ -11,83 +11,124 @@
 
     <div class="body-content">
       <div class="info body-content-row">
+        <div class="position-relative text-center pb-3 col-12">
+          <img [src]="defaultAvatar" data-toggle="modal" data-target="#avatarModalCenter" placement="top" ngbTooltip="Nhấn để xem ảnh đại diện.">
+        </div>
+
+        <div class="dot-line"></div>
+
         <h5>Thông tin cá nhân</h5>
 
         <div class="info-content">
-          <div class="position-relative pb-3 col-12 col-md-4">
-            <img [src]="defaultAvatar" data-toggle="modal" data-target="#avatarModalCenter" placement="top" ngbTooltip="Nhấn để xem ảnh đại diện.">
-          </div>
           <div class="col-12 col-md-8">
-            <div class="row" *ngIf="userInfo.UserType === 2">
+            <div *ngIf="userInfo.UserType === 2">
               <label>Mã giáo viên: </label>
-              <span class="value">{{userInfo.IdentificationCode}}</span>
+              <span class="value"> {{userInfo.IdentificationCode ? userInfo.IdentificationCode :
+                'Chưa cập nhật.'}}</span>
             </div>
-            <div class="row" *ngIf="userInfo.UserType === 3">
+            <div *ngIf="userInfo.UserType === 3">
               <label>Mã học sinh: </label>
-              <span class="value">{{userInfo.IdentificationCode}}</span>
+              <span class="value"> {{userInfo.IdentificationCode ? userInfo.IdentificationCode :
+                'Chưa cập nhật.'}}</span>
             </div>
-            <div class="row">
+            <div>
               <label>Ngày sinh: </label>
-              <span class="value">{{userInfo.UserDob|date:'dd/MM/yyyy'}}</span>
+              <span class="value"> {{userInfo.UserDob ? (userInfo.UserDob|date:'dd/MM/yyyy') : 'Chưa cập nhật.'}}</span>
             </div>
-            <div class="row">
+            <div>
               <label>Giới tính: </label>
-              <span class="value" *ngIf="userInfo.UserGender === 1">Nam</span>
-              <span class="value" *ngIf="userInfo.UserGender === 2">Nữ</span>
-              <span class="value" *ngIf="userInfo.UserGender !== 1 && userInfo.UserGender !== 2">Khác</span>
+              <span class="value" *ngIf="userInfo.UserGender === 1"> Nam</span>
+              <span class="value" *ngIf="userInfo.UserGender === 2"> Nữ</span>
+              <span class="value" *ngIf="userInfo.UserGender !== 1 && userInfo.UserGender !== 2"> Khác</span>
             </div>
-            <div class="row">
+            <div>
               <label>Số điện thoại: </label>
-              <span class="value">{{userInfo.UserMobile}}</span>
+              <span class="value"> {{userInfo.UserMobile ? userInfo.UserMobile :
+                'Chưa cập nhật.'}}</span>
             </div>
-            <div class="row">
+            <div>
               <label>Email: </label>
-              <span class="value">{{userInfo.UserEmail}}</span>
+              <span class="value"> {{userInfo.UserEmail ? userInfo.UserEmail :
+                'Chưa cập nhật.'}}</span>
             </div>
-            <div class="row">
+            <div>
               <label>Đĩa chỉ: </label>
-              <span class="value">{{userInfo.UserAddress}}</span>
+              <span class="value"> {{userInfo.UserAddress ? userInfo.UserAddress :
+                'Chưa cập nhật.'}}</span>
             </div>
           </div>
         </div>
+        <div class="dot-line"></div>
       </div>
 
-      <div class="dot-line"></div>
-      <h5></h5>
 
-      <div class="info body-content-row">
+      <div class="info body-content-row" *ngIf="userInfo.UserType === 3">
         <h5>Các khóa học đã tham gia</h5>
 
         <div class="info-content">
           <div class="col-12">
-            <div class="row">
-              <span class="value">Hệ điều hành - CQ2016/1</span>
+            <div *ngIf="!courseList || courseList.length === 0">
+              Học sinh chưa tham gia khóa học nào.
             </div>
-            <div class="row">
-              <span class="value">Nhập môn công nghệ phần mềm - CQ2016/1</span>
+            <div *ngFor="let item of courseList">
+              <a class="value text-link" (click)="courseInfoOnClick(item.CourseId)">{{item.CourseName}}</a>
             </div>
           </div>
         </div>
+        <div class="dot-line"></div>
       </div>
 
-      <div class="dot-line"></div>
 
-      <div class="info body-content-row">
-        <h5>Danh sách phụ huynh</h5>
+      <div class="info body-content-row" *ngIf="userInfo.UserType === 3">
+        <h5>Danh sách phụ huynh / người đỡ đầu</h5>
 
         <div class="info-content">
           <div class="col-12">
-            <div class="row">
-              <span class="value">Nguyễn văn A</span>
+            <div *ngIf="!courseList || courseList.length === 0">
+              Không có bất kì tài khoản phụ huynh nào liên kết với học sinh.
             </div>
-            <div class="row">
-              <span class="value">Nguyễn thị B</span>
+            <div *ngFor="let item of parentList">
+              <a class="value text-link" (click)="parentInfoOnClick(item.UserId)">{{item.UserFullName}}</a>
             </div>
           </div>
         </div>
+        <div class="dot-line"></div>
       </div>
 
-      <div class="dot-line"></div>
+
+      <div class="info body-content-row" *ngIf="userInfo.UserType === 2">
+        <h5>Các khóa học đang quản lý</h5>
+
+        <div class="info-content">
+          <div class="col-12">
+            <div *ngIf="!courseList || courseList.length === 0">
+              Giáo viên tham gia quản lý khóa học nào.
+            </div>
+            <div *ngFor="let item of courseList">
+              <a class="value text-link" (click)="courseInfoOnClick(item.CourseId)">{{item.CourseName}}</a>
+            </div>
+          </div>
+        </div>
+        <div class="dot-line"></div>
+      </div>
+
+
+      <div class="info body-content-row" *ngIf="userInfo.UserType === 4">
+        <h5>Thông tin con của bạn: </h5>
+
+        <div class="info-content">
+          <div class="col-12">
+            <div *ngIf="!courseList || courseList.length === 0">
+              Phụ huynh chưa cập nhật thông tin con cái.
+            </div>
+            <div *ngFor="let item of childrenList">
+              <a class="value text-link" (click)="studentInfoOnClick(item.UserId)">{{item.UserFullName}}</a>
+            </div>
+          </div>
+        </div>
+        <div class="dot-line"></div>
+      </div>
+
     </div>
 
   </div>
@@ -100,14 +141,14 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header border-0">
-        <!-- <h5 class="modal-title" id="avatarEditterModalCenterTitle">Tải ảnh</h5> -->
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"> &times; </button>
       </div>
       <div class="modal-body">
-        <img [src]="defaultAvatar" alt="">
+        <div class="text-center">
+          <img [src]="userInfo.UserAvatar ? userInfo.UserAvatar : defaultAvatar" alt="">
+        </div>
       </div>
       <div class="modal-footer border-0">
-        <!-- <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="resetAvatarOnClick()">Hủy</button> -->
         <button type="button" class="btn btn-success" data-dismiss="modal">Đóng</button>
       </div>
     </div>

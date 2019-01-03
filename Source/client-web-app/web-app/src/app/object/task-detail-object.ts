@@ -14,5 +14,6 @@ export class TaskDetailObject extends BaseObject {
         super();
         this.Student = new StudentObject();
         this.Task = new TaskObject();
+        this.TaskSubmissionState = false;
     }
 }

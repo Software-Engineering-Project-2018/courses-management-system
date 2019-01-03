@@ -37,6 +37,25 @@ namespace WebServer.Controllers
             return Ok(studentReposistory.GetAllStudent(searchKeyword));
         }
 
+        //API Lấy tất cả học sinh theo phụ huynh
+        [Route("rest/student/get-by-parent")]
+        [HttpGet]
+        public IHttpActionResult GetAllStudentByParent(string parentId)
+        {
+            return Ok(studentReposistory.GetAllStudentByParent(long.Parse(parentId)));
+        }
+
+        //API Lấy tất cả học sinh theo khóa học
+        [Route("rest/student/get-by-course")]
+        [HttpPost]
+        public IHttpActionResult GetAllStudentByCourse([FromBody] dynamic data)
+        {
+            long courseId = data.courseId;
+            string searchKeyword = data.searchKeyword;
+            return Ok(studentReposistory.GetAllStudentByCourse(courseId, searchKeyword));
+        }
+
+
         //API Lấy thông tin 1 học sinh
         [Route("rest/student/get")]
         [HttpGet]

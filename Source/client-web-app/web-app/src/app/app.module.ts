@@ -42,6 +42,9 @@ import { NotificationInfoComponent } from './module/user-components/notification
 import { CourseStudentListComponent } from './module/user-components/course-student-list/course-student-list.component';
 import { TutitionFeeComponent } from './module/user-components/tutition-fee/tutition-fee.component';
 import { EventEmiterService } from './services/event.emmiter.service';
+import { CourseTeacherListComponent } from './module/user-components/course-teacher-list/course-teacher-list.component';
+import { DatePipe } from '@angular/common';
+import { TeacherCourseListComponent } from './module/user-components/course-list/teacher-course-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,7 +73,9 @@ import { EventEmiterService } from './services/event.emmiter.service';
     NotificationInfoComponent,
     ParentListComponent,
     CourseStudentListComponent,
-    TutitionFeeComponent
+    CourseTeacherListComponent,
+    TutitionFeeComponent,
+    TeacherCourseListComponent
   ],
   imports: [
     BrowserModule,
@@ -96,7 +101,8 @@ import { EventEmiterService } from './services/event.emmiter.service';
       useClass: AuthInterceptor,
       multi: true
     },
-    EventEmiterService
+    EventEmiterService,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

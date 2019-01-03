@@ -25,7 +25,7 @@ namespace WebServer.Controllers
         //API Sửa thông tin quản lý
         [Route("rest/manager/update")]
         [HttpPost]
-        public IHttpActionResult UpdateManager([FromBody] Manager manager)
+        public IHttpActionResult UpdateManager(Manager manager)
         {
             return Ok(managerReposistory.UpdateManager(manager));
         }

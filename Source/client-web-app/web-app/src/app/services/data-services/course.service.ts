@@ -82,5 +82,17 @@ export class CourseService extends BaseService {
         };
         return this.http.get<CourseObject[]>(this.prefixRestUrl + 'rest/course/get-by-student-id', httpOptions).pipe();
     }
+
+    getCourseByTeacher(teacherId, searchKeyword): Observable<any> {
+        const data = {
+            teacherId: teacherId,
+            searchKeyword: searchKeyword
+        };
+
+        const httpOptions = {
+            headers: this.httpHeader
+        };
+        return this.http.post(this.prefixRestUrl + 'rest/course/get-by-teacher-id', data, httpOptions).pipe();
+    }
 }
 

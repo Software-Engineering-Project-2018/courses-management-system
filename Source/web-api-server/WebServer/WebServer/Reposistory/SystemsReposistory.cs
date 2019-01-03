@@ -175,20 +175,22 @@ namespace WebServer.Repository.sp
             switch (userType)
             {
                 case UserBaseDto.TypeAdmin: //Quan ly
-                    break;
+                    Manager managerDto = new ManagerReposistory().GetOneManagerById(userId);
+                    return managerDto;
                 case UserBaseDto.TypeTeacher: //GiaoVien
-                    break;
+                    Teacher teacherDto = new TeacherReposistory().GetOneTeacherById(userId);
+                    return teacherDto;
                 case UserBaseDto.TypeStudent: //HocSinh
                     {
                         Student studentDto = new StudentReposistory().GetOneStudentById(userId);
                         return studentDto;
                     }
                 case UserBaseDto.TypeParent: //Phu huynh
-                    break;
+                    Parent parentDto = new ParentReposistory().GetOneParentById(userId);
+                    return parentDto;
                 default:
-                    return false;
+                    return null;
             }
-            return null;
         }
     }
 }

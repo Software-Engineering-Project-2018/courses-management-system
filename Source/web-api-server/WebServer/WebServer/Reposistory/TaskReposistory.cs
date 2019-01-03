@@ -50,7 +50,7 @@ namespace WebServer.Repository
         public Task UpdateTask(Task task)
         {
             string queryString = "UPDATE Task SET TaskName = @taskName, CourseId = @courseId, TaskDescripsion = @taskDescripsion, TaskContent = @taskContent, TaskDateStart = @taskDateStart, TaskDeadline = @taskDeadline,TaskDateSubmission = @taskDateSubmission "
-                               + "  WHERE TakeId = @takeId";
+                               + "  WHERE TaskId = @taskId";
             //Mở kết nối đến database
             using (SqlConnection connection =
                 new SqlConnection(this.ConnectionString))

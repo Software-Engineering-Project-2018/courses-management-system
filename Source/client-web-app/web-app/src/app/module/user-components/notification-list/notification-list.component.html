@@ -16,6 +16,11 @@
 
   <div class="list-content">
     <h2 class="default-color p-2">{{title}}</h2>
+    <!-- isTeacherLogin() || isManagerLogin() -->
+    <div class="btn-add" *ngIf="">
+      <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#addNewModalCenter">
+        Thêm thông báo mới</button>
+    </div>
     <table class="table">
       <thead class="default-color text-center">
         <tr>
@@ -32,15 +37,91 @@
           <td (click)="notificationInfoOnClick(item.UserId)">{{item.NotificationName}}</td>
           <td class="text-center">{{item.NotificationDateCreate|date:'dd/MM/yyyy HH:mm:ss'}}</td>
           <td class="text-center">{{item.NotificationCreatorName}}</td>
-          <td class="text-center">{{item.NotificationContent}}</td>
           <td class="text-center">
-            <span class="text-link">Xem</span>
+            <div class="w-100" style="display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 20ch;">{{item.NotificationContent}}</div>
+            <div class="text-link" style="font-size: 12px;">Xem thêm</div>
           </td>
         </tr>
       </tbody>
     </table>
     <div *ngIf="!notificationList || notificationList.length == 0" class="text-center p-3">
       Không có dữ liệu!
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addNewModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Thêm mới thông báo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="notificationInfoForm" (ngSubmit)="insertNotificationOnClick()">
+          <div class="form-group" [ngClass]="{'has-error':!notificationInfoForm.controls['notificationName'].valid && notificationInfoForm.controls['notificationName'].touched}">
+            <label>Tên thông báo: </label>
+            <input class="form-control" type="text" [(ngModel)]="notificationInfo.NotificationName" placeholder="Khóa học"
+              [formControl]="notificationInfoForm.controls['notificationName']" placement="top" ngbTooltip="Nhập tên khóa học.">
+            <div *ngIf="notificationInfoForm.controls['notificationName'].hasError('required') && notificationInfoForm.controls['notificationName'].touched"
+              class="alert text-danger">
+              <i class="fa fa-exclamation-triangle"></i>Chưa nhập tên thông báo.</div>
+            <div *ngIf="notificationInfoForm.controls['notificationName'].hasError('minlength') && notificationInfoForm.controls['notificationName'].touched"
+              class="alert text-danger">
+              <i class="fa fa-exclamation-triangle"></i>Tên quá ngắn.</div>
+            <div *ngIf="notificationInfoForm.controls['notificationName'].hasError('maxlength') && notificationInfoForm.controls['notificationName'].touched"
+              class="alert text-danger">
+              <i class="fa fa-exclamation-triangle"></i>Tên quá dài.</div>
+          </div>
+
+          <div class="form-group" [ngClass]="{'has-error':!notificationInfoForm.controls['notificationDateCreate'].valid && notificationInfoForm.controls['notificationDateCreate'].touched}">
+            <label>Ngày tạo: </label>
+            <input class="form-control" type="date" [(ngModel)]="notificationInfo.NotificationDateCreate" [formControl]="notificationInfoForm.controls['notificationDateCreate']"
+              placement="top" ngbTooltip="Chọn ngày tạo thông báo.">
+            <div *ngIf="notificationInfoForm.controls['notificationDateCreate'].hasError('required') && notificationInfoForm.controls['notificationDateCreate'].touched"
+              class="alert text-danger">
+              <i class="fa fa-exclamation-triangle"></i>Chọn ngày tạo thông báo.
+            </div>
+          </div>
+
+          <div class="form-group" [ngClass]="{'has-error':!notificationInfoForm.controls['notificationType'].valid && notificationInfoForm.controls['notificationType'].touched}">
+            <label>Loại thông báo: </label>
+            <select class="form-control" [(ngModel)]="notificationInfo.NotificationType" [formControl]="notificationInfoForm.controls['notificationType']"
+            placement="top" ngbTooltip="Chọn loại thông báo.">
+              <option value="1">Thông báo chung</option>
+              <option value="2">Thông báo lớp học</option>
+            </select>
+            <div *ngIf="notificationInfoForm.controls['notificationType'].hasError('required') && notificationInfoForm.controls['notificationType'].touched"
+              class="alert text-danger">
+              <i class="fa fa-exclamation-triangle"></i>Chọn loại thông báo.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Nội dung thông báo: </label>
+            <textarea class="form-control" type="text" [(ngModel)]="notificationInfo.NotificationContent" [formControl]="notificationInfoForm.controls['notificationContent']"
+              placement="top" ngbTooltip="Nhập nội dung thông báo."></textarea>
+          </div>
+
+          <div class="form-group text-center">
+            <button type="submit" class="btn btn-success m-2" [disabled]="!notificationInfoForm.valid" placement="bottom"
+              ngbTooltip="Nhấn để lưu.">
+              Lưu
+            </button>
+
+            <button type="reset" class="btn btn-danger m-2" data-dismiss="modal" placement="top" ngbTooltip="Hủy.">
+              Hủy
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>

@@ -22,12 +22,18 @@
               Ngày kết thúc(dự kiến): {{courseInfo.DateEnd|date:'dd/MM/yyyy'}}
             </li>
             <li class="">
+              <h6>Giáo viên:</h6>
+              <p *ngFor="let item of courseInfo.TeacherList">
+               <a class="text-link" (click)="teacherInfoOnClick(item.UserId)">{{item.UserFullName}}</a> 
+              </p>
+            </li>
+            <li class="">
               <h6>Giới thiệu môn học:</h6>
-              <p class="">{{courseInfo.CourseIntro}}</p>
+              <p class="">{{courseInfo.CourseIntro ? courseInfo.CourseIntro : '(Chưa cập nhật)'}}</p>
             </li>
             <li class="">
               <h6>Nhóm thảo luận:</h6>
-              <p class="">{{courseInfo.CourseLinkRef}}</p>
+              <p class="">{{courseInfo.CourseLinkRef ? courseInfo.CourseLinkRef : '(Chưa cập nhật)'}}</p>
             </li>
           </ul>
         </div>
@@ -42,7 +48,7 @@
           <div class="col-12">
             <ul>
               <li *ngFor="let item of courseInfo.DocumentDetailList">
-                <a [href]="item.DocumentDetailFileUpload">{{item.DocumentDetailFileUpload}}</a>
+                <a class="text-link" [href]="dirPath + item.DocumentDetailFileUpload">{{item.DocumentDetailFileUpload}}</a>
               </li>
             </ul>
           </div>
@@ -58,7 +64,7 @@
           <div class="col-12">
             <ul>
               <li *ngFor="let item of courseInfo.TaskList">
-                <a (click)="taskInfoOnClick(item.TaskId)">{{item.TaskName}}</a>
+                <a class="text-link" (click)="taskInfoOnClick(item.TaskId)">{{item.TaskName}}</a>
               </li>
             </ul>
           </div>

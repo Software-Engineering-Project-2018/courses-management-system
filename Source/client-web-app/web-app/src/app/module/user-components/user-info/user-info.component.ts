@@ -8,6 +8,8 @@ import { ParentService } from 'src/app/services/data-services/parent.service';
 import { ManagerService } from 'src/app/services/data-services/manager.service';
 import { CourseService } from 'src/app/services/data-services/course.service';
 import { CourseObject } from 'src/app/object/course-object';
+import { ParentObject } from 'src/app/object/parent-object';
+import { StudentObject } from 'src/app/object/student-object';
 
 @Component({
   selector: 'app-user-info',
@@ -18,6 +20,8 @@ export class UserInfoComponent extends BaseComponent implements OnInit {
 
   userInfo: any;
   courseList: CourseObject[];
+  parentList: ParentObject[];
+  childrenList: StudentObject[];
   studentService: StudentService;
   teacherService: TeacherService;
   parentService: ParentService;
@@ -32,6 +36,8 @@ export class UserInfoComponent extends BaseComponent implements OnInit {
     this.managerService = injector.get(ManagerService);
     this.courseService = injector.get(CourseService);
     this.courseList = [];
+    this.parentList = [];
+    this.childrenList = [];
   }
 
   ngOnInit() {
@@ -66,6 +72,11 @@ export class UserInfoComponent extends BaseComponent implements OnInit {
           this.teacherService.getOneTeacher(this.userInfo.UserId).subscribe(
             result => {
               this.userInfo = result;
+              this.courseService.getCourseByTeacher(this.userInfo.UserId, '').subscribe(
+                result2 => {
+                  this.courseList = result2;
+                  this.stopLoadingUi();
+                });
               this.stopLoadingUi();
             }
           );
@@ -79,7 +90,8 @@ export class UserInfoComponent extends BaseComponent implements OnInit {
                   this.courseList = result2;
                   this.parentService.getAllParentByStudent(this.userInfo.UserId).subscribe(
                     result3 => {
-                      // this.courseList = result2;
+                      this.parentList = result3;
+                      this.stopLoadingUi();
                     });
                 });
               this.stopLoadingUi();
@@ -90,11 +102,39 @@ export class UserInfoComponent extends BaseComponent implements OnInit {
           this.parentService.getOneParent(this.userInfo.UserId).subscribe(
             result => {
               this.userInfo = result;
+              this.studentService.getAllStudentByParent(this.userInfo.UserId).subscribe(
+                result2 => {
+                  this.childrenList = result2;
+                  this.stopLoadingUi();
+                });
               this.stopLoadingUi();
             }
           );
           break;
       }
     }, 500);
+  }
+
+  studentInfoOnClick(studentId) {
+    this.router.navigate(['/dashboard/user-info',
+      {
+        userType: [3],
+        userId: [studentId]
+      }]);
+  }
+
+  parentInfoOnClick(parentId) {
+    this.router.navigate(['/dashboard/user-info',
+      {
+        userType: [4],
+        userId: [parentId]
+      }]);
+  }
+
+  courseInfoOnClick(courseId) {
+    this.router.navigate(['/dashboard/course-info',
+      {
+        courseId: [courseId]
+      }]);
   }
 }

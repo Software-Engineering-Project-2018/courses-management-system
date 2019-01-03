@@ -40,10 +40,14 @@ export class IncomeComponent extends BaseComponent implements OnInit {
     this.getData();
   }
   userInfoOnClick(studentId) {
-    this.router.navigate(['/dashboard/user-info']);
+    this.router.navigate(['/dashboard/user-info',
+      {
+        userType: [3],
+        userId: [studentId]
+      }]);
   }
   listCourseOnClick(studentId) {
-    // this.router.navigate(['/dashboard/courses']);
+    this.router.navigate(['/dashboard/courses']);
   }
 
 }

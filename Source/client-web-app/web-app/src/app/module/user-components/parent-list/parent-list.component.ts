@@ -41,10 +41,18 @@ export class ParentListComponent extends BaseComponent implements OnInit {
   }
 
   userInfoOnClick(parentId) {
-    this.router.navigate(['/dashboard/user-info']);
+    this.router.navigate(['/dashboard/user-info',
+      {
+        userType: [4],
+        userId: [parentId]
+      }]);
   }
 
-  childInfoOnClick(parentId) {
-    this.router.navigate(['/dashboard/user-info']);
+  childInfoOnClick(studentId) {
+    this.router.navigate(['/dashboard/user-info',
+      {
+        userType: [3],
+        userId: [studentId]
+      }]);
   }
 }

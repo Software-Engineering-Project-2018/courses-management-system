@@ -12,7 +12,7 @@
     <div class="body-content mt-3">
       <a [routerLink]="['/dashboard/profile']" routerLinkActive="router-link-active">Chỉnh sửa thông tin cá nhân</a>
     </div>
-    <div class="body-content mt-3">
+    <div class="body-content mt-3" *ngIf="isStudentLogin()">
       <a [routerLink]="['/dashboard/tutition']" routerLinkActive="router-link-active">Xem nợ học phí</a>
     </div>
     <div class="body-content mt-3">

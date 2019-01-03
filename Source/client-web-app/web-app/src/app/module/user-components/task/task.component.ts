@@ -47,6 +47,7 @@ export class TaskComponent extends BaseComponent implements OnInit {
     this.taskDetailService.getTaskDetailByStudentAndCourse(this.UserLogin.UserId, this.taskDetailInfo.Task.TaskId).subscribe(
       result => {
         if (result[0].TaskDetailId) {
+          this.taskDetailInfo.TaskDetailId = result[0].TaskDetailId;
           this.taskDetailInfo.TaskFileUpload = result[0].TaskFileUpload;
           this.taskDetailInfo.TaskSubmissionState = result[0].TaskSubmissionState;
           this.taskDetailInfo.TaskScore = result[0].TaskScore;
@@ -127,10 +128,10 @@ export class TaskComponent extends BaseComponent implements OnInit {
               });
           }
         });
+    } else {
+      alert('Lưu thành công!');
+      this.stopLoadingUi();
     }
   }
 
-  cancelExOnClick() {
-
-  }
 }

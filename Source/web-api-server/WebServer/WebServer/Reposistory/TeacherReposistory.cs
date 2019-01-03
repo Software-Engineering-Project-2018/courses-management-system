@@ -293,6 +293,94 @@ namespace WebServer.Repository
             return queryResult;
         }
 
+
+        //Lấy danh sách tất cả giáo viên.
+        public List<Teacher> GetAllTeacherByCourse(long courseId, string searchKeyword)
+        {
+            //Giá trị trả về của hàm này: List<Teacher>
+            List<Teacher> queryResult = new List<Teacher>();
+
+            //Cấu lệnh truy vấn ở dạng string
+            string queryString = "SELECT * FROM Teacher t JOIN CourseTeacherDetail ctd ON t.UserId = ctd.TeacherId WHERE ctd.CourseId = @courseId AND t.UserFullName LIKE '%' + @searchKeyword + '%'";
+
+            //Mở kết nối đến database
+            using (SqlConnection connection =
+                new SqlConnection(this.ConnectionString))
+            {
+                // Khởi tạo command có tham số nào truyền vào là từ khóa tìm kiếm
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("@courseId", courseId);
+                command.Parameters.AddWithValue("@searchKeyword", string.IsNullOrEmpty(searchKeyword)
+                     ? (object)DBNull.Value : searchKeyword);
+
+                //Mở kết nối và thực hiện query vào database
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                //Đọc dữ liệu trả về từ truy vấn ở trên
+                while (reader.Read())
+                {
+                    //Tạo biến tạm để lấy đọc giá trị và sau dó thêm vào List queryResult
+                    Teacher entity = new Teacher();
+
+                    //Lấy từng cột đọc được lưu vào entity
+                    if (reader["UserId"] != DBNull.Value)
+                    {
+                        entity.UserId = (long)reader["UserId"];
+                    }
+                    if (reader["IdentificationCode"] != DBNull.Value)
+                    {
+                        entity.IdentificationCode = (string)reader["IdentificationCode"];
+                    }
+                    if (reader["UserName"] != DBNull.Value)
+                    {
+                        entity.UserName = (string)reader["UserName"];
+                    }
+                    if (reader["UserFullName"] != DBNull.Value)
+                    {
+                        entity.UserFullName = (string)reader["UserFullName"];
+                    }
+                    if (reader["UserDob"] != DBNull.Value)
+                    {
+                        entity.UserDob = (DateTime)reader["UserDob"];
+                    }
+                    if (reader["UserGender"] != DBNull.Value)
+                    {
+                        entity.UserGender = (long)reader["UserGender"];
+                    }
+                    if (reader["UserAddress"] != DBNull.Value)
+                    {
+                        entity.UserAddress = (string)reader["UserAddress"];
+                    }
+                    if (reader["UserMobile"] != DBNull.Value)
+                    {
+                        entity.UserMobile = (string)reader["UserMobile"];
+                    }
+                    if (reader["UserEmail"] != DBNull.Value)
+                    {
+                        entity.UserEmail = (string)reader["UserEmail"];
+                    }
+                    if (reader["UserAvatar"] != DBNull.Value)
+                    {
+                        entity.UserAvatar = (string)reader["UserAvatar"];
+                    }
+                    if (reader["UserType"] != DBNull.Value)
+                    {
+                        entity.UserType = (long)reader["UserType"];
+                    }
+                    //Thêm entity vào list trả về
+                    queryResult.Add(entity);
+                }
+
+                //Đóng kết nối
+                reader.Close();
+                connection.Close();
+            }
+
+            //Trả về kết quả
+            return queryResult;
+        }
+
         //Hàm lấy 1 người giáo viên theo Id
         public Teacher GetOneTeacherById(long teacherId)
         {

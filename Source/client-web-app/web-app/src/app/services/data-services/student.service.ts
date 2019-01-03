@@ -22,6 +22,28 @@ export class StudentService extends BaseService {
         return this.http.get<StudentObject[]>(this.prefixRestUrl + 'rest/student/get-all', httpOptions).pipe();
     }
 
+    getAllStudentByParent(parentId): Observable<StudentObject[]> {
+        const params = new HttpParams()
+            .set('parentId', parentId.toString());
+
+        const httpOptions = {
+            headers: this.httpHeader,
+            params: params
+        };
+        return this.http.get<StudentObject[]>(this.prefixRestUrl + 'rest/student/get-by-parent', httpOptions).pipe();
+    }
+
+    getAllStudentByCourse(courseId, searchKeyword): Observable<any> {
+        const httpOptions = {
+            headers: this.httpHeader
+        };
+        const data = {
+            courseId: courseId,
+            searchKeyword: searchKeyword
+        };
+        return this.http.post(this.prefixRestUrl + 'rest/student/get-by-course', data, httpOptions).pipe();
+    }
+
     getOneStudent(hocSinhId: number): Observable<StudentObject> {
         const params = new HttpParams()
             .set('studentId', hocSinhId.toString());

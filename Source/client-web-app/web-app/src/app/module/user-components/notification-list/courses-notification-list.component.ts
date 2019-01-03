@@ -1,5 +1,6 @@
 import { Component, OnInit, Injector } from '@angular/core';
 import { NotificationListComponent } from './notification-list.component';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   templateUrl: './notification-list.component.html',
@@ -8,8 +9,8 @@ import { NotificationListComponent } from './notification-list.component';
 export class CourseNotificationListComponent extends NotificationListComponent {
 
   public title = 'Thông báo khóa học';
-  constructor(injector: Injector) {
-    super(injector);
+  constructor(injector: Injector, fb: FormBuilder) {
+    super(injector, fb);
   }
 
   getData() {

@@ -44,7 +44,7 @@ namespace WebServer.Controllers
         //API Lấy thông tin chi tiết 1 bài tập
         [Route("rest/task-detail/get")]
         [HttpGet]
-        public IHttpActionResult GetOneTakeDetail(long taskDetailId)
+        public IHttpActionResult GetOneTaskDetail(long taskDetailId)
         {
             return Ok(taskDetailReposistory.GetOneTaskDetailById(taskDetailId));
         }

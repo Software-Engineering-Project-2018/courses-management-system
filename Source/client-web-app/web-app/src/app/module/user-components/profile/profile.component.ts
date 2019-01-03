@@ -3,13 +3,12 @@ import { StudentService } from 'src/app/services/data-services/student.service';
 import { CropperSettings } from 'ng2-img-cropper';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { BaseComponent } from '../../base/base.component';
-import { UserObject } from 'src/app/object/user-object';
 import { TeacherService } from 'src/app/services/data-services/teacher.service';
 import { ParentService } from 'src/app/services/data-services/parent.service';
 import { ManagerService } from 'src/app/services/data-services/manager.service';
-import { StudentObject } from 'src/app/object/student-object';
 import { NgbDateParserFormatter, NgbDate } from '@ng-bootstrap/ng-bootstrap';
-
+import * as $ from 'jquery';
+import { SystemService } from 'src/app/services/data-services/system.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -21,6 +20,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   // Form data
   public userInfo: any;
   ngDateOfBirth: NgbDate;
+  avatarFile: File;
   //
   infoForm: FormGroup;
   data: any;
@@ -29,6 +29,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   teacherService: TeacherService;
   parentService: ParentService;
   managerService: ManagerService;
+  systemService: SystemService;
 
   constructor(fb: FormBuilder, private ngbDateParserFormatter: NgbDateParserFormatter,
     injector: Injector) {
@@ -37,6 +38,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     this.studentService = injector.get(StudentService);
     this.parentService = injector.get(ParentService);
     this.managerService = injector.get(ManagerService);
+    this.systemService = injector.get(SystemService);
     this.cropperSettings = new CropperSettings();
 
     this.userInfo = this.localStorageService.getUserInfo();
@@ -59,7 +61,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       // 'gender': [null, Validators.required],
       'birthday': [null, Validators.required],
       'phone': [null, Validators.compose([Validators.required, Validators.pattern('[0-9]*'),
-      Validators.minLength(10), Validators.maxLength(10)])],
+      Validators.minLength(10)])],
       'address': [null, Validators.compose([Validators.required])],
       'email': [null, Validators.compose([Validators.required, Validators.email])]
     });
@@ -68,6 +70,22 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  changedAvatar($event: any) {
+    this.avatarFile = $event.target.files.item(0);
+
+    const file: File = $event.target.files[0];
+    if ($event.target.files && file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = function (e: any) {
+        $('#avatarImg').attr('src', e.target.result);
+      };
+      reader.onloadend = (e: any) => {
+        this.userInfo.UserAvatar = e.target.result;
+      };
+    }
   }
 
   resetAvatarOnClick() {
@@ -127,5 +145,6 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     this.userInfo.UserMobile = '';
     this.userInfo.UserAddress = '';
     this.userInfo.UserEmail = '';
+    this.resetAvatarOnClick();
   }
 }

@@ -10,7 +10,7 @@
         <h5>Ảnh đại diện</h5>
 
         <div class="position-relative text-center pb-3">
-          <img [src]="data.image ? data.image : defaultAvatar" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight"
+          <img id="avatarImg" [src]="data.image ? data.image : defaultAvatar" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight"
             data-toggle="modal" data-target="#avatarEditterModalCenter" placement="top" ngbTooltip="Nhấn để cập nhật ảnh đại diện.">
 
         </div>
@@ -92,10 +92,6 @@
               <i class="fa fa-exclamation-triangle"></i>Chưa nhập số điện thoại.
             </div>
             <div *ngIf="infoForm.controls['phone'].hasError('minlength') && !infoForm.controls['phone'].hasError('pattern') && infoForm.controls['phone'].touched"
-              class="alert text-danger">
-              <i class="fa fa-exclamation-triangle"></i>Số điện thoại không hợp lệ.
-            </div>
-            <div *ngIf="infoForm.controls['phone'].hasError('maxlength') && !infoForm.controls['phone'].hasError('pattern') && infoForm.controls['phone'].touched"
               class="alert text-danger">
               <i class="fa fa-exclamation-triangle"></i>Số điện thoại không hợp lệ.
             </div>

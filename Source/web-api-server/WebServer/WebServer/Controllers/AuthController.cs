@@ -58,10 +58,22 @@ namespace WebServer.Controllers
         public IHttpActionResult GetUserInfo()
         {
             ClaimsIdentity identityClaims = (ClaimsIdentity)User.Identity;
-            long userId = Int64.Parse(identityClaims.FindFirst("UserId").Value); 
+            long userId = Int64.Parse(identityClaims.FindFirst("UserId").Value);
             long userType = Int64.Parse(identityClaims.FindFirst("UserType").Value);
 
             return Ok(systemsReposistory.GetUserInfo(userType, userId));
+        }
+        //API Đăng ký
+        [Authorize]
+        [Route("rest/systems/change-password")]
+        [HttpPost]
+        public IHttpActionResult ChangePassword([FromBody] dynamic data)
+        {
+            long userType = data.user.UserType;
+            string userName = data.user.UserName;
+            string oldPw = data.oldPw;
+            string newPw = data.newPw;
+            return Ok(systemsReposistory.ChangePassword(userType, userName, oldPw, newPw));
         }
     }
 }

@@ -1,7 +1,8 @@
 <div class="cards row">
   <div class="col-12 col-sm-6 col-md-4">
     <div class="card text-white bg-transparent text-dark mb-3" [routerLink]="['/dashboard/courses']" routerLinkActive="router-link-active">
-      <div class="card-body">
+      <div class="card-body" 
+      style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNMbrnKqK4dxsQYOy1DS5pwVK0O_XxtqvRpiQLcWu8pr4lQk-Q')">
       </div>
       <div class="card-header">Quản lý khóa học</div>
     </div>
@@ -9,7 +10,8 @@
   <div class="col-12 col-sm-6 col-md-4">
     <div class="card text-white bg-transparent text-dark mb-3" [routerLink]="['/dashboard/general-notification']"
       routerLinkActive="router-link-active">
-      <div class="card-body">
+      <div class="card-body"
+      style="background-image: url('http://we-mobi.com/wp-content/uploads/2014/10/com_mobisystems_android_notifications.png')">
       </div>
       <div class="card-header">Thông báo chung
         <span class="badge badge-pill badge-warning">3</span>
@@ -18,21 +20,24 @@
   </div>
   <div class="col-12 col-sm-6 col-md-4">
     <div class="card text-white bg-transparent text-dark mb-3" [routerLink]="['/dashboard/profile']" routerLinkActive="router-link-active">
-      <div class="card-body">
+      <div class="card-body"
+      style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5egPB1dwEW1EoKDKJ3ZGqFN2i8CfjDCNkezF0v3Xcd-HSeifVgw')">
       </div>
       <div class="card-header">Thông tin cá nhân</div>
     </div>
   </div>
   <div class="col-12 col-sm-6 col-md-4">
     <div class="card text-white bg-transparent text-dark mb-3">
-      <div class="card-body">
+      <div class="card-body"
+      style="background-image: url('http://www.luggagealicante.com/wp-content/uploads/2018/06/term-and-condition.jpg')">
       </div>
-      <div class="card-header">Quy định và điều khoản sử dụng</div>
+      <div class="card-header">Quy định và điều khoản</div>
     </div>
   </div>
   <div class="col-12 col-sm-6 col-md-4">
     <a class="card text-white bg-transparent text-dark mb-3" href="drive.google.com/open?id=1I9yzZQEE4l0cyd7D-LSXjfYH3v2kzSSKvxBedZUqNLk/">
-      <div class="card-body">
+      <div class="card-body"
+      style="background-image: url('data:image/png;base64,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')">
       </div>
       <div class="card-header">Hướng dẫn sử dụng</div>
     </a>

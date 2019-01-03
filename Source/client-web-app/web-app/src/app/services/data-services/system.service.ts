@@ -17,5 +17,17 @@ export class SystemService extends BaseService {
         };
         return this.http.post(this.prefixRestUrl + 'rest/systems/register', user);
     }
+
+    changePassword(user, oldPw, newPw): Observable<any> {
+        const httpOptions = {
+            headers: this.httpHeader
+        };
+        const data = {
+            user: user,
+            oldPw: oldPw,
+            newPw: newPw
+        };
+        return this.http.post(this.prefixRestUrl + 'rest/systems/change-password', data, httpOptions);
+    }
 }
 

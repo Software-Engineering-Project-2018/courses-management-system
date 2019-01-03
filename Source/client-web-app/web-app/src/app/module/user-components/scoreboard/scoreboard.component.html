@@ -4,14 +4,18 @@
       <div class="input-group-prepend">
         <label class="input-group-text" for="inputGroupSelect01">Từ ngày</label>
       </div>
-      <input type="date" class="form-control">
+      <input type="date" [(ngModel)]="fromDate" class="form-control">
     </div>
 
     <div class="input-group mb-3">
       <div class="input-group-prepend">
         <label class="input-group-text" for="inputGroupSelect01">Đến ngày</label>
       </div>
-      <input type="date" class="form-control">
+      <input type="date" [(ngModel)]="toDate" class="form-control">
+    </div>
+
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary" (click)="searchOnClick()">Tìm kiếm</button>
     </div>
   </div>
 
@@ -20,7 +24,7 @@
   <div class="list-content">
     <h2 class="default-color p-2">Danh sách bảng điểm</h2>
     <table class="table">
-      <thead class="default-color text-center">
+      <thead class="default-color">
         <tr>
           <th scope="col">STT</th>
           <th scope="col">Tên môn học</th>
@@ -32,8 +36,8 @@
         <tr *ngFor="let item of courseStudentList; let i = index;">
           <th scope="row">{{i + 1}}</th>
           <td>{{item.Course.CourseName}}</td>
-          <td>{{item.FinalScore}}</td>
-          <td class="text-center">Ghi chú</td>
+          <td>{{item.FinalScore ? item.FinalScore : 'Chưa có điểm'}}</td>
+          <td></td>
         </tr>
       </tbody>
     </table>

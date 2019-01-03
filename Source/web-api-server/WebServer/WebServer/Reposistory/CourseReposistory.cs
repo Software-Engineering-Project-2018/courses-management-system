@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Dynamic;
 using WebServer.Models;
 
 namespace WebServer.Repository
@@ -12,8 +13,9 @@ namespace WebServer.Repository
         {
 
             //Câu lệnh truy vấn ở dạng string
-            string queryString = "INSERT INTO Course (courseId, courseName, dateStart, dateEnd, tutition) VALUES" +
-                                 "(@courseId, @courseName, @dateStart, @dateEnd, @tutition);";
+            string queryString = "INSERT INTO Course (CourseName, DateStart, DateEnd, Tutition, CourseIntro, CourseLinkRef) VALUES" +
+                                 "(@courseName, @dateStart, @dateEnd, @tutition, @courseIntro, @courseLinkRef);" + 
+                                 " SELECT @@IDENTITY";
 
             //Mở kết nối đến database
             using (SqlConnection connection =
@@ -21,11 +23,14 @@ namespace WebServer.Repository
             {
                 // Khởi tạo command với các tham số truyền vào là các trường trong đối tượng Course
                 SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.AddWithValue("@courseId", course.CourseId);
                 command.Parameters.AddWithValue("@courseName", course.CourseName);
-                command.Parameters.AddWithValue("@courseDateStart", course.DateStart);
-                command.Parameters.AddWithValue("@courseDateEnd", course.DateEnd);
-                command.Parameters.AddWithValue("@courseTutition", course.Tutition);
+                command.Parameters.AddWithValue("@dateStart", course.DateStart);
+                command.Parameters.AddWithValue("@dateEnd", course.DateEnd);
+                command.Parameters.AddWithValue("@tutition", course.Tutition);
+                command.Parameters.AddWithValue("@courseIntro", string.IsNullOrEmpty(course.CourseIntro)
+                    ? (object)DBNull.Value : course.CourseIntro);
+                command.Parameters.AddWithValue("@courseLinkRef", string.IsNullOrEmpty(course.CourseLinkRef)
+                    ? (object)DBNull.Value : course.CourseLinkRef);
 
                 //Mở kết nối và thực hiện query vào database
                 connection.Open();
@@ -47,7 +52,7 @@ namespace WebServer.Repository
         //Hàm sửa đổi thông tin của khóa học.
         public Course UpdateCourse(Course course)
         {
-            string queryString = "UPDATE Course SET courseName = @CourseName, dateStart = @DateStart, dateEnd = @DateEnd, tutition = @Tutiton"
+            string queryString = "UPDATE Course SET CourseName = @courseName, DateStart = @dateStart, DateEnd = @dateEnd, Tutition = @tutition, CourseIntro = @courseIntro, CourseLinkRef = @courseLinkRef"
                                + "  WHERE CourseId = @courseId";
             //Mở kết nối đến database
             using (SqlConnection connection =
@@ -57,9 +62,13 @@ namespace WebServer.Repository
                 SqlCommand command = new SqlCommand(queryString, connection);
                 command.Parameters.AddWithValue("@courseId", course.CourseId);
                 command.Parameters.AddWithValue("@courseName", course.CourseName);
-                command.Parameters.AddWithValue("@courseDateStart", course.DateStart);
-                command.Parameters.AddWithValue("@courseDateEnd", course.DateEnd);
-                command.Parameters.AddWithValue("@courseTutition", course.Tutition);
+                command.Parameters.AddWithValue("@dateStart", course.DateStart);
+                command.Parameters.AddWithValue("@dateEnd", course.DateEnd);
+                command.Parameters.AddWithValue("@tutition", course.Tutition);
+                command.Parameters.AddWithValue("@courseIntro", string.IsNullOrEmpty(course.CourseIntro)
+                    ? (object)DBNull.Value : course.CourseIntro);
+                command.Parameters.AddWithValue("@courseLinkRef", string.IsNullOrEmpty(course.CourseLinkRef)
+                    ? (object)DBNull.Value : course.CourseLinkRef);
 
                 //Mở kết nối và thực hiện query vào database
                 connection.Open();
@@ -80,7 +89,7 @@ namespace WebServer.Repository
             List<dynamic> queryResult = new List<dynamic>();
 
             //Cấu lệnh truy vấn ở dạng string
-            string queryString = "SELECT c.* FROM Course c LEFT JOIN CourseStudentDetail csd ON c.CourseId = csd.Courseid WHERE csd.StudentId = @studentId AND CourseName like '%' + @searchKeyword + '%'";
+            string queryString = "SELECT c.* FROM Course c JOIN CourseStudentDetail csd ON c.CourseId = csd.Courseid WHERE csd.StudentId = @studentId AND CourseName like '%' + @searchKeyword + '%'";
 
             //Mở kết nối đến database
             using (SqlConnection connection =
@@ -99,7 +108,7 @@ namespace WebServer.Repository
                 while (reader.Read())
                 {
                     //Tạo biến tạm để lấy đọc giá trị và sau dó thêm vào List queryResult
-                    dynamic entity = new Course();
+                    dynamic entity = new ExpandoObject();
 
                     //Lấy từng cột đọc được lưu vào entity
                     if (reader["CourseId"] != DBNull.Value)
@@ -131,6 +140,7 @@ namespace WebServer.Repository
                         entity.CourseLinkRef = (string)reader["CourseLinkRef"];
                     }
 
+                    entity.NumberOfStudent = new CourseStudentDetailReposistory().GetNumberOfStudentInCourse(entity.CourseId);
                     //Thêm entity vào list trả về
                     queryResult.Add(entity);
                 }
@@ -170,7 +180,7 @@ namespace WebServer.Repository
                 while (reader.Read())
                 {
                     //Tạo biến tạm để lấy đọc giá trị và sau dó thêm vào List queryResult
-                    dynamic entity = new Course();
+                    dynamic entity = new ExpandoObject();
 
                     //Lấy từng cột đọc được lưu vào entity
                     if (reader["CourseId"] != DBNull.Value)
@@ -202,6 +212,7 @@ namespace WebServer.Repository
                         entity.CourseLinkRef = (string)reader["CourseLinkRef"];
                     }
 
+                    entity.NumberOfStudent = new CourseStudentDetailReposistory().GetNumberOfStudentInCourse(entity.CourseId);
                     //Thêm entity vào list trả về
                     queryResult.Add(entity);
                 }
@@ -307,10 +318,10 @@ namespace WebServer.Repository
             return courseId;
         }
 
-        public List<Course> GetAllCourseByStudent(long studentId)
+        public List<dynamic> GetAllCourseByStudent(long studentId)
         {
             //Giá trị trả về của hàm này: List<CourseStudentDetail>
-            List<Course> queryResult = new List<Course>();
+            List<dynamic> queryResult = new List<dynamic>();
 
             //Cấu lệnh truy vấn ở dạng string
             string queryString = "SELECT c.* FROM CourseStudentDetail csd JOIN COURSE c ON csd.CourseId = c.CourseId WHERE StudentId = @studentId";
@@ -331,7 +342,7 @@ namespace WebServer.Repository
                 while (reader.Read())
                 {
                     //Tạo biến tạm để lấy đọc giá trị và sau dó thêm vào List queryResult
-                    Course entity = new Course();
+                    dynamic entity = new Course();
 
                     //Lấy từng cột đọc được lưu vào entity
                     if (reader["CourseId"] != DBNull.Value)
@@ -363,6 +374,7 @@ namespace WebServer.Repository
                         entity.CourseLinkRef = (string)reader["CourseLinkRef"];
                     }
 
+                    entity.NumberOfStudent = new CourseStudentDetailReposistory().GetNumberOfStudentInCourse(entity.CourseId);
                     //Thêm entity vào list trả về
                     queryResult.Add(entity);
                 }
@@ -376,13 +388,13 @@ namespace WebServer.Repository
             return queryResult;
         }
 
-        public List<Course> GetAllCourseByTeacher(long teacherId)
+        public List<dynamic> GetAllCourseByTeacher(long teacherId, string searchKeyword)
         {
             //Giá trị trả về của hàm này: List<CourseStudentDetail>
-            List<Course> queryResult = new List<Course>();
+            List<dynamic> queryResult = new List<dynamic>();
 
             //Cấu lệnh truy vấn ở dạng string
-            string queryString = "SELECT c.* FROM CourseTeacherDetail ctd JOIN COURSE c ON ctd.CourseId = c.CourseId WHERE ctd.TeacherId = @teacherId";
+            string queryString = "SELECT c.* FROM CourseTeacherDetail ctd JOIN COURSE c ON ctd.CourseId = c.CourseId WHERE ctd.TeacherId = @teacherId AND c.CourseName LIKE '%' + @searchKeyword + '%'";
 
             //Mở kết nối đến database
             using (SqlConnection connection =
@@ -391,6 +403,8 @@ namespace WebServer.Repository
                 // Khởi tạo command có tham số nào truyền vào là từ khóa tìm kiếm
                 SqlCommand command = new SqlCommand(queryString, connection);
                 command.Parameters.AddWithValue("@teacherId", teacherId);
+                command.Parameters.AddWithValue("@searchKeyword", string.IsNullOrEmpty(searchKeyword)
+                    ? (object)DBNull.Value : searchKeyword);
 
                 //Mở kết nối và thực hiện query vào database
                 connection.Open();
@@ -400,7 +414,7 @@ namespace WebServer.Repository
                 while (reader.Read())
                 {
                     //Tạo biến tạm để lấy đọc giá trị và sau dó thêm vào List queryResult
-                    Course entity = new Course();
+                    dynamic entity = new Course();
 
                     //Lấy từng cột đọc được lưu vào entity
                     if (reader["CourseId"] != DBNull.Value)
@@ -432,6 +446,7 @@ namespace WebServer.Repository
                         entity.CourseLinkRef = (string)reader["CourseLinkRef"];
                     }
 
+                    entity.NumberOfStudent = new CourseStudentDetailReposistory().GetNumberOfStudentInCourse(entity.CourseId);
                     //Thêm entity vào list trả về
                     queryResult.Add(entity);
                 }

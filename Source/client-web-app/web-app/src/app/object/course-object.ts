@@ -2,6 +2,7 @@ import { BaseObject } from './base-object';
 import { DocumentObject } from './document-detail-object';
 import { TaskDetailObject } from './task-detail-object';
 import { TaskObject } from './task-object';
+import { TeacherObject } from './teacher-object';
 
 export class CourseObject extends BaseObject {
 
@@ -12,6 +13,7 @@ export class CourseObject extends BaseObject {
     Tutition: number;
     CourseIntro: string;
     CourseLinkRef: string;
+    TeacherList: TeacherObject[];
     DocumentDetailList: DocumentObject[];
     TaskList: TaskObject[];
     public constructor() {

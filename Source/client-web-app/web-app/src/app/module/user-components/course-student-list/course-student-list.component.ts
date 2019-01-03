@@ -51,7 +51,7 @@ export class CourseStudentListComponent extends BaseComponent implements OnInit 
     }, 500);
   }
 
-  searchOnclick() {
+  searchOnClick() {
     this.getData();
   }
 

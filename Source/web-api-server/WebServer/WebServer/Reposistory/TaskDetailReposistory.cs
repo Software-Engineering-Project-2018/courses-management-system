@@ -49,7 +49,7 @@ namespace WebServer.Repository
         public TaskDetail UpdateTaskDetail(TaskDetail taskdetail)
         {
             string queryString = "UPDATE TaskDetail SET StudentId = @studentId, TaskId = @taskId, TaskFileUpload = @taskFileUpload, TaskSubmissionState = @taskSubmissionState, TaskScore = @taskScore "
-                               + "  WHERE TakeDetailId = @takeDetailId";
+                               + "  WHERE TaskDetailId = @taskDetailId";
             //Mở kết nối đến database
             using (SqlConnection connection =
                 new SqlConnection(this.ConnectionString))
@@ -61,7 +61,7 @@ namespace WebServer.Repository
                 command.Parameters.AddWithValue("@taskId", taskdetail.Task.TaskId);
                 command.Parameters.AddWithValue("@taskFileUpload", string.IsNullOrEmpty(taskdetail.TaskFileUpload)
                     ? (object)DBNull.Value : taskdetail.TaskFileUpload);
-                command.Parameters.AddWithValue("@taskSubmission", taskdetail.TaskSubmissionState);
+                command.Parameters.AddWithValue("@taskSubmissionState", true);
                 command.Parameters.AddWithValue("@taskScore", taskdetail.TaskScore == null ? (object)DBNull.Value : taskdetail.TaskScore);
                 //Mở kết nối và thực hiện query vào database
                 connection.Open();

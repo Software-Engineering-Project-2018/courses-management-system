@@ -5,6 +5,7 @@ using System.Web;
 using WebServer.Repository;
 using System.Web.Http;
 using WebServer.Models;
+using System.Globalization;
 
 namespace WebServer.Controllers
 {
@@ -33,9 +34,14 @@ namespace WebServer.Controllers
         //API Lấy thông tin chi tiết khoá học theo mã khóa học và theo học sinh
         [Route("rest/course-student-detail/get-all-by-student")]
         [HttpGet]
-        public IHttpActionResult GetAllCourseStudentDetailByStudent(string studentId)
+        public IHttpActionResult GetAllCourseStudentDetailByStudent(string studentId, string fromDate, string toDate)
         {
-            return Ok(courseStudentDetailReposistory.GetAllCourseStudentDetailByStudent(long.Parse(studentId)));
+            var formatInfo = new DateTimeFormatInfo()
+            {
+                ShortDatePattern = "dd/MM/yyyy"
+            };
+            return Ok(courseStudentDetailReposistory.GetAllCourseStudentDetailByStudent(long.Parse(studentId),
+                Convert.ToDateTime(fromDate, formatInfo), Convert.ToDateTime(toDate, formatInfo)));
         }
 
         //API Lấy thông tin chi tiết khoá học theo mã khóa học và theo học sinh

@@ -78,10 +78,12 @@ namespace WebServer.Controllers
 
         //API Lấy danh sách khoá học mà giáo viên đã tham gia
         [Route("rest/course/get-by-teacher-id")]
-        [HttpGet]
-        public IHttpActionResult GetAllCourseByTeacher(long teacherId)
+        [HttpPost]
+        public IHttpActionResult GetAllCourseByTeacher([FromBody] dynamic data)
         {
-            return Ok(courseReposistory.GetAllCourseByTeacher(teacherId));
+            long teacherId = data.teacherId;
+            string searchKeyword = data.searchKeyword;
+            return Ok(courseReposistory.GetAllCourseByTeacher(teacherId, searchKeyword));
         }
 
         [HttpPost]

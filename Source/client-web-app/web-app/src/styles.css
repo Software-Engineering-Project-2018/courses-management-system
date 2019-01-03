@@ -27,13 +27,17 @@ body {
 
 .text-link {
   cursor: pointer;
+  color: #217a94 !important;
+}
+
+.text-link:hover {
+  cursor: pointer;
   color: #63a4cfdb !important;
-  text-decoration: none !important;
 }
 
 a {
   cursor: pointer;
-  color: #63a4cfdb;
+  color: #217a94;
 }
 
 .default-color {
@@ -43,6 +47,16 @@ a {
 .default-fontsize {
   font-size: 13px;
 }
+
+.dot-line {
+  background: url('./assets/img/dot.png') left top repeat-x;
+  height: 30px;
+}
+
+.page-content>.container-fluid>.container>ng-component>div {
+  min-height: calc(100vh - 200px);
+}
+
 
 .dropdown-menu.show {
   padding: 0;

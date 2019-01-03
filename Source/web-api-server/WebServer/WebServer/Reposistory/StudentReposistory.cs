@@ -312,6 +312,195 @@ namespace WebServer.Repository
             return queryResult;
         }
 
+        public List<Student> GetAllStudentByParent(long parentId)
+        {
+            //Giá trị trả về của hàm này: List<HocSinh>
+            List<Student> queryResult = new List<Student>();
+
+            //Cấu lệnh truy vấn ở dạng string
+            string queryString = "SELECT st.* FROM Student st JOIN Parent pr ON st.UserId = pr.StudentId WHERE pr.UserId = @parentId";
+
+            //Mở kết nối đến database
+            using (SqlConnection connection =
+                new SqlConnection(this.ConnectionString))
+            {
+                // Khởi tạo command có tham số nào truyền vào là từ khóa tìm kiếm
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("@parentId", parentId);
+
+                //Mở kết nối và thực hiện query vào database
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                //Đọc dữ liệu trả về từ truy vấn ở trên
+                while (reader.Read())
+                {
+                    //Tạo biến tạm để lấy đọc giá trị và sau dó thêm vào List queryResult
+                    Student entity = new Student();
+
+                    //Lấy từng cột đọc được lưu vào entity
+                    if (reader["UserId"] != DBNull.Value)
+                    {
+                        entity.UserId = (long)reader["UserId"];
+                    }
+                    if (reader["IdentificationCode"] != DBNull.Value)
+                    {
+                        entity.IdentificationCode = (string)reader["IdentificationCode"];
+                    }
+                    if (reader["UserName"] != DBNull.Value)
+                    {
+                        entity.UserName = (string)reader["UserName"];
+                    }
+                    if (reader["UserFullName"] != DBNull.Value)
+                    {
+                        entity.UserFullName = (string)reader["UserFullName"];
+                    }
+                    if (reader["UserDob"] != DBNull.Value)
+                    {
+                        entity.UserDob = (DateTime)reader["UserDob"];
+                    }
+                    if (reader["UserGender"] != DBNull.Value)
+                    {
+                        entity.UserGender = (long)reader["UserGender"];
+                    }
+                    if (reader["UserAddress"] != DBNull.Value)
+                    {
+                        entity.UserAddress = (string)reader["UserAddress"];
+                    }
+                    if (reader["UserMobile"] != DBNull.Value)
+                    {
+                        entity.UserMobile = (string)reader["UserMobile"];
+                    }
+                    if (reader["UserEmail"] != DBNull.Value)
+                    {
+                        entity.UserEmail = (string)reader["UserEmail"];
+                    }
+                    if (reader["TotalTutition"] != DBNull.Value)
+                    {
+                        entity.TotalTutition = (double)reader["TotalTutition"];
+                    }
+                    if (reader["TotalinDebt"] != DBNull.Value)
+                    {
+                        entity.TotalinDebt = (double)reader["TotalinDebt"];
+                    }
+                    if (reader["UserAvatar"] != DBNull.Value)
+                    {
+                        entity.UserAvatar = (string)reader["UserAvatar"];
+                    }
+                    if (reader["UserType"] != DBNull.Value)
+                    {
+                        entity.UserType = (long)reader["UserType"];
+                    }
+
+                    //Thêm entity vào list trả về
+                    queryResult.Add(entity);
+                }
+
+                //Đóng kết nối
+                reader.Close();
+                connection.Close();
+            }
+
+            //Trả về kết quả
+            return queryResult;
+        }
+
+
+        public List<Student> GetAllStudentByCourse(long courseId, string searchKeyword)
+        {
+            //Giá trị trả về của hàm này: List<HocSinh>
+            List<Student> queryResult = new List<Student>();
+
+            //Cấu lệnh truy vấn ở dạng string
+            string queryString = "SELECT st.* FROM Student st JOIN Parent pr ON st.UserId = pr.StudentId WHERE pr.UserId = @parentId";
+
+            //Mở kết nối đến database
+            using (SqlConnection connection =
+                new SqlConnection(this.ConnectionString))
+            {
+                // Khởi tạo command có tham số nào truyền vào là từ khóa tìm kiếm
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("@courseId", courseId);
+                command.Parameters.AddWithValue("@searchKeyword", string.IsNullOrEmpty(searchKeyword)
+                     ? (object)DBNull.Value : searchKeyword);
+
+                //Mở kết nối và thực hiện query vào database
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                //Đọc dữ liệu trả về từ truy vấn ở trên
+                while (reader.Read())
+                {
+                    //Tạo biến tạm để lấy đọc giá trị và sau dó thêm vào List queryResult
+                    Student entity = new Student();
+
+                    //Lấy từng cột đọc được lưu vào entity
+                    if (reader["UserId"] != DBNull.Value)
+                    {
+                        entity.UserId = (long)reader["UserId"];
+                    }
+                    if (reader["IdentificationCode"] != DBNull.Value)
+                    {
+                        entity.IdentificationCode = (string)reader["IdentificationCode"];
+                    }
+                    if (reader["UserName"] != DBNull.Value)
+                    {
+                        entity.UserName = (string)reader["UserName"];
+                    }
+                    if (reader["UserFullName"] != DBNull.Value)
+                    {
+                        entity.UserFullName = (string)reader["UserFullName"];
+                    }
+                    if (reader["UserDob"] != DBNull.Value)
+                    {
+                        entity.UserDob = (DateTime)reader["UserDob"];
+                    }
+                    if (reader["UserGender"] != DBNull.Value)
+                    {
+                        entity.UserGender = (long)reader["UserGender"];
+                    }
+                    if (reader["UserAddress"] != DBNull.Value)
+                    {
+                        entity.UserAddress = (string)reader["UserAddress"];
+                    }
+                    if (reader["UserMobile"] != DBNull.Value)
+                    {
+                        entity.UserMobile = (string)reader["UserMobile"];
+                    }
+                    if (reader["UserEmail"] != DBNull.Value)
+                    {
+                        entity.UserEmail = (string)reader["UserEmail"];
+                    }
+                    if (reader["TotalTutition"] != DBNull.Value)
+                    {
+                        entity.TotalTutition = (double)reader["TotalTutition"];
+                    }
+                    if (reader["TotalinDebt"] != DBNull.Value)
+                    {
+                        entity.TotalinDebt = (double)reader["TotalinDebt"];
+                    }
+                    if (reader["UserAvatar"] != DBNull.Value)
+                    {
+                        entity.UserAvatar = (string)reader["UserAvatar"];
+                    }
+                    if (reader["UserType"] != DBNull.Value)
+                    {
+                        entity.UserType = (long)reader["UserType"];
+                    }
+
+                    //Thêm entity vào list trả về
+                    queryResult.Add(entity);
+                }
+
+                //Đóng kết nối
+                reader.Close();
+                connection.Close();
+            }
+
+            //Trả về kết quả
+            return queryResult;
+        }
+
         public Student GetOneStudentById(long studentId)
         {
             //Giá trị trả về của hàm này

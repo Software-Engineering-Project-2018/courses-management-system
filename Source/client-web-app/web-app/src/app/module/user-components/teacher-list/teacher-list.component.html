@@ -17,13 +17,12 @@
   <div class="list-content">
     <h2 class="default-color p-2">Danh sách giáo viên</h2>
     <table class="table">
-      <thead class="default-color text-center">
+      <thead class="default-color">
         <tr>
           <th scope="col">STT</th>
           <th scope="col">Mã số</th>
           <th scope="col">Họ tên</th>
-          <!-- <th class="text-center" scope="col">Nợ học phí</th> -->
-          <th class="text-center" scope="col">Danh sách lớp học</th>
+          <th scope="col">Danh sách lớp học</th>
         </tr>
       </thead>
       <tbody>
@@ -31,8 +30,7 @@
           <th scope="row">{{i + 1}}</th>
           <td (click)="userInfoOnClick(item.UserId)">{{item.IdentificationCode}}</td>
           <td (click)="userInfoOnClick(item.UserId)">{{item.UserFullName}}</td>
-          <!-- <td class="text-center">{{item.TotalinDebt ? item.TotalinDebt : 0|number:'0.0-0'}}</td> -->
-          <td class="text-center">
+          <td>
             <span class="text-link" (click)="listCourseOnClick(item.UserId)">Xem</span>
           </td>
         </tr>

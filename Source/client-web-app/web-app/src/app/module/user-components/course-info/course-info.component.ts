@@ -5,6 +5,7 @@ import { CourseObject } from 'src/app/object/course-object';
 import { CourseService } from 'src/app/services/data-services/course.service';
 import { DocumentDetailService } from 'src/app/services/data-services/document-detail.service';
 import { TaskService } from 'src/app/services/data-services/task.service';
+import { TeacherService } from 'src/app/services/data-services/teacher.service';
 
 @Component({
   selector: 'app-course-info',
@@ -15,12 +16,14 @@ export class CourseInfoComponent extends BaseComponent implements OnInit {
 
   courseInfo: CourseObject;
   courseService: CourseService;
+  teacherService: TeacherService;
   documentDetailService: DocumentDetailService;
   taskService: TaskService;
   constructor(injector: Injector,
     private route: ActivatedRoute) {
     super(injector);
     this.courseService = injector.get(CourseService);
+    this.teacherService = injector.get(TeacherService);
     this.documentDetailService = injector.get(DocumentDetailService);
     this.taskService = injector.get(TaskService);
   }
@@ -42,6 +45,16 @@ export class CourseInfoComponent extends BaseComponent implements OnInit {
       this.courseService.getOneCourse(this.courseInfo.CourseId).subscribe(
         result1 => {
           this.courseInfo = result1;
+          this.teacherService.getAllTeacherByCourse(this.courseInfo.CourseId, '').subscribe(
+            result4 => {
+              this.courseInfo.TeacherList = result4;
+              this.stopLoadingUi();
+            },
+            error4 => {
+              console.log(error4);
+              this.stopLoadingUi();
+            }
+          );
           this.documentDetailService.getAllDocumentDetail(this.courseInfo.CourseId).subscribe(
             result2 => {
               this.courseInfo.DocumentDetailList = result2;
@@ -76,6 +89,14 @@ export class CourseInfoComponent extends BaseComponent implements OnInit {
     this.router.navigate(['/dashboard/task',
       {
         taskId: [taskId]
+      }]);
+  }
+
+  teacherInfoOnClick(teacherId) {
+    this.router.navigate(['/dashboard/user-info',
+      {
+        userType: [2],
+        userId: [teacherId]
       }]);
   }
 

@@ -1,0 +1,10 @@
+.course-teacher-list {
+  border: 1px dashed #63a4cfdb;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+td:not(.text-center) {
+  color: #943b21;
+  cursor: pointer;
+}

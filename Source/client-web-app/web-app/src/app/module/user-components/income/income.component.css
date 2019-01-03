@@ -4,10 +4,6 @@
   border-radius: 10px;
 }
 
-.dot-line {
-  background: url('../../../../assets/img/dot.png') left top repeat-x;
-  height: 30px;
-}
 td:not(.text-center) {
   color: #943b21;
   cursor: pointer;

@@ -34,11 +34,11 @@ export class ManagerService extends BaseService {
     }
 
     insertManager(manager: ManagerObject): Observable<any> {
-        return this.http.post(this.prefixRestUrl + 'rest/manager/insert', manager, { headers: this.httpHeader });
+        return this.http.post(this.prefixRestUrl + 'rest/manager/insert', manager);
     }
 
     updateManager(manager: ManagerObject): Observable<any> {
-        return this.http.post(this.prefixRestUrl + 'rest/manager/update', manager, { headers: this.httpHeader });
+        return this.http.post(this.prefixRestUrl + 'rest/manager/update', manager);
     }
 
 
