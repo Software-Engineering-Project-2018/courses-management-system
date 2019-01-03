@@ -2,11 +2,16 @@
 Angular 6 &amp; asp.net  
 Publish: http://quanlylophoc.tk
 
-Default account: username admin - password: admin		
-		username studentdemo - password: student		
+Default account: username admin - password: admin	
+
+		username studentdemo - password: student	
+		
 		username teacherdemo - password: teacher		
+		
 		username parentdemo - password: parent		
+		
 		username admindemo - password: admin		
+		
   
 * Cấu trúc cây thư mục:  
   
