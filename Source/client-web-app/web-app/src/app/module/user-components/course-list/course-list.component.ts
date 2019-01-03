@@ -7,6 +7,7 @@ import { TeacherService } from 'src/app/services/data-services/teacher.service';
 import { StudentObject } from 'src/app/object/student-object';
 import { TeacherObject } from 'src/app/object/teacher-object';
 import { StudentService } from 'src/app/services/data-services/student.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-course-list',
@@ -59,7 +60,49 @@ export class CourseListComponent extends BaseComponent implements OnInit {
   getData() {
     this.startLoadingUi();
     setTimeout(() => {
-      this.courseService.getAllCourse(this.searchKeyword).subscribe(
+      if (this.UserLogin.UserType === 3) {
+        this.getDataForStudent();
+      } else {
+        this.courseService.getAllCourse(this.searchKeyword).subscribe(
+          response1 => {
+            this.courseNotJoinedList = response1;
+            this.courseNotJoinedList.forEach(item => {
+              this.teacherService.getAllTeacherByCourse(item.CourseId, '').subscribe(
+                result => {
+                  item.TeacherList = result;
+                  this.stopLoadingUi();
+                }
+              );
+            });
+          },
+          error => {
+            console.error(error);
+            this.stopLoadingUi();
+          });
+      }
+    }, 500);
+  }
+
+  getDataForStudent() {
+    this.startLoadingUi();
+    setTimeout(() => {
+      this.courseService.getAllCourseJoined(this.searchKeyword, this.UserLogin.UserId).subscribe(
+        response1 => {
+          this.courseJoinedList = response1;
+          this.courseJoinedList.forEach(item => {
+            this.teacherService.getAllTeacherByCourse(item.CourseId, '').subscribe(
+              result => {
+                item.TeacherList = result;
+                this.stopLoadingUi();
+              }
+            );
+          });
+        },
+        error => {
+          console.error(error);
+          this.stopLoadingUi();
+        });
+      this.courseService.getAllCourseNotJoined(this.searchKeyword, this.UserLogin.UserId).subscribe(
         response1 => {
           this.courseNotJoinedList = response1;
           this.courseNotJoinedList.forEach(item => {
@@ -77,7 +120,6 @@ export class CourseListComponent extends BaseComponent implements OnInit {
         });
     }, 500);
   }
-
   selectCourseOnClick(course) {
     this.currSelectedCourse = course;
   }

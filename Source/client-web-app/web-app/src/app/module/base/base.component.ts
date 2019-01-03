@@ -8,8 +8,8 @@ import { BaseService } from './base.service';
 
 export abstract class BaseComponent implements OnInit {
 
-  dirPath = 'http://localhost:50734/File/Data/';
-  // public prefixRestUrl = 'http://quanlylophoc.tk/File/Data/';
+  // dirPath = 'http://localhost:50734/File/Data/';
+  public prefixRestUrl = 'http://quanlylophoc.tk/File/Data/';
   // reCapchaKey release
   reCapchaKey = '6Le5JYMUAAAAAAsRXUGY2wnnEBXcuQV_THAvTxIx';
   // reCapchaKey debugging

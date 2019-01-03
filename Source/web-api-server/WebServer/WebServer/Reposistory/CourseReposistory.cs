@@ -232,7 +232,7 @@ namespace WebServer.Repository
             List<dynamic> queryResult = new List<dynamic>();
 
             //Cấu lệnh truy vấn ở dạng string
-            string queryString = "SELECT c.* FROM Course c LEFT JOIN CourseStudentDetail csd ON c.CourseId = csd.CourseId WHERE (csd.StudentId != @studentId OR csd.StudentId is null) AND CourseName like '%' + @searchKeyword + '%'";
+            string queryString = "SELECT * FROM Course WHERE CourseId NOT IN (SELECT CourseId FROM CourseStudentDetail csd WHERE csd.StudentId = @studentId) AND CourseName like '%' + @searchKeyword + '%'";
 
             //Mở kết nối đến database
             using (SqlConnection connection =
